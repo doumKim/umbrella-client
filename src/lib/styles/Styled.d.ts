@@ -1,13 +1,16 @@
-import 'styled-components';
+import 'styled-components/native';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
     palette: {
       mainBackground: string;
+      scheduleCard: string;
+      profileCard: string;
       title: string;
       actvie: string;
       main: string;
       sub: string;
+      subSub: string;
     };
   }
 }
