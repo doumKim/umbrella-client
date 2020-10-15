@@ -39,7 +39,13 @@ type TabBarIconProps = {
 }
 
 export const MainTabs: React.FC = () => (
-  <Tabs.Navigator tabBarOptions={{ showLabel: false, style: {backgroundColor: '#fbfbfb'}}}>
+  <Tabs.Navigator 
+    tabBarOptions={{
+      showLabel: false,
+      tabStyle: { borderTopWidth: 0 },
+      style: { elevation: 0,backgroundColor: '#fbfbfb', borderTopColor: 'transparent' }
+    }}
+  >
     {mainRoute.map(route => (
       <Tabs.Screen
         key={`screen-${route.name}`}
