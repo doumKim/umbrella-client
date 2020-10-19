@@ -53,7 +53,6 @@ const WriteForm: React.FC = () => {
   const [show, setShow] = useState(false);
   const [displayDate, setDisplayDate] = useState('');
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChange = (event: any, selectedDate: Date | undefined): void => {
     setShow(false);
     const currentDate = selectedDate || date;

@@ -18,7 +18,6 @@ const Container = styled.View`
   right:0;
   top:0;
   left:0;
-  elevation: 6;
 `;
 
 const Title = styled.Text`
