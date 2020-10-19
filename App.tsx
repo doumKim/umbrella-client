@@ -1,6 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { MainStack } from './src/navigation/Stack';
+import { StackNavigator } from './src/navigation/Stack';
 import { ThemeProvider } from 'styled-components/native';
 import { theme } from './src/lib/styles/Theme';
 import { StatusBar } from 'react-native';
@@ -9,10 +8,8 @@ import { StatusBar } from 'react-native';
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <StatusBar backgroundColor={'transparent'} translucent={true} barStyle = 'dark-content' />
-        <MainStack />
-      </NavigationContainer>
+      <StatusBar backgroundColor={'transparent'} translucent={true} barStyle = 'dark-content' />
+      <StackNavigator />
     </ThemeProvider>
   );
 };
