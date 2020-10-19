@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
 const Container = styled.View`
@@ -24,7 +24,7 @@ const Span = styled.View`
   margin-bottom: 10px;
 `;
 const Label = styled.Text`
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   margin-right: 20px;
 `;
@@ -37,12 +37,6 @@ const NormalText = styled.Text`
   font-size: 18px;
 `;
 
-const Line = styled.View`
-    height: 1px;
-    background: ${props => props.theme.palette.sub};;
-    width: 100%;
-`;
-
 const MyProfile: React.FC = () => {
   return(
     <Container>
@@ -53,10 +47,11 @@ const MyProfile: React.FC = () => {
       <RightContent>
         <Span>
           <Label>닉네임</Label>
-          <ModifiableText>김장마</ModifiableText>
-          <Image source={require('../../../assets/icon/write.png') } style={{ width: 30, height: 30 }}/>
+          <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
+            <ModifiableText>김장마</ModifiableText>
+            <Image source={require('../../../assets/icon/write.png') } style={{ width: 30, height: 30 }}/>
+          </TouchableOpacity>
         </Span>
-        <Line/>
         <Span>
           <Label>유저ID</Label>
           <NormalText>test123</NormalText>
