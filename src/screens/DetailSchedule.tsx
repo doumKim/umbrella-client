@@ -5,27 +5,27 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Header from '../components/Common/Header';
 import PaddingContainer from '../components/Common/PaddingContainer';
 import ScrollContainer from '../components/Common/ScrollContainer';
-import ScheduleContainer from '../containers/Schedule/ScheduleContainer';
+import DetailScheduleContainer from '../containers/DetailSchedule/DetailScheduleContainer';
 
-const Schedule: React.FC = () => {
+const DetailSchedule: React.FC = () => {
   const navigation = useNavigation();
-  const goToDetail = () => {
-    navigation.navigate('WriteSchedule');
-  };
   return (
     <View>
       <ScrollContainer>
-        <PaddingContainer>  
-          <ScheduleContainer/>
+        <PaddingContainer>
+          <DetailScheduleContainer/>
         </PaddingContainer>
       </ScrollContainer>
-      <Header title="내 일정 목록">
-        <TouchableOpacity onPress={goToDetail}>
-          <Image source={require('../../assets/icon/plus.png') } style={{ width: 50, height: 50 }}/>
+      <Header>
+        <TouchableOpacity onPress={() => {
+          navigation.goBack();
+        }}>
+          <Image source={require('../../assets/icon/back.png') } style={{ width: 50, height: 50 }}/>
         </TouchableOpacity>
+        <Image source={require('../../assets/icon/rowdot.png') } style={{ width: 50, height: 50 }}/>
       </Header>
     </View>
   );
 };
 
-export default Schedule;
+export default DetailSchedule;

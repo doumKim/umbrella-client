@@ -7,6 +7,7 @@ declare module 'styled-components' {
       scheduleCard: string;
       profileCard: string;
       title: string;
+      brightFont: string;
       actvie: string;
       main: string;
       sub: string;

@@ -3,15 +3,22 @@ import styled from 'styled-components/native';
 
 type Props = {
  children?: React.ReactNode,
- title: string
+ title?: string
 };
 
 const Container = styled.View`
-  height: 30px;
+  height: 90px;
+  background: ${props => props.theme.palette.mainBackground};
   margin-bottom: 15px;
+  padding: 35px 15px 0;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  position: absolute;
+  right:0;
+  top:0;
+  left:0;
+  elevation: 6;
 `;
 
 const Title = styled.Text`
@@ -23,7 +30,7 @@ const Title = styled.Text`
 const Header: React.FC<Props> = ({ children, title }: Props) => {
   return (
     <Container>
-      <Title>{title}</Title>
+      {title && <Title>{title}</Title>} 
       {children}
     </Container>
   );
