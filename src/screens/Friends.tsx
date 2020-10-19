@@ -7,6 +7,8 @@ import FriendsContainer from '../containers/Friends/FriendsContainer';
 import { Entypo } from '@expo/vector-icons';
 import { Image, View } from 'react-native';
 import PaddingContainer from '../components/Common/PaddingContainer';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 
 const Section = styled.View`
@@ -33,12 +35,16 @@ const Wrapper = styled.View`
 const Friends: React.FC = () => {
   const [isOpenReq, setIsOpenReq] = useState<boolean>(true); //친구요청 Open/Close
   const [isOpenList, setIsOpenList] = useState<boolean>(true); //친구목록 Open/Close
+  const navigation = useNavigation();
   
   const toggleReq = () => {
     setIsOpenReq(!isOpenReq);
   };
   const toggleList = () => {
     setIsOpenList(!isOpenList);
+  };
+  const goToDetail = () => {
+    navigation.navigate('SearchFriends');
   };
   return (
     <View>
@@ -70,7 +76,9 @@ const Friends: React.FC = () => {
       </ScrollContainer>
       <Header title="친구 목록">
         <Wrapper>
-          <Image source={require('../../assets/icon/search.png') } style={{ width: 40, height: 40 }}/>
+          <TouchableOpacity onPress={goToDetail}>
+            <Image source={require('../../assets/icon/search.png') } style={{ width: 40, height: 40 }}/>
+          </TouchableOpacity>
           <Image source={require('../../assets/icon/addfriends.png') } style={{ width: 40, height: 40 }}/>
         </Wrapper>
       </Header>

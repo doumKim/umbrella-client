@@ -1,16 +1,19 @@
-// import { useNavigation } from '@react-navigation/native';
-// import React from 'react';
-// import { Image, View } from 'react-native';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
-// import Header from '../components/Common/Header';
+import React from 'react';
+import styled from 'styled-components/native';
+import SerarchFriendsContainer from '../containers/SearchFriends/SerarchFriendsContainer';
 
-// const SearchFriends: React.FC = () => {
-//   const navigation = useNavigation();
-//   return (
-//     <View>
+const Container = styled.View`
+  flex: 1;
+  background: ${props => props.theme.palette.mainBackground};
+  padding: 45px 15px 0;
+`;
 
-//     </View>
-//   );
-// };
+const SearchFriends: React.FC = () => {
+  return (
+    <Container>
+      <SerarchFriendsContainer/>
+    </Container>
+  );
+};
 
-// export default SearchFriends;
+export default SearchFriends;

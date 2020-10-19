@@ -4,6 +4,7 @@ import { MainTabs } from './Tabs';
 import DetailSchedule from '../screens/DetailSchedule';
 import DetailFriends from '../screens/DetailFriends';
 import WriteSchedule from '../screens/WriteSchedule';
+import SearchFriends from '../screens/SearchFriends';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,11 @@ export const MainStack: React.FC = () => {
       <Stack.Screen
         name="WriteSchedule"
         component={WriteSchedule}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SearchFriends"
+        component={SearchFriends}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

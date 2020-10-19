@@ -40,7 +40,6 @@
     "eslint-plugin-react": "^7.21.4",
     "eslint-plugin-react-hooks": "^4.1.2",
     "husky": "^4.3.0",
-    "react-native-web": "~0.13.7",
     "typescript": "~3.9.5"
   },
   "private": true,
