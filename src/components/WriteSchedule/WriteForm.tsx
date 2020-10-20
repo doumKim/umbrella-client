@@ -9,6 +9,7 @@ const { height } = Dimensions.get('screen');
 
 const Container = styled.View`
   width: 100%;
+  align-items: center;
 `;
 
 const TopSection = styled.View`
@@ -42,7 +43,7 @@ const TopWrapper = styled.View`
 
 const Wrapper = styled.View`
   background: ${props => props.theme.palette.scheduleCard};
-  width: 100%;
+  width: 90%;
   border-radius: 12px;
   height: ${height / 4.5}px;
   padding: 15px;

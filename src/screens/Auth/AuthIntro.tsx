@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, Image } from 'react-native';
 import styled from 'styled-components/native';
 import { Video } from 'expo-av';
 import { useNavigation } from '@react-navigation/native';
+import SocialWebviewModal from '../../components/Auth/SocialWebviewModal';
 
 const { height } = Dimensions.get('screen');
 
@@ -36,13 +37,29 @@ const StyledText = styled.Text`
   align-items: flex-start;
 `;
 
-const LoginIntro: React.FC = () => {
+const AuthIntro: React.FC = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [source, setSource] = useState<{uri: string}>({uri: ''});
+
   const navigation = useNavigation();
-  const goToDetail = () => {
-    navigation.navigate('WriteUserInfo');
+
+  const signupWithSocial = async (social: string) => {
+    setShowModal(!showModal);
+    setSource({uri: `http://localhost:3000/auth/${social}`});
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
   };
   return (
     <Container>
+      {source.uri !== undefined ? (
+        <SocialWebviewModal
+          visible={showModal}
+          source={source}
+          closeModal={closeModal}
+        />
+      ) : null}
       <Video
         source={require('../../../assets/video/bluesky.mp4')}
         rate={1.0}
@@ -50,18 +67,18 @@ const LoginIntro: React.FC = () => {
         resizeMode="cover"
         shouldPlay
         isLooping
-        style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0 }}
+        style={{ width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: -100 }}
       />
       <Wrapper>
-        <LoginButton onPress={goToDetail}>
+        <LoginButton onPress={() => signupWithSocial('google')}>
           <Image source={require('../../../assets/icon/google.png') } style={{ width: 30, height: 30 }}/>
           <StyledText>Google로 시작하기</StyledText>
         </LoginButton>
-        <LoginButton>
+        <LoginButton onPress={() => signupWithSocial('naver')}>
           <Image source={require('../../../assets/icon/naver.png') } style={{ width: 30, height: 30 }}/>
           <StyledText>Naver로 시작하기</StyledText>
         </LoginButton>
-        <LoginButton>
+        <LoginButton onPress={() => signupWithSocial('kakao')}>
           <Image source={require('../../../assets/icon/kakao.png') } style={{ width: 30, height: 30 }}/>
           <StyledText>Kakao로 시작하기</StyledText>
         </LoginButton>
@@ -70,4 +87,4 @@ const LoginIntro: React.FC = () => {
   );
 };
 
-export default LoginIntro;
+export default AuthIntro;
