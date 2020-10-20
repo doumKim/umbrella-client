@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Image, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Image, View, TouchableOpacity } from 'react-native';
 import Header from '../components/Common/Header';
 import PaddingContainer from '../components/Common/PaddingContainer';
 import ScrollContainer from '../components/Common/ScrollContainer';

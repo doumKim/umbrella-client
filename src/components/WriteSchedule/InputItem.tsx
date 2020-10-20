@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
-import { Image } from 'react-native';
+import { Image, TextInput, TouchableOpacity } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const Container = styled.View`

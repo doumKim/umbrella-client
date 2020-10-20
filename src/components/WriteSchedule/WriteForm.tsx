@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Dimensions, Image, Platform, View } from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { Dimensions, Image, TextInput, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components/native';
 import InputItem from './InputItem';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';

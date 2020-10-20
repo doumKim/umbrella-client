@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Image } from 'react-native';
-import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import styled from 'styled-components/native';
 import FriendsItem from '../Friends/FriendsItem';
 

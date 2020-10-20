@@ -1,7 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Image } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Image, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
 const Container = styled.View`

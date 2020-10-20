@@ -5,9 +5,8 @@ import ScrollContainer from '../components/Common/ScrollContainer';
 import FriendsReqContainer from '../containers/Friends/FriendsReqContainer';
 import FriendsContainer from '../containers/Friends/FriendsContainer';
 import { Entypo } from '@expo/vector-icons';
-import { Image, View } from 'react-native';
+import { Image, View, TouchableOpacity } from 'react-native';
 import PaddingContainer from '../components/Common/PaddingContainer';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 

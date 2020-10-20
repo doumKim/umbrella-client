@@ -1,28 +1,30 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 
-const { width } = Dimensions.get('screen');
-
 const Container = styled.View`
- width: ${width}px;
+ width: 100%;
  flex-direction: row;
  align-items: center;
  justify-content: center;
+ margin-bottom: 15px;
 `;
 
 const CancelBtn = styled.TouchableOpacity`
   background: #ff8c94;
-  width: ${width/2}px;
+  width: 48%;
   align-items: center;
+  border-radius: 8px;
   padding: 20px 0;
+  margin-right: 2%;
 `;
 const SaveBtn = styled.TouchableOpacity`
   background: #769fcd;
-  width: ${width/2}px;
+  width: 48%;
   align-items: center;
+  border-radius: 8px;
   padding: 20px 0;
+  margin-left: 2%;
 `;
 const StyledText = styled.Text`
   font-size: 20px;
