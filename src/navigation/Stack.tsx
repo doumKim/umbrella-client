@@ -5,7 +5,7 @@ import DetailSchedule from '../screens/DetailSchedule';
 import DetailFriends from '../screens/DetailFriends';
 import WriteSchedule from '../screens/WriteSchedule';
 import SearchFriends from '../screens/SearchFriends';
-import LoginIntro from '../screens/Auth/LoginIntro';
+import AuthIntro from '../screens/Auth/AuthIntro';
 import { NavigationContainer } from '@react-navigation/native';
 import WriteUserInfo from '../screens/Auth/WriteUserInfo';
 
@@ -15,8 +15,8 @@ const LoginStack: React.FC = () => {
   return(
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen
-        name="LoginIntro"
-        component={LoginIntro}
+        name="AuthIntro"
+        component={AuthIntro}
       />
       <Stack.Screen
         name="WriteUserInfo"
@@ -56,7 +56,7 @@ const MainStack: React.FC = () => {
 export const StackNavigator: React.FC = () => {
   return (
     <NavigationContainer>
-      <LoginStack/>
+      <MainStack/>
     </NavigationContainer>
   );
 };

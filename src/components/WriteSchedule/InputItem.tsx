@@ -19,7 +19,7 @@ const InputOutline = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: black;
   width: 35%;
-  margin-right: 20px;
+  margin-right: 8%;
 `;
 
 const ScheduleInput = styled(TextInput)`
