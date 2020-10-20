@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Dimensions, Image } from 'react-native';
 import styled from 'styled-components/native';
 import { Video } from 'expo-av';
-import { useNavigation } from '@react-navigation/native';
 import SocialWebviewModal from '../../components/Auth/SocialWebviewModal';
 
 const { height } = Dimensions.get('screen');
@@ -19,7 +18,6 @@ const Wrapper = styled.View`
 `;
 
 const LoginButton = styled.TouchableOpacity`
-  /* border: 3px solid rgba(255,255,255,0.4); */
   border-radius: 3px;
   align-items: center;
   margin-bottom: 20px;
@@ -40,8 +38,6 @@ const StyledText = styled.Text`
 const AuthIntro: React.FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [source, setSource] = useState<{uri: string}>({uri: ''});
-
-  const navigation = useNavigation();
 
   const signupWithSocial = async (social: string) => {
     setShowModal(!showModal);

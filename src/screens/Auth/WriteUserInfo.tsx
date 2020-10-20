@@ -1,6 +1,5 @@
 import React from 'react';
-import { Image, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Image, View, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import WriteUserInfoContainer from '../../containers/WriteUserInfo/WriteUserInfoContainer';
 import { useNavigation } from '@react-navigation/native';

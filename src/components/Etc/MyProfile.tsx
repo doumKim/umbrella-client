@@ -8,14 +8,16 @@ const Container = styled.View`
   padding: 20px 50px;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 `;
 
 const LeftContent = styled.View`
   position: relative;
+  margin-right: 5%;
 `;
 const RightContent = styled.View`
   margin-right: 20px;
+  margin-left: 5%;
 `;
 const Span = styled.View`
   flex-direction: row;

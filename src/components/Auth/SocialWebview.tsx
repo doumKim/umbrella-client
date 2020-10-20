@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 
@@ -11,9 +11,11 @@ type Props = {
 }
 
 const SocialWebview: React.FC<Props> = ({source, closeModal}: Props) => {
+  const webViewRef = useRef(null);
   return (
     <SafeAreaView style={{flex: 1}}>
       <WebView
+        ref={webViewRef}
         source={source}
         userAgent={userAgent}
         javaScriptEnabled={true}

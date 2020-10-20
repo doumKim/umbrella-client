@@ -1,8 +1,7 @@
 import { Entypo } from '@expo/vector-icons';
 // import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Dimensions } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { Dimensions, TextInput } from 'react-native';
 import styled from 'styled-components/native';
 
 const { height } = Dimensions.get('screen');
