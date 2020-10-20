@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Dimensions, Image, View } from 'react-native';
+import { Dimensions, Image, Platform, View } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 import InputItem from './InputItem';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const { height } = Dimensions.get('screen');
 
@@ -45,8 +45,9 @@ const Wrapper = styled.View`
   background: ${props => props.theme.palette.scheduleCard};
   width: 90%;
   border-radius: 12px;
-  height: ${height / 4.5}px;
-  padding: 15px;
+  min-height: 100px;
+  max-height: ${height / 4.5}px;
+  padding: 15px 5px;
 `;
 
 const WriteForm: React.FC = () => {
@@ -54,11 +55,11 @@ const WriteForm: React.FC = () => {
   const [show, setShow] = useState(false);
   const [displayDate, setDisplayDate] = useState('');
 
-  const onChange = (event: any, selectedDate: Date | undefined): void => {
-    setShow(false);
+  const onConfirm = (selectedDate: Date | undefined): void => {
     const currentDate = selectedDate || date;
     setDisplayDate(`${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월 ${currentDate.getDate()}일`);
     setDate(currentDate);
+    setShow(false);
   };
 
   const showDatepicker = () => {
@@ -84,18 +85,18 @@ const WriteForm: React.FC = () => {
         <ScrollSection>
           <InputItem />
           <InputItem />
+          <InputItem />
+          <InputItem />
+          <InputItem />
         </ScrollSection>
       </Wrapper>
-      {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode='date'
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-        />
-      )}
+      <DateTimePickerModal
+        isVisible={show}
+        mode="date"
+        onConfirm={onConfirm}
+        onCancel={() => setShow(false)}
+        headerTextIOS='날짜를 선택해주세요'
+      />
     </Container>
   );
 };
