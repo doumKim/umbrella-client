@@ -10,7 +10,6 @@ const Container = styled.View`
   width: 100%;
   align-items: center;
 `;
-
 const TopSection = styled.View`
   width: 100%;
   padding: 30px;
@@ -32,14 +31,12 @@ const Calendar = styled.View`
   align-items: center;
   justify-content: space-between;
 `;
-
 const CalendarText = styled.Text`
   font-size: 15px;
 `;
 const TopWrapper = styled.View`
   width: 80%;
 `;
-
 const Wrapper = styled.View`
   background: ${props => props.theme.palette.scheduleCard};
   width: 90%;
