@@ -33,12 +33,10 @@ const RejectBtn = styled(TouchableOpacity)`
   margin-left: 10px;
   background: white;
   padding: 5px 10px;
-  border: 2px solid #EDEEF5;
+  border: 2px solid #edeef5;
   border-radius: 5px;
 `;
-const RejectText = styled.Text`
-  
-`;
+const RejectText = styled.Text``;
 const Title = styled.Text`
   margin-left: 10px;
   font-weight: 500;
@@ -51,13 +49,16 @@ const Wrapper = styled.View`
 `;
 
 type Props = {
-  isReq: boolean,
-}
+  isReq: boolean;
+};
 
 const Profile: React.FC = () => {
-  return(
+  return (
     <LeftContent>
-      <Image source={require('../../../assets/icon/defaultprofile.png') } style={{ width: 40, height: 40 }}/>
+      <Image
+        source={require('../../../assets/icon/defaultprofile.png')}
+        style={{ width: 40, height: 40 }}
+      />
       <Title>고태풍</Title>
     </LeftContent>
   );
@@ -73,40 +74,39 @@ const FriendsItem: React.FC<Props> = ({ isReq }: Props) => {
     navigation.navigate('DetailFriends');
   };
 
-  return(
+  return (
     <>
-      {isReq ?
+      {isReq ? (
         <Wrapper>
           <Container>
-            <Profile/>
+            <Profile />
           </Container>
           <RightContent>
             <AcceptBtn>
-              <AcceptText>
-                수락
-              </AcceptText>
+              <AcceptText>수락</AcceptText>
             </AcceptBtn>
             <RejectBtn>
-              <RejectText>
-                거절
-              </RejectText>
+              <RejectText>거절</RejectText>
             </RejectBtn>
           </RightContent>
-        </Wrapper> 
-        :
+        </Wrapper>
+      ) : (
         <Wrapper>
           <TouchableOpacity onPress={goToDetail}>
             <Container>
-              <Profile/>
+              <Profile />
             </Container>
           </TouchableOpacity>
           <RightContent>
             <TouchableOpacity onPress={openModal}>
-              <Image source={require('../../../assets/icon/coldot.png') } style={{ width: 40, height: 40 }}/>
+              <Image
+                source={require('../../../assets/icon/coldot.png')}
+                style={{ width: 40, height: 40 }}
+              />
             </TouchableOpacity>
           </RightContent>
         </Wrapper>
-      }
+      )}
     </>
   );
 };

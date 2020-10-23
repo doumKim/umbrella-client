@@ -9,7 +9,7 @@ const Container = styled.ScrollView`
   background: ${props => props.theme.palette.mainBackground};
   padding-top: 50px;
   min-height: ${height}px;
-  z-index:-100;
+  z-index: -100;
 `;
 
 const ScrollContainer: React.FC = ({ children }) => {

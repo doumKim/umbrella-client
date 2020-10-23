@@ -11,7 +11,7 @@ const Container = styled.View`
 const SearchFriends: React.FC = () => {
   return (
     <Container>
-      <SerarchFriendsContainer/>
+      <SerarchFriendsContainer />
     </Container>
   );
 };

@@ -1,32 +1,21 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { TouchableOpacity, Dimensions, Image, View, GestureResponderEvent } from 'react-native';
+import {
+  TouchableOpacity,
+  Dimensions,
+  Image,
+  View,
+  GestureResponderEvent,
+} from 'react-native';
 import Swiper from 'react-native-web-swiper';
 import styled from 'styled-components/native';
 import CardList from '../components/DetailSchedule/CardList';
+import WeatherContainer from '../containers/Home/WeatherContainerContainer';
 
 const { height } = Dimensions.get('screen');
 
 const Section = styled.View``;
 
-const Main = styled.View`
-  background: blue;
-  height: ${height / 2}px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-`;
-
-const Dust = styled.View`
-  background: blue;
-  height: ${height / 6}px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-`;
-const Forecast = styled.View`
-  background: blue;
-  height: 300px;
-  border-radius: 12px;
-`;
 const Wrapper = styled.View`
   background: ${props => props.theme.palette.mainBackground};
   width: 100%;
@@ -41,7 +30,7 @@ const HomeScrollView = styled.ScrollView`
   background: ${props => props.theme.palette.mainBackground};
   margin-top: 50px;
   min-height: ${height}px;
-  z-index:-100;
+  z-index: -100;
 `;
 
 const Dot = styled.View`
@@ -52,13 +41,10 @@ const Dot = styled.View`
 `;
 
 type DotTypes = {
-  index: number,
-  isActive: boolean,
-  onPress?: ((event: GestureResponderEvent) => void) | undefined
+  index: number;
+  isActive: boolean;
+  onPress?: ((event: GestureResponderEvent) => void) | undefined;
 };
-
-
-
 
 const Home: React.FC = () => {
   const navigation = useNavigation();
@@ -66,7 +52,7 @@ const Home: React.FC = () => {
     navigation.navigate('WriteSchedule');
   };
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Wrapper>
         <Swiper
           from={0}
@@ -75,44 +61,55 @@ const Home: React.FC = () => {
             nextPos: false,
             dotsPos: 'top',
             DotComponent: ({ index, isActive }: DotTypes) => {
-              if (isActive && index === 0){
-                return <Image source={require('../../assets/tab/home.png') } style={{ width: 22, height: 22 }}/>;
+              if (isActive && index === 0) {
+                return (
+                  <Image
+                    source={require('../../assets/tab/home.png')}
+                    style={{ width: 22, height: 22 }}
+                  />
+                );
               }
-              if (!isActive && index === 0){
-                return <Image source={require('../../assets/icon/home-inactive.png') } style={{ width: 22, height: 22 }}/>;
+              if (!isActive && index === 0) {
+                return (
+                  <Image
+                    source={require('../../assets/icon/home-inactive.png')}
+                    style={{ width: 22, height: 22 }}
+                  />
+                );
               }
               if (isActive && index !== 0) {
-                return <Dot style={{ backgroundColor: '#367ce0' }}/>;
+                return <Dot style={{ backgroundColor: '#367ce0' }} />;
               }
-              return <Dot style={{ backgroundColor: '#94bceb' }}/>;
-            }
+              return <Dot style={{ backgroundColor: '#94bceb' }} />;
+            },
           }}
         >
           <HomeScrollView>
             <Padding>
               <Section>
-                <Main></Main>
-                <Dust></Dust>
-                <Forecast></Forecast>
+                <WeatherContainer />
               </Section>
             </Padding>
           </HomeScrollView>
           {/* 향후 컨테이너에서 값받아온후 갯수 3개만 렌더링하기 */}
           <HomeScrollView>
             <Padding>
-              <CardList/>
+              <CardList />
             </Padding>
           </HomeScrollView>
           <HomeScrollView>
             <Padding>
-              <CardList/>
+              <CardList />
             </Padding>
           </HomeScrollView>
         </Swiper>
       </Wrapper>
-      <View style={{ position: 'absolute', top: 37, right: 15}}>
+      <View style={{ position: 'absolute', top: 37, right: 15 }}>
         <TouchableOpacity onPress={goToDetail}>
-          <Image source={require('../../assets/icon/plus.png') } style={{ width: 50, height: 50 }}/>
+          <Image
+            source={require('../../assets/icon/plus.png')}
+            style={{ width: 50, height: 50 }}
+          />
         </TouchableOpacity>
       </View>
     </View>

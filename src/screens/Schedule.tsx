@@ -14,13 +14,16 @@ const Schedule: React.FC = () => {
   return (
     <View>
       <ScrollContainer>
-        <PaddingContainer>  
-          <ScheduleContainer/>
+        <PaddingContainer>
+          <ScheduleContainer />
         </PaddingContainer>
       </ScrollContainer>
       <Header title="내 일정 목록">
         <TouchableOpacity onPress={goToDetail}>
-          <Image source={require('../../assets/icon/plus.png') } style={{ width: 50, height: 50 }}/>
+          <Image
+            source={require('../../assets/icon/plus.png')}
+            style={{ width: 50, height: 50 }}
+          />
         </TouchableOpacity>
       </Header>
     </View>

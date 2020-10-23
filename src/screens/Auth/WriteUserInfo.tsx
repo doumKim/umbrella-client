@@ -4,7 +4,6 @@ import styled from 'styled-components/native';
 import WriteUserInfoContainer from '../../containers/WriteUserInfo/WriteUserInfoContainer';
 import { useNavigation } from '@react-navigation/native';
 
-
 const Container = styled.View`
   flex: 1;
   background: ${props => props.theme.palette.mainBackground};
@@ -16,22 +15,26 @@ const Notice = styled.Text`
   color: ${props => props.theme.palette.title};
 `;
 
-
 const WriteUserInfo: React.FC = () => {
   const navigation = useNavigation();
   return (
     <Container>
-      <TouchableOpacity onPress={() => {
-        navigation.goBack();
-      }}>
-        <Image source={require('../../../assets/icon/back.png') } style={{ width: 40, height: 40 }}/>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
+        <Image
+          source={require('../../../assets/icon/back.png')}
+          style={{ width: 40, height: 40 }}
+        />
       </TouchableOpacity>
-      <View style={{alignItems: 'center'}}>
-        <View style={{width: '90%'}}>
+      <View style={{ alignItems: 'center' }}>
+        <View style={{ width: '90%' }}>
           <Notice>가입을 위해 추가정보를 입력해주세요.</Notice>
         </View>
       </View>
-      <WriteUserInfoContainer/>
+      <WriteUserInfoContainer />
     </Container>
   );
 };

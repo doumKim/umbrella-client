@@ -17,7 +17,7 @@ const InputOutline = styled.View`
   border-style: solid;
   padding-right: 10px;
   border-bottom-width: 1px;
-  border-bottom-color: rgba(0,0,0,0.2);
+  border-bottom-color: rgba(0, 0, 0, 0.2);
   width: 35%;
   margin-right: 8%;
 `;
@@ -34,7 +34,7 @@ const InputItem: React.FC = () => {
   const [displayLocation, setDisplayLocation] = useState({
     placeName: '',
     latitude: '',
-    longitude: ''
+    longitude: '',
   });
   const [mapShow, setMapShow] = useState(false);
   const onConfirm = (selectedDate: Date | undefined) => {
@@ -56,24 +56,28 @@ const InputItem: React.FC = () => {
     setMapShow(false);
   };
 
-  const changeDisplayLocation = (placeName:string, latitude:string, longitude:string) => {
+  const changeDisplayLocation = (
+    placeName: string,
+    latitude: string,
+    longitude: string
+  ) => {
     setDisplayLocation({
       ...displayLocation,
       placeName,
       latitude,
-      longitude
+      longitude,
     });
   };
-  return(
+  return (
     <>
       <Container>
         <InputOutline>
           <TouchableOpacity
-            style={{flexDirection: 'row', alignItems: 'center'}}
+            style={{ flexDirection: 'row', alignItems: 'center' }}
             onPress={showTimepicker}
           >
             <Image
-              source={require('../../../assets/icon/clock.png') }
+              source={require('../../../assets/icon/clock.png')}
               style={{ width: 20, height: 20 }}
             />
             <ScheduleInput
@@ -84,17 +88,26 @@ const InputItem: React.FC = () => {
           </TouchableOpacity>
         </InputOutline>
         <InputOutline>
-          <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}} onPress={showMapView}>
-            <Image source={require('../../../assets/icon/flag.png') } style={{ width: 24, height: 24 }}/>
+          <TouchableOpacity
+            style={{ flexDirection: 'row', alignItems: 'center' }}
+            onPress={showMapView}
+          >
+            <Image
+              source={require('../../../assets/icon/flag.png')}
+              style={{ width: 24, height: 24 }}
+            />
             <ScheduleInput
-              value={displayLocation.placeName && `${displayLocation.placeName.substring(0,4)}...`}
+              value={
+                displayLocation.placeName &&
+                `${displayLocation.placeName.substring(0, 4)}...`
+              }
               placeholder={'위치 선택'}
               editable={false}
             />
           </TouchableOpacity>
         </InputOutline>
         <Image
-          source={require('../../../assets/icon/delete.png') }
+          source={require('../../../assets/icon/delete.png')}
           style={{ width: 24, height: 24 }}
         />
       </Container>
@@ -109,7 +122,7 @@ const InputItem: React.FC = () => {
         mode="time"
         onConfirm={onConfirm}
         onCancel={() => setShow(false)}
-        headerTextIOS='시간을 선택해주세요'
+        headerTextIOS="시간을 선택해주세요"
       />
     </>
   );

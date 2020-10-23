@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 type Props = {
- children?: React.ReactNode,
- title?: string
+  children?: React.ReactNode;
+  title?: string;
 };
 
 const Container = styled.View`
@@ -15,9 +15,9 @@ const Container = styled.View`
   align-items: center;
   justify-content: space-between;
   position: absolute;
-  right:0;
-  top:0;
-  left:0;
+  right: 0;
+  top: 0;
+  left: 0;
 `;
 
 const Title = styled.Text`
@@ -29,7 +29,7 @@ const Title = styled.Text`
 const Header: React.FC<Props> = ({ children, title }: Props) => {
   return (
     <Container>
-      {title && <Title>{title}</Title>} 
+      {title && <Title>{title}</Title>}
       {children}
     </Container>
   );

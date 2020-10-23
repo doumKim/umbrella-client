@@ -3,11 +3,11 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 const Container = styled.View`
- width: 100%;
- flex-direction: row;
- align-items: center;
- justify-content: center;
- margin-bottom: 15px;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
 `;
 
 const CancelBtn = styled.TouchableOpacity`
@@ -33,7 +33,7 @@ const StyledText = styled.Text`
 
 const WriteActionBtns: React.FC = () => {
   const navigation = useNavigation();
-  return(
+  return (
     <Container>
       <CancelBtn
         onPress={() => {

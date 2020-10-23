@@ -34,9 +34,12 @@ const Etc: React.FC = () => {
   return (
     <Container>
       <TopHeader>
-        <Image source={require('../../assets/icon/logo.png') } style={{ width: 180, height: 130 }}/>
+        <Image
+          source={require('../../assets/icon/logo.png')}
+          style={{ width: 180, height: 130 }}
+        />
       </TopHeader>
-      <MyProfileContainer/>
+      <MyProfileContainer />
       <Wrapper>
         <Logout>로그아웃</Logout>
       </Wrapper>

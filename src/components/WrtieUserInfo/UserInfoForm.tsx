@@ -1,5 +1,4 @@
 import { Entypo } from '@expo/vector-icons';
-// import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Dimensions, TextInput } from 'react-native';
 import styled from 'styled-components/native';
@@ -14,13 +13,11 @@ const InputOutline = styled.View`
   padding: 10px;
   border-radius: 12px;
   margin: 50px 50px 0;
-  elevation: 6;
 `;
 const SearchInput = styled(TextInput)`
   font-size: 20px;
   width: 90%;
 `;
-
 const Cycle = styled.View`
   background: ${props => props.theme.palette.title};
   width: 70px;
@@ -29,7 +26,6 @@ const Cycle = styled.View`
   align-items: center;
   justify-content: center;
 `;
-
 const StyledText = styled.Text`
   font-size: 23px;
   font-weight: 500;
@@ -37,15 +33,15 @@ const StyledText = styled.Text`
 `;
 const Wrapper = styled.View`
   align-items: center;
-  margin-top: ${height/2.5}px;
+  margin-top: ${height / 2.5}px;
 `;
 
 const UserInfoForm: React.FC = () => {
-//   const navigation = useNavigation();
-  return(
+  //   const navigation = useNavigation();
+  return (
     <>
       <InputOutline>
-        <SearchInput placeholder="유저 ID" placeholderTextColor="#94bceb"/>
+        <SearchInput placeholder="유저 ID" placeholderTextColor="#94bceb" />
       </InputOutline>
       <Wrapper>
         <Cycle>
