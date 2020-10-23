@@ -12,10 +12,7 @@ const Card = styled.View`
   border-radius: 12px;
 `;
 
-
-const TextContent = styled.View`
-
-`;
+const TextContent = styled.View``;
 const Wrapper = styled.View`
   flex-direction: row;
   justify-content: flex-start;
@@ -45,13 +42,19 @@ const CardItem: React.FC = () => {
       <Card>
         <TextContent>
           <Wrapper>
-            <Image source={require('../../../assets/icon/flag-white.png') } style={{ width: 28, height: 28 }}/>
+            <Image
+              source={require('../../../assets/icon/flag-white.png')}
+              style={{ width: 28, height: 28 }}
+            />
             <Location>평택시청</Location>
-          </Wrapper>      
+          </Wrapper>
           <Date>10월 9일 (금) 08:00</Date>
         </TextContent>
         <WeatherContent>
-          <Image source={require('../../../assets/weather/rainy.png') } style={{ width: 150, height: 150 }}/>
+          <Image
+            source={require('../../../assets/weather/rainy.png')}
+            style={{ width: 150, height: 150 }}
+          />
           <Temperature>20°C</Temperature>
         </WeatherContent>
       </Card>

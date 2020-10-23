@@ -9,7 +9,6 @@ import { Image, View, TouchableOpacity } from 'react-native';
 import PaddingContainer from '../components/Common/PaddingContainer';
 import { useNavigation } from '@react-navigation/native';
 
-
 const Section = styled.View`
   margin-bottom: 15px;
 `;
@@ -35,7 +34,7 @@ const Friends: React.FC = () => {
   const [isOpenReq, setIsOpenReq] = useState<boolean>(true); //친구요청 Open/Close
   const [isOpenList, setIsOpenList] = useState<boolean>(true); //친구목록 Open/Close
   const navigation = useNavigation();
-  
+
   const toggleReq = () => {
     setIsOpenReq(!isOpenReq);
   };
@@ -52,33 +51,59 @@ const Friends: React.FC = () => {
           <Section>
             <Sub>
               <SubTitle>친구 요청</SubTitle>
-              {
-                isOpenReq ? 
-                  <Entypo name="chevron-up" size={28} color="#7d8c9d" onPress={toggleReq}/>
-                  :<Entypo name="chevron-down" size={28} color="#7d8c9d" onPress={toggleReq}/>
-              }
+              {isOpenReq ? (
+                <Entypo
+                  name="chevron-up"
+                  size={28}
+                  color="#7d8c9d"
+                  onPress={toggleReq}
+                />
+              ) : (
+                <Entypo
+                  name="chevron-down"
+                  size={28}
+                  color="#7d8c9d"
+                  onPress={toggleReq}
+                />
+              )}
             </Sub>
-            {isOpenReq && <FriendsReqContainer/>}
+            {isOpenReq && <FriendsReqContainer />}
           </Section>
           <Section>
             <Sub>
               <SubTitle>친구 목록</SubTitle>
-              {
-                isOpenList ? 
-                  <Entypo name="chevron-up" size={28} color="#7d8c9d" onPress={toggleList}/>
-                  :<Entypo name="chevron-down" size={28} color="#7d8c9d" onPress={toggleList}/>
-              }
+              {isOpenList ? (
+                <Entypo
+                  name="chevron-up"
+                  size={28}
+                  color="#7d8c9d"
+                  onPress={toggleList}
+                />
+              ) : (
+                <Entypo
+                  name="chevron-down"
+                  size={28}
+                  color="#7d8c9d"
+                  onPress={toggleList}
+                />
+              )}
             </Sub>
-            {isOpenList && <FriendsContainer/>}
+            {isOpenList && <FriendsContainer />}
           </Section>
         </PaddingContainer>
       </ScrollContainer>
       <Header title="친구 목록">
         <Wrapper>
           <TouchableOpacity onPress={goToDetail}>
-            <Image source={require('../../assets/icon/search.png') } style={{ width: 40, height: 40 }}/>
+            <Image
+              source={require('../../assets/icon/search.png')}
+              style={{ width: 40, height: 40 }}
+            />
           </TouchableOpacity>
-          <Image source={require('../../assets/icon/addfriends.png') } style={{ width: 40, height: 40 }}/>
+          <Image
+            source={require('../../assets/icon/addfriends.png')}
+            style={{ width: 40, height: 40 }}
+          />
         </Wrapper>
       </Header>
     </View>

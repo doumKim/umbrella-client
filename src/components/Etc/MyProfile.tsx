@@ -40,18 +40,36 @@ const NormalText = styled.Text`
 `;
 
 const MyProfile: React.FC = () => {
-  return(
+  return (
     <Container>
       <LeftContent>
-        <Image source={require('../../../assets/icon/camera.png') } style={{ width: 30, height: 30, position: 'absolute', top: -2, left: -2, zIndex: 100 }}/>
-        <Image source={require('../../../assets/icon/defaultprofile.png') } style={{ width: 80, height: 80 }}/>
+        <Image
+          source={require('../../../assets/icon/camera.png')}
+          style={{
+            width: 30,
+            height: 30,
+            position: 'absolute',
+            top: -2,
+            left: -2,
+            zIndex: 100,
+          }}
+        />
+        <Image
+          source={require('../../../assets/icon/defaultprofile.png')}
+          style={{ width: 80, height: 80 }}
+        />
       </LeftContent>
       <RightContent>
         <Span>
           <Label>닉네임</Label>
-          <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity
+            style={{ flexDirection: 'row', alignItems: 'center' }}
+          >
             <ModifiableText>김장마</ModifiableText>
-            <Image source={require('../../../assets/icon/write.png') } style={{ width: 30, height: 30 }}/>
+            <Image
+              source={require('../../../assets/icon/write.png')}
+              style={{ width: 30, height: 30 }}
+            />
           </TouchableOpacity>
         </Span>
         <Span>

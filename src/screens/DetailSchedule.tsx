@@ -12,16 +12,24 @@ const DetailSchedule: React.FC = () => {
     <View>
       <ScrollContainer>
         <PaddingContainer>
-          <DetailScheduleContainer/>
+          <DetailScheduleContainer />
         </PaddingContainer>
       </ScrollContainer>
       <Header>
-        <TouchableOpacity onPress={() => {
-          navigation.goBack();
-        }}>
-          <Image source={require('../../assets/icon/back.png') } style={{ width: 50, height: 50 }}/>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Image
+            source={require('../../assets/icon/back.png')}
+            style={{ width: 50, height: 50 }}
+          />
         </TouchableOpacity>
-        <Image source={require('../../assets/icon/rowdot.png') } style={{ width: 50, height: 50 }}/>
+        <Image
+          source={require('../../assets/icon/rowdot.png')}
+          style={{ width: 50, height: 50 }}
+        />
       </Header>
     </View>
   );

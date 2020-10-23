@@ -14,8 +14,8 @@ const Container = styled.View`
 const WriteSchedule: React.FC = () => {
   return (
     <Container>
-      <WriteScheduleContainer/>
-      <WriteActionBtnsContainer/>
+      <WriteScheduleContainer />
+      <WriteActionBtnsContainer />
     </Container>
   );
 };

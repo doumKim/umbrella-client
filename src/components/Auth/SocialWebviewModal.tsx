@@ -3,23 +3,24 @@ import { Modal } from 'react-native';
 import SocialWebview from './SocialWebview';
 
 type Props = {
-  source: { uri: string },
-  visible: boolean,
-  closeModal(): void
-}
-  
-const SocialWebviewModal: React.FC<Props> = ({visible, source, closeModal}: Props) => {
+  source: { uri: string };
+  visible: boolean;
+  closeModal(): void;
+};
+
+const SocialWebviewModal: React.FC<Props> = ({
+  visible,
+  source,
+  closeModal,
+}: Props) => {
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={visible}
-      style={{flex: 1}}
+      style={{ flex: 1 }}
     >
-      <SocialWebview
-        source={source}
-        closeModal={closeModal}
-      />
+      <SocialWebview source={source} closeModal={closeModal} />
     </Modal>
   );
 };

@@ -22,17 +22,24 @@ const DetailFriends: React.FC = () => {
     <View>
       <ScrollContainer>
         <PaddingContainer>
-          <DetailFriendsContainer/>
+          <DetailFriendsContainer />
         </PaddingContainer>
       </ScrollContainer>
       <Header>
-        <View style={{ flexDirection: 'row', alignItems: 'center'}}>
-          <TouchableOpacity onPress={() => {
-            navigation.goBack();
-          }}>
-            <Image source={require('../../assets/icon/back.png') } style={{ width: 50, height: 50 }}/>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            <Image
+              source={require('../../assets/icon/back.png')}
+              style={{ width: 50, height: 50 }}
+            />
           </TouchableOpacity>
-          <HeaderTitle><Span>이바람</Span>님이 공유한 일정목록</HeaderTitle>
+          <HeaderTitle>
+            <Span>이바람</Span>님이 공유한 일정목록
+          </HeaderTitle>
         </View>
       </Header>
     </View>

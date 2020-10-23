@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { Dimensions, Image, TextInput, TouchableOpacity, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import styled from 'styled-components/native';
 import InputItem from './InputItem';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -17,8 +23,7 @@ const TopSection = styled.View`
   margin-bottom: 15px;
   align-items: center;
 `;
-const ScrollSection = styled.ScrollView`
-`;
+const ScrollSection = styled.ScrollView``;
 const TitleInput = styled(TextInput)`
   font-size: 22px;
   border-style: solid;
@@ -52,7 +57,11 @@ const WriteForm: React.FC = () => {
   const [displayDate, setDisplayDate] = useState('');
   const onConfirm = (selectedDate: Date | undefined): void => {
     const currentDate = selectedDate || date;
-    setDisplayDate(`${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월 ${currentDate.getDate()}일`);
+    setDisplayDate(
+      `${currentDate.getFullYear()}년 ${
+        currentDate.getMonth() + 1
+      }월 ${currentDate.getDate()}일`
+    );
     setDate(currentDate);
     setShow(false);
   };
@@ -61,25 +70,32 @@ const WriteForm: React.FC = () => {
     setShow(true);
   };
 
-  return(
+  return (
     <Container>
       <TopSection>
         <TopWrapper>
-          <TitleInput placeholder="일정 이름"/>
+          <TitleInput placeholder="일정 이름" />
           <Calendar>
-            <CalendarText>{displayDate ? displayDate : '날짜를 정해주세요.'}</CalendarText>
+            <CalendarText>
+              {displayDate ? displayDate : '날짜를 정해주세요.'}
+            </CalendarText>
             <TouchableOpacity onPress={showDatepicker}>
-              <Image source={require('../../../assets/icon/calendar.png') } style={{ width: 30, height: 30 }}/>
+              <Image
+                source={require('../../../assets/icon/calendar.png')}
+                style={{ width: 30, height: 30 }}
+              />
             </TouchableOpacity>
           </Calendar>
         </TopWrapper>
       </TopSection>
       <Wrapper>
-        <View style={{ alignItems: 'flex-end'}}>
-          <Image source={require('../../../assets/icon/plainplus.png') } style={{ width: 20, height: 20 }}/>
+        <View style={{ alignItems: 'flex-end' }}>
+          <Image
+            source={require('../../../assets/icon/plainplus.png')}
+            style={{ width: 20, height: 20 }}
+          />
         </View>
         <ScrollSection>
-
           <InputItem />
           <InputItem />
           <InputItem />
@@ -92,7 +108,7 @@ const WriteForm: React.FC = () => {
         mode="date"
         onConfirm={onConfirm}
         onCancel={() => setShow(false)}
-        headerTextIOS='날짜를 선택해주세요'
+        headerTextIOS="날짜를 선택해주세요"
       />
     </Container>
   );

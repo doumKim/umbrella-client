@@ -12,7 +12,7 @@ const Container = styled.TouchableOpacity`
   align-items: center;
   justify-content: space-between;
   padding: 10px 15px;
-  margin-bottom: 10px;  
+  margin-bottom: 10px;
 `;
 
 const Time = styled.Text`
@@ -24,8 +24,7 @@ const Location = styled.Text`
   font-size: 16px;
   color: ${props => props.theme.palette.subSub};
 `;
-const Content = styled.View`
-`;
+const Content = styled.View``;
 const TodoItem: React.FC = () => {
   const navigation = useNavigation();
   const goToDetail = () => {
@@ -39,9 +38,12 @@ const TodoItem: React.FC = () => {
           <Time>08:00</Time>
           <Location>아침 먹기</Location>
         </Content>
-        <Image source={require('../../../assets/weather/cloudy.png') } style={{ width: 40, height: 40 }}/>
+        <Image
+          source={require('../../../assets/weather/cloudy.png')}
+          style={{ width: 40, height: 40 }}
+        />
       </Container>
-    </TouchableOpacity>  
+    </TouchableOpacity>
   );
 };
 

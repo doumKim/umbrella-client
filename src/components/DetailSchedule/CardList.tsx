@@ -3,8 +3,8 @@ import CardItem from './CardItem';
 import styled from 'styled-components/native';
 
 const Wrapper = styled.View`
-    align-items: center;
-    margin-bottom: 20px;
+  align-items: center;
+  margin-bottom: 20px;
 `;
 const Title = styled.Text`
   font-size: 24px;
@@ -13,14 +13,14 @@ const Title = styled.Text`
 `;
 
 const CardList: React.FC = () => {
-  return(
+  return (
     <>
       <Wrapper>
         <Title>논현역 방문하기</Title>
       </Wrapper>
-      <CardItem/>
-      <CardItem/>
-      <CardItem/>
+      <CardItem />
+      <CardItem />
+      <CardItem />
     </>
   );
 };

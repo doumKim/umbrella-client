@@ -12,16 +12,10 @@ import WriteUserInfo from '../screens/Auth/WriteUserInfo';
 const Stack = createStackNavigator();
 
 const LoginStack: React.FC = () => {
-  return(
+  return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-        name="AuthIntro"
-        component={AuthIntro}
-      />
-      <Stack.Screen
-        name="WriteUserInfo"
-        component={WriteUserInfo}
-      />
+      <Stack.Screen name="AuthIntro" component={AuthIntro} />
+      <Stack.Screen name="WriteUserInfo" component={WriteUserInfo} />
     </Stack.Navigator>
   );
 };
@@ -29,26 +23,11 @@ const LoginStack: React.FC = () => {
 const MainStack: React.FC = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-        name="Tabs"
-        component={MainTabs}
-      />
-      <Stack.Screen
-        name="DetailSchedule"
-        component={DetailSchedule}
-      />
-      <Stack.Screen
-        name="DetailFriends"
-        component={DetailFriends}
-      />
-      <Stack.Screen
-        name="WriteSchedule"
-        component={WriteSchedule}
-      />
-      <Stack.Screen
-        name="SearchFriends"
-        component={SearchFriends}
-      />
+      <Stack.Screen name="Tabs" component={MainTabs} />
+      <Stack.Screen name="DetailSchedule" component={DetailSchedule} />
+      <Stack.Screen name="DetailFriends" component={DetailFriends} />
+      <Stack.Screen name="WriteSchedule" component={WriteSchedule} />
+      <Stack.Screen name="SearchFriends" component={SearchFriends} />
     </Stack.Navigator>
   );
 };
@@ -56,7 +35,7 @@ const MainStack: React.FC = () => {
 export const StackNavigator: React.FC = () => {
   return (
     <NavigationContainer>
-      <MainStack/>
+      <MainStack />
     </NavigationContainer>
   );
 };

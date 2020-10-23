@@ -1,5 +1,13 @@
 import React from 'react';
-import { ActivityIndicator, Dimensions, Text, TouchableOpacity, View, StyleSheet, Image } from 'react-native';
+import {
+  ActivityIndicator,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  Image,
+} from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
 import styled from 'styled-components/native';
 import { Results } from '../../containers/WriteSchedule/MapViewerContainer';
@@ -13,7 +21,7 @@ const StyledMapView = styled(MapView)`
 const Wrapper = styled.View`
   width: ${width}px;
   height: ${height}px;
-  background: rgba(0,0,0,0.65);
+  background: rgba(0, 0, 0, 0.65);
   align-items: center;
   justify-content: center;
   padding: 15px;
@@ -62,18 +70,22 @@ const AddressName = styled.Text`
 `;
 
 type Props = {
-  results : Results[] ,
-  closeMapView(): void,
-  location: Region,
-  isLoading: boolean,
-  keyword: string,
-  errorMsg: string,
-  onChangeText: (text: string) => void,
-  onSubmit(): void,
-  handleMapRegion(object:Region): void,
-  closeSearch(): void,
-  show: boolean,
-  changeDisplayLocation: (placeName: string, latitude: string, longitude: string) => void
+  results: Results[];
+  closeMapView(): void;
+  location: Region;
+  isLoading: boolean;
+  keyword: string;
+  errorMsg: string;
+  onChangeText: (text: string) => void;
+  onSubmit(): void;
+  handleMapRegion(object: Region): void;
+  closeSearch(): void;
+  show: boolean;
+  changeDisplayLocation: (
+    placeName: string,
+    latitude: string,
+    longitude: string
+  ) => void;
 };
 
 const MapViewer: React.FC<Props> = ({
@@ -88,15 +100,14 @@ const MapViewer: React.FC<Props> = ({
   onChangeText,
   onSubmit,
   handleMapRegion,
-  changeDisplayLocation
+  changeDisplayLocation,
 }: Props) => {
-
-  const handleKeyword = (result : Results) => {
+  const handleKeyword = (result: Results) => {
     handleMapRegion({
       latitude: Number(result.y),
       longitude: Number(result.x),
       latitudeDelta: 0.02,
-      longitudeDelta: 0.03
+      longitudeDelta: 0.03,
     });
     changeDisplayLocation(result.place_name, result.y, result.x);
     closeSearch();
@@ -106,67 +117,87 @@ const MapViewer: React.FC<Props> = ({
     changeDisplayLocation('', '', '');
     closeMapView();
   };
-  return (
-    isLoading ? 
-      <Wrapper>
-        <ActivityIndicator color="white" size="small"/>
-      </Wrapper> :
-      (errorMsg ? 
-        <Wrapper>
-          <Text style={{backgroundColor: 'white', padding: 5, borderRadius: 3, color: 'red', marginBottom: 5}}>{errorMsg}</Text>
-          <TouchableOpacity onPress={closeMapView}>
-            <Text style={{backgroundColor: 'white', padding: 5, borderRadius: 3}}>닫기</Text>
-          </TouchableOpacity>
-        </Wrapper>:
-        <Wrapper>
-          <Absolute>
-            <SearchBox style={styles.buttonContainer}>
-              <Image source={require('../../../assets/icon/search-black.png') } style={{ width: 20, height: 20, marginRight: 10 }}/>
-              <StyledTextInput
-                onChangeText={onChangeText}
-                onSubmitEditing={onSubmit}
-                value={keyword}
-                placeholder="장소 검색"
-                placeholderTextColor="#707070"
-              />
-            </SearchBox>
-            {results && show && 
-            <SearchResult>{
-              results.map((result) => 
-                <TouchableOpacity key={result.id} onPress={() => handleKeyword(result)}>
-                  <TextWrapper>
-                    <PlaceName>{result.place_name}</PlaceName>
-                    <AddressName>{result.address_name}</AddressName>
-                  </TextWrapper>
-                </TouchableOpacity>
-              )}
-            </SearchResult>}
-          </Absolute>
-          {location &&
-          <StyledMapView
-            region={location}
-            showsMyLocationButton={true}
-            onRegionChange={handleMapRegion}
-            showsUserLocation={true}
-            zoomEnabled={false}
-          >
-            <Marker
-              coordinate={{
-                latitude: location.latitude,
-                longitude: location.longitude,
-              }}
-              pinColor={'#ffe05d'}
-            />
-          </StyledMapView>}
-          <View style={{ flexDirection: 'row', marginTop: 10}}>
-            <TouchableOpacity onPress={handleClickCancle}>
-              <Button>취소</Button>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={closeMapView}>
-              <Button>적용</Button>
-            </TouchableOpacity>
-          </View>
-        </Wrapper>)
+  return isLoading ? (
+    <Wrapper>
+      <ActivityIndicator color="white" size="small" />
+    </Wrapper>
+  ) : errorMsg ? (
+    <Wrapper>
+      <Text
+        style={{
+          backgroundColor: 'white',
+          padding: 5,
+          borderRadius: 3,
+          color: 'red',
+          marginBottom: 5,
+        }}
+      >
+        {errorMsg}
+      </Text>
+      <TouchableOpacity onPress={closeMapView}>
+        <Text style={{ backgroundColor: 'white', padding: 5, borderRadius: 3 }}>
+          닫기
+        </Text>
+      </TouchableOpacity>
+    </Wrapper>
+  ) : (
+    <Wrapper>
+      <Absolute>
+        <SearchBox style={styles.buttonContainer}>
+          <Image
+            source={require('../../../assets/icon/search-black.png')}
+            style={{ width: 20, height: 20, marginRight: 10 }}
+          />
+          <StyledTextInput
+            onChangeText={onChangeText}
+            onSubmitEditing={onSubmit}
+            value={keyword}
+            placeholder="장소 검색"
+            placeholderTextColor="#707070"
+          />
+        </SearchBox>
+        {results && show && (
+          <SearchResult>
+            {results.map(result => (
+              <TouchableOpacity
+                key={result.id}
+                onPress={() => handleKeyword(result)}
+              >
+                <TextWrapper>
+                  <PlaceName>{result.place_name}</PlaceName>
+                  <AddressName>{result.address_name}</AddressName>
+                </TextWrapper>
+              </TouchableOpacity>
+            ))}
+          </SearchResult>
+        )}
+      </Absolute>
+      {location && (
+        <StyledMapView
+          region={location}
+          showsMyLocationButton={true}
+          onRegionChange={handleMapRegion}
+          showsUserLocation={true}
+          zoomEnabled={false}
+        >
+          <Marker
+            coordinate={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+            }}
+            pinColor={'#ffe05d'}
+          />
+        </StyledMapView>
+      )}
+      <View style={{ flexDirection: 'row', marginTop: 10 }}>
+        <TouchableOpacity onPress={handleClickCancle}>
+          <Button>취소</Button>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={closeMapView}>
+          <Button>적용</Button>
+        </TouchableOpacity>
+      </View>
+    </Wrapper>
   );
 };
 
@@ -178,10 +209,10 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
-      height: 3
+      height: 3,
     },
     shadowRadius: 5,
     shadowOpacity: 1.0,
-    elevation: 9
-  }
+    elevation: 9,
+  },
 });
