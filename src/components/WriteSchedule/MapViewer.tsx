@@ -71,8 +71,9 @@ type Props = {
   onChangeText: (text: string) => void,
   onSubmit(): void,
   handleMapRegion(object:Region): void,
-  show: boolean,
   closeSearch(): void,
+  show: boolean,
+  changeDisplayLocation: (placeName: string, latitude: string, longitude: string) => void
 };
 
 const MapViewer: React.FC<Props> = ({
@@ -87,6 +88,7 @@ const MapViewer: React.FC<Props> = ({
   onChangeText,
   onSubmit,
   handleMapRegion,
+  changeDisplayLocation
 }: Props) => {
 
   const handleKeyword = (result : Results) => {
@@ -96,7 +98,13 @@ const MapViewer: React.FC<Props> = ({
       latitudeDelta: 0.02,
       longitudeDelta: 0.03
     });
+    changeDisplayLocation(result.place_name, result.y, result.x);
     closeSearch();
+  };
+
+  const handleClickCancle = () => {
+    changeDisplayLocation('', '', '');
+    closeMapView();
   };
   return (
     isLoading ? 
@@ -140,16 +148,18 @@ const MapViewer: React.FC<Props> = ({
             showsMyLocationButton={true}
             onRegionChange={handleMapRegion}
             showsUserLocation={true}
+            zoomEnabled={false}
           >
             <Marker
               coordinate={{
                 latitude: location.latitude,
                 longitude: location.longitude,
               }}
+              pinColor={'#ffe05d'}
             />
           </StyledMapView>}
           <View style={{ flexDirection: 'row', marginTop: 10}}>
-            <TouchableOpacity onPress={closeMapView}>
+            <TouchableOpacity onPress={handleClickCancle}>
               <Button>취소</Button>
             </TouchableOpacity>
             <TouchableOpacity onPress={closeMapView}>

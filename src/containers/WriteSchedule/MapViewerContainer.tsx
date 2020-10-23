@@ -7,7 +7,8 @@ import { Region } from 'react-native-maps';
 const KAKAO_URL = 'https://dapi.kakao.com/v2/local/search/keyword.json?page=1&size=15&sort=accuracy&query=';
 
 type Props = {
-  closeMapView(): void
+  closeMapView(): void,
+  changeDisplayLocation: (placeName: string, latitude: string, longitude: string) => void
 };
 
 export type Results = {
@@ -25,7 +26,7 @@ export type Results = {
   y:string,
 }
 
-const MapViewerContainer: React.FC<Props> = ({closeMapView}: Props) => {
+const MapViewerContainer: React.FC<Props> = ({closeMapView, changeDisplayLocation}: Props) => {
   const [location, setLocation] = useState({
     latitude: 37.566,
     longitude: 126.9784,
@@ -41,7 +42,7 @@ const MapViewerContainer: React.FC<Props> = ({closeMapView}: Props) => {
   const onChangeText = (text: string) => {
     setKeyword(text);
   };
-
+  //현재 위치값 받아오기
   useEffect(() => {
     (async () => {
       try {
@@ -63,7 +64,7 @@ const MapViewerContainer: React.FC<Props> = ({closeMapView}: Props) => {
       };
     })();
   }, []);
-
+  // 맵 검색
   const search = () => {
     if(keyword === '') return;
     axios
@@ -98,6 +99,7 @@ const MapViewerContainer: React.FC<Props> = ({closeMapView}: Props) => {
       onChangeText={onChangeText}
       onSubmit={search}
       handleMapRegion={handleMapRegion}
+      changeDisplayLocation={changeDisplayLocation}
     />
   );
 };

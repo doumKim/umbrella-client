@@ -50,7 +50,6 @@ const WriteForm: React.FC = () => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [displayDate, setDisplayDate] = useState('');
-
   const onConfirm = (selectedDate: Date | undefined): void => {
     const currentDate = selectedDate || date;
     setDisplayDate(`${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월 ${currentDate.getDate()}일`);
@@ -61,6 +60,7 @@ const WriteForm: React.FC = () => {
   const showDatepicker = () => {
     setShow(true);
   };
+
   return(
     <Container>
       <TopSection>
@@ -79,6 +79,7 @@ const WriteForm: React.FC = () => {
           <Image source={require('../../../assets/icon/plainplus.png') } style={{ width: 20, height: 20 }}/>
         </View>
         <ScrollSection>
+
           <InputItem />
           <InputItem />
           <InputItem />
