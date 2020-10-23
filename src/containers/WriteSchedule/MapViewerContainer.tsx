@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import MapViewer from '../../components/WriteSchedule/MapViewer';
 import * as Location from 'expo-location';
 import axios from 'axios';
+import { Region } from 'react-native-maps';
 
 const KAKAO_URL = 'https://dapi.kakao.com/v2/local/search/keyword.json?page=1&size=15&sort=accuracy&query=';
 
@@ -9,6 +10,21 @@ type Props = {
   closeMapView(): void,
   changeDisplayLocation: (placeName: string, latitude: string, longitude: string) => void
 };
+
+export type Results = {
+  address_name: string,
+  category_group_code:string,
+  category_group_name: string,
+  category_name: string,
+  distance:string ,
+  id:string ,
+  phone: string,
+  place_name:string,
+  place_url:string,
+  road_address_name:string,
+  x:string,
+  y:string,
+}
 
 const MapViewerContainer: React.FC<Props> = ({closeMapView, changeDisplayLocation}: Props) => {
   const [location, setLocation] = useState({
@@ -20,7 +36,7 @@ const MapViewerContainer: React.FC<Props> = ({closeMapView, changeDisplayLocatio
   const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [keyword, setKeyword] = useState('');
-  const [results, setResults] = useState();
+  const [results, setResults] = useState([] as Results[]);
   const [show, setShow] = useState(false);
 
   const onChangeText = (text: string) => {
@@ -56,6 +72,7 @@ const MapViewerContainer: React.FC<Props> = ({closeMapView, changeDisplayLocatio
       .then((response) => {
         if(response.data){
           setResults(response.data.documents);
+          console.log(response.data.documents);
           setShow(true);
         } else{
           console.log('실패');
@@ -63,7 +80,7 @@ const MapViewerContainer: React.FC<Props> = ({closeMapView, changeDisplayLocatio
       });
   };
   
-  const handleMapRegion = (mapRegion: any) => {
+  const handleMapRegion = (mapRegion : Region) => {
     setLocation(mapRegion);
   };
   const closeSearch = () => {
