@@ -1,8 +1,8 @@
 import React from 'react';
 import { ActivityIndicator, Dimensions, Text, TouchableOpacity, View, StyleSheet, Image } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, Region } from 'react-native-maps';
 import styled from 'styled-components/native';
-
+import { Results } from '../../containers/WriteSchedule/MapViewerContainer';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -62,20 +62,17 @@ const AddressName = styled.Text`
 `;
 
 type Props = {
-  results: any,
+  results : Results[] ,
   closeMapView(): void,
-  location: {
-    latitude: number,
-    longitude: number
-  },
+  location: Region,
   isLoading: boolean,
   keyword: string,
   errorMsg: string,
   onChangeText: (text: string) => void,
   onSubmit(): void,
-  handleMapRegion(): void,
+  handleMapRegion(object:Region): void,
   show: boolean,
-  closeSearch(): void
+  closeSearch(): void,
 };
 
 const MapViewer: React.FC<Props> = ({
@@ -92,7 +89,7 @@ const MapViewer: React.FC<Props> = ({
   handleMapRegion,
 }: Props) => {
 
-  const handleKeyword = (result: any) => {
+  const handleKeyword = (result : Results) => {
     handleMapRegion({
       latitude: Number(result.y),
       longitude: Number(result.x),
@@ -127,7 +124,7 @@ const MapViewer: React.FC<Props> = ({
             </SearchBox>
             {results && show && 
             <SearchResult>{
-              results.map((result: any) => 
+              results.map((result) => 
                 <TouchableOpacity key={result.id} onPress={() => handleKeyword(result)}>
                   <TextWrapper>
                     <PlaceName>{result.place_name}</PlaceName>
