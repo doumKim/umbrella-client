@@ -31,6 +31,11 @@ const InputItem: React.FC = () => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [displayDate, setDisplayDate] = useState('');
+  const [displayLocation, setDisplayLocation] = useState({
+    placeName: '',
+    latitude: '',
+    longitude: ''
+  });
   const [mapShow, setMapShow] = useState(false);
   const onConfirm = (selectedDate: Date | undefined) => {
     const currentDate = selectedDate || date;
@@ -50,25 +55,54 @@ const InputItem: React.FC = () => {
   const closeMapView = () => {
     setMapShow(false);
   };
+
+  const changeDisplayLocation = (placeName:string, latitude:string, longitude:string) => {
+    setDisplayLocation({
+      ...displayLocation,
+      placeName,
+      latitude,
+      longitude
+    });
+  };
   return(
     <>
       <Container>
         <InputOutline>
-          <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}} onPress={showTimepicker}>
-            <Image source={require('../../../assets/icon/clock.png') } style={{ width: 20, height: 20 }}/>
-            <ScheduleInput placeholder={displayDate ? displayDate : '시간 선택'} editable={false}/>
+          <TouchableOpacity
+            style={{flexDirection: 'row', alignItems: 'center'}}
+            onPress={showTimepicker}
+          >
+            <Image
+              source={require('../../../assets/icon/clock.png') }
+              style={{ width: 20, height: 20 }}
+            />
+            <ScheduleInput
+              value={displayDate}
+              placeholder={'시간 선택'}
+              editable={false}
+            />
           </TouchableOpacity>
         </InputOutline>
         <InputOutline>
           <TouchableOpacity style={{flexDirection: 'row', alignItems: 'center'}} onPress={showMapView}>
             <Image source={require('../../../assets/icon/flag.png') } style={{ width: 24, height: 24 }}/>
-            <ScheduleInput placeholder="위치 선택" editable={false}/>
+            <ScheduleInput
+              value={displayLocation.placeName && `${displayLocation.placeName.substring(0,4)}...`}
+              placeholder={'위치 선택'}
+              editable={false}
+            />
           </TouchableOpacity>
         </InputOutline>
-        <Image source={require('../../../assets/icon/delete.png') } style={{ width: 24, height: 24 }}/>
+        <Image
+          source={require('../../../assets/icon/delete.png') }
+          style={{ width: 24, height: 24 }}
+        />
       </Container>
       <Modal visible={mapShow} transparent={true}>
-        <MapViewerContainer closeMapView={closeMapView}/>
+        <MapViewerContainer
+          closeMapView={closeMapView}
+          changeDisplayLocation={changeDisplayLocation}
+        />
       </Modal>
       <DateTimePickerModal
         isVisible={show}
