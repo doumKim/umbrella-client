@@ -15,8 +15,8 @@ const SocialWebviewModal: React.FC<Props> = ({
 }: Props) => {
   return (
     <Modal
-      animationType="slide"
-      transparent={true}
+      animationType="fade"
+      transparent={false}
       visible={visible}
       style={{ flex: 1 }}
     >

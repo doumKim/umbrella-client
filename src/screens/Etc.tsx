@@ -1,7 +1,9 @@
 import React from 'react';
 import { Dimensions, Image } from 'react-native';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 import MyProfileContainer from '../containers/Etc/MyProfileContainer';
+import { removeUserTokenAsync } from '../modules/auth';
 
 const { height } = Dimensions.get('screen');
 
@@ -28,9 +30,16 @@ const Logout = styled.Text`
   font-size: 15px;
   font-weight: 500;
   margin-right: 20px;
+  padding: 8px 15px;
+  border: 1px solid #eee;
+  border-radius: 2px;
 `;
 
 const Etc: React.FC = () => {
+  const dispatch = useDispatch();
+  const handleSignOut = () => {
+    dispatch(removeUserTokenAsync.request());
+  };
   return (
     <Container>
       <TopHeader>
@@ -41,7 +50,7 @@ const Etc: React.FC = () => {
       </TopHeader>
       <MyProfileContainer />
       <Wrapper>
-        <Logout>로그아웃</Logout>
+        <Logout onPress={handleSignOut}>로그아웃</Logout>
       </Wrapper>
     </Container>
   );
