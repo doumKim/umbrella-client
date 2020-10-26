@@ -8,6 +8,7 @@ import SearchFriends from '../screens/SearchFriends';
 import AuthIntro from '../screens/Auth/AuthIntro';
 import { NavigationContainer } from '@react-navigation/native';
 import WriteUserInfo from '../screens/Auth/WriteUserInfo';
+import AddFriends from '../screens/AddFriends';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,7 @@ const MainStack: React.FC = () => {
       <Stack.Screen name="DetailFriends" component={DetailFriends} />
       <Stack.Screen name="WriteSchedule" component={WriteSchedule} />
       <Stack.Screen name="SearchFriends" component={SearchFriends} />
+      <Stack.Screen name="AddFriends" component={AddFriends} />
     </Stack.Navigator>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import SearchFriendsContainer from '../containers/SearchFriends/SearchFriendsContainer';
+import AddFriendsContainer from '../containers/AddFriends/AddFriendsContainer';
 
 const Container = styled.View`
   flex: 1;
@@ -8,12 +8,12 @@ const Container = styled.View`
   padding: 45px 15px 0;
 `;
 
-const SearchFriends: React.FC = () => {
+const AddFriends: React.FC = () => {
   return (
     <Container>
-      <SearchFriendsContainer />
+      <AddFriendsContainer />
     </Container>
   );
 };
 
-export default SearchFriends;
+export default AddFriends;

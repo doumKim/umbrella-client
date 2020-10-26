@@ -44,6 +44,9 @@ const Friends: React.FC = () => {
   const goToDetail = () => {
     navigation.navigate('SearchFriends');
   };
+  const goToAddDetail = () => {
+    navigation.navigate('AddFriends');
+  };
   return (
     <View>
       <ScrollContainer>
@@ -100,10 +103,12 @@ const Friends: React.FC = () => {
               style={{ width: 40, height: 40 }}
             />
           </TouchableOpacity>
-          <Image
-            source={require('../../assets/icon/addfriends.png')}
-            style={{ width: 40, height: 40 }}
-          />
+          <TouchableOpacity onPress={goToAddDetail}>
+            <Image
+              source={require('../../assets/icon/addfriends.png')}
+              style={{ width: 40, height: 40 }}
+            />
+          </TouchableOpacity>
         </Wrapper>
       </Header>
     </View>

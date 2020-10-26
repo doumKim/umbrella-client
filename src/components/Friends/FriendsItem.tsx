@@ -49,7 +49,7 @@ const Wrapper = styled.View`
 `;
 
 type Props = {
-  isReq: boolean;
+  type: string;
 };
 
 const Profile: React.FC = () => {
@@ -64,7 +64,7 @@ const Profile: React.FC = () => {
   );
 };
 
-const FriendsItem: React.FC<Props> = ({ isReq }: Props) => {
+const FriendsItem: React.FC<Props> = ({ type }: Props) => {
   const openModal = () => {
     console.log('openModal');
   };
@@ -76,7 +76,7 @@ const FriendsItem: React.FC<Props> = ({ isReq }: Props) => {
 
   return (
     <>
-      {isReq ? (
+      {type === 'req' && (
         <Wrapper>
           <Container>
             <Profile />
@@ -90,7 +90,8 @@ const FriendsItem: React.FC<Props> = ({ isReq }: Props) => {
             </RejectBtn>
           </RightContent>
         </Wrapper>
-      ) : (
+      )}
+      {type === 'search' && (
         <Wrapper>
           <TouchableOpacity onPress={goToDetail}>
             <Container>
@@ -104,6 +105,18 @@ const FriendsItem: React.FC<Props> = ({ isReq }: Props) => {
                 style={{ width: 40, height: 40 }}
               />
             </TouchableOpacity>
+          </RightContent>
+        </Wrapper>
+      )}
+      {type === 'add' && (
+        <Wrapper>
+          <Container>
+            <Profile />
+          </Container>
+          <RightContent>
+            <AcceptBtn>
+              <AcceptText>요청</AcceptText>
+            </AcceptBtn>
           </RightContent>
         </Wrapper>
       )}
