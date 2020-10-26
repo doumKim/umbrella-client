@@ -1,15 +1,19 @@
 import React from 'react';
 import ScheduleItem from './ScheduleItem';
 
-const ScheduleList: React.FC = () => {
+type Props = {
+  type: string;
+};
+
+const ScheduleList: React.FC<Props> = ({ type }: Props) => {
   return (
     <>
-      <ScheduleItem />
-      <ScheduleItem />
-      <ScheduleItem />
-      <ScheduleItem />
-      <ScheduleItem />
-      <ScheduleItem />
+      <ScheduleItem type={type} />
+      <ScheduleItem type={type} />
+      <ScheduleItem type={type} />
+      <ScheduleItem type={type} />
+      <ScheduleItem type={type} />
+      <ScheduleItem type={type} />
     </>
   );
 };

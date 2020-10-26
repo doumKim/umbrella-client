@@ -25,10 +25,13 @@ const Location = styled.Text`
   color: ${props => props.theme.palette.subSub};
 `;
 const Content = styled.View``;
-const TodoItem: React.FC = () => {
+type Props = {
+  type: string;
+};
+const TodoItem: React.FC<Props> = ({ type }: Props) => {
   const navigation = useNavigation();
   const goToDetail = () => {
-    navigation.navigate('DetailSchedule');
+    navigation.navigate('DetailSchedule', { type });
   };
 
   return (
