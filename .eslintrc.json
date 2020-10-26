@@ -28,6 +28,15 @@
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "react/display-name": "off",
-    "@typescript-eslint/no-explicit-any": "warn"
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": 1,
+    "@typescript-eslint/no-inferrable-types": [
+      "warn",
+      {
+        "ignoreParameters": true
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-empty-interface": "off"
   }
 }
