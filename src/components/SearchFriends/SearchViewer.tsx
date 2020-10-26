@@ -1,6 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Image, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import {
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  TextInput,
+  View,
+  Text,
+} from 'react-native';
 import styled from 'styled-components/native';
 import FriendsItem from '../Friends/FriendsItem';
 
@@ -21,7 +28,12 @@ const SearchInput = styled(TextInput)`
   width: 70%;
 `;
 
-const SearchViewer: React.FC = () => {
+type Props = {
+  type: string;
+};
+
+/* type) search: 친구 검색 및 친구, add: 친구 추가  */
+const SearchViewer: React.FC<Props> = ({ type }: Props) => {
   const navigation = useNavigation();
   return (
     <Container>
@@ -36,15 +48,38 @@ const SearchViewer: React.FC = () => {
             style={{ width: 30, height: 30 }}
           />
         </TouchableOpacity>
-        <SearchInput />
-        <Image
-          source={require('../../../assets/icon/close.png')}
-          style={{ width: 20, height: 20 }}
+        <SearchInput
+          placeholder={type === 'search' ? '나의 친구목록 검색' : '친구 ID'}
         />
+        {type === 'search' && (
+          <Image
+            source={require('../../../assets/icon/close.png')}
+            style={{ width: 20, height: 20 }}
+          />
+        )}
+        {type === 'add' && (
+          <View style={{ flexDirection: 'row' }}>
+            <Image
+              source={require('../../../assets/icon/close.png')}
+              style={{ width: 20, height: 20, marginRight: 20 }}
+            />
+            <TouchableOpacity>
+              <Text style={{ fontSize: 16 }}>확인</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </InputOutline>
-      <ScrollView>
-        <FriendsItem isReq={false} />
-      </ScrollView>
+      {type === 'search' && (
+        <ScrollView>
+          <FriendsItem type="search" />
+        </ScrollView>
+      )}
+      {/* TODO: 확인 후 추가할 친구가 있다면 렌더링 */}
+      {type === 'add' && (
+        <View>
+          <FriendsItem type="add" />
+        </View>
+      )}
     </Container>
   );
 };
