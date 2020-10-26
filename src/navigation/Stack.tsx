@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MainTabs } from './Tabs';
 import DetailSchedule from '../screens/DetailSchedule';
@@ -9,6 +9,9 @@ import AuthIntro from '../screens/Auth/AuthIntro';
 import { NavigationContainer } from '@react-navigation/native';
 import WriteUserInfo from '../screens/Auth/WriteUserInfo';
 import AddFriends from '../screens/AddFriends';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../modules';
+import { getUserTokenAsync } from '../modules/auth';
 
 const Stack = createStackNavigator();
 
@@ -35,9 +38,17 @@ const MainStack: React.FC = () => {
 };
 
 export const StackNavigator: React.FC = () => {
+  const { authenticated } = useSelector(
+    (state: RootState) => state.auth.authStatus
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserTokenAsync.request());
+  }, []);
+
   return (
     <NavigationContainer>
-      <MainStack />
+      {authenticated ? <MainStack /> : <LoginStack />}
     </NavigationContainer>
   );
 };

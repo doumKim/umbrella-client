@@ -41,7 +41,7 @@ const AuthIntro: React.FC = () => {
 
   const signupWithSocial = async (social: string) => {
     setShowModal(!showModal);
-    setSource({ uri: `http://localhost:3000/auth/${social}` });
+    setSource({ uri: `http://bringumb.tk/auth/${social}` });
   };
 
   const closeModal = () => {
