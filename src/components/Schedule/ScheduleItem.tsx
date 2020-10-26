@@ -22,15 +22,19 @@ const ItemDate = styled.Text`
   color: ${props => props.theme.palette.sub};
 `;
 
-const ScheduleItem: React.FC = () => {
+type Props = {
+  type: string;
+};
+
+const ScheduleItem: React.FC<Props> = ({ type }: Props) => {
   return (
     <Container>
       <TopSection>
         <ItemTitle>통영 여행</ItemTitle>
         <ItemDate>2020.10.09 금</ItemDate>
       </TopSection>
-      <TodoItem />
-      <TodoItem />
+      <TodoItem type={type} />
+      <TodoItem type={type} />
     </Container>
   );
 };

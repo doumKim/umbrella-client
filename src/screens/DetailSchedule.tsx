@@ -1,36 +1,35 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Image, View, TouchableOpacity } from 'react-native';
-import Header from '../components/Common/Header';
+import { View } from 'react-native';
+import styled from 'styled-components/native';
 import PaddingContainer from '../components/Common/PaddingContainer';
-import ScrollContainer from '../components/Common/ScrollContainer';
 import DetailScheduleContainer from '../containers/DetailSchedule/DetailScheduleContainer';
+import { Dimensions } from 'react-native';
 
-const DetailSchedule: React.FC = () => {
-  const navigation = useNavigation();
+const { height } = Dimensions.get('screen');
+
+const DetailScroll = styled.ScrollView`
+  background: ${props => props.theme.palette.mainBackground};
+  min-height: ${height}px;
+  z-index: -100;
+`;
+
+type Props = {
+  navigation: { children?: React.ReactNode };
+  route: { params: { type: string } };
+};
+
+const DetailSchedule: React.FC<Props> = ({
+  route: {
+    params: { type: type },
+  },
+}: Props) => {
   return (
     <View>
-      <ScrollContainer>
+      <DetailScroll>
         <PaddingContainer>
-          <DetailScheduleContainer />
+          <DetailScheduleContainer type={type} />
         </PaddingContainer>
-      </ScrollContainer>
-      <Header>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
-          <Image
-            source={require('../../assets/icon/back.png')}
-            style={{ width: 50, height: 50 }}
-          />
-        </TouchableOpacity>
-        <Image
-          source={require('../../assets/icon/rowdot.png')}
-          style={{ width: 50, height: 50 }}
-        />
-      </Header>
+      </DetailScroll>
     </View>
   );
 };

@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import BottomModal from '../Common/BottomModal';
 
 const Container = styled.View`
   height: 60px;
@@ -52,34 +53,41 @@ type Props = {
   type: string;
 };
 
-const Profile: React.FC = () => {
+type NameProps = {
+  name: string;
+};
+
+const Profile: React.FC<NameProps> = ({ name }: NameProps) => {
   return (
     <LeftContent>
       <Image
         source={require('../../../assets/icon/defaultprofile.png')}
         style={{ width: 40, height: 40 }}
       />
-      <Title>고태풍</Title>
+      <Title>{name}</Title>
     </LeftContent>
   );
 };
 
 const FriendsItem: React.FC<Props> = ({ type }: Props) => {
+  const [show, setShow] = useState(false);
   const openModal = () => {
-    console.log('openModal');
+    setShow(true);
+  };
+  const closeModal = () => {
+    setShow(false);
   };
 
   const navigation = useNavigation();
   const goToDetail = () => {
     navigation.navigate('DetailFriends');
   };
-
   return (
     <>
       {type === 'req' && (
         <Wrapper>
           <Container>
-            <Profile />
+            <Profile name="고태풍" />
           </Container>
           <RightContent>
             <AcceptBtn>
@@ -95,7 +103,7 @@ const FriendsItem: React.FC<Props> = ({ type }: Props) => {
         <Wrapper>
           <TouchableOpacity onPress={goToDetail}>
             <Container>
-              <Profile />
+              <Profile name="고태풍" />
             </Container>
           </TouchableOpacity>
           <RightContent>
@@ -106,12 +114,13 @@ const FriendsItem: React.FC<Props> = ({ type }: Props) => {
               />
             </TouchableOpacity>
           </RightContent>
+          <BottomModal type="friends" show={show} closeModal={closeModal} />
         </Wrapper>
       )}
       {type === 'add' && (
         <Wrapper>
           <Container>
-            <Profile />
+            <Profile name="고태풍" />
           </Container>
           <RightContent>
             <AcceptBtn>
