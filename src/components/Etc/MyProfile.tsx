@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import ChangeProfileModal from './ChangeProfileModal';
 
 const Container = styled.View`
   background: ${props => props.theme.palette.profileCard};
@@ -40,6 +41,13 @@ const NormalText = styled.Text`
 `;
 
 const MyProfile: React.FC = () => {
+  const [show, setShow] = useState(false);
+  const openModal = () => {
+    setShow(true);
+  };
+  const closeModal = () => {
+    setShow(false);
+  };
   return (
     <Container>
       <LeftContent>
@@ -63,6 +71,7 @@ const MyProfile: React.FC = () => {
         <Span>
           <Label>닉네임</Label>
           <TouchableOpacity
+            onPress={openModal}
             style={{ flexDirection: 'row', alignItems: 'center' }}
           >
             <ModifiableText>김장마</ModifiableText>
@@ -77,6 +86,7 @@ const MyProfile: React.FC = () => {
           <NormalText>test123</NormalText>
         </Span>
       </RightContent>
+      <ChangeProfileModal show={show} closeModal={closeModal} />
     </Container>
   );
 };

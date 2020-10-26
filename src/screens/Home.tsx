@@ -94,12 +94,12 @@ const Home: React.FC = () => {
           {/* 향후 컨테이너에서 값받아온후 갯수 3개만 렌더링하기 */}
           <HomeScrollView>
             <Padding>
-              <CardList />
+              <CardList type="home" />
             </Padding>
           </HomeScrollView>
           <HomeScrollView>
             <Padding>
-              <CardList />
+              <CardList type="home" />
             </Padding>
           </HomeScrollView>
         </Swiper>
