@@ -3,6 +3,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
+import { TodoType } from '../../api/schedule';
 
 const Container = styled.TouchableOpacity`
   background: ${props => props.theme.palette.scheduleCard};
@@ -27,8 +28,9 @@ const Location = styled.Text`
 const Content = styled.View``;
 type Props = {
   type: string;
+  todo: TodoType;
 };
-const TodoItem: React.FC<Props> = ({ type }: Props) => {
+const TodoItem: React.FC<Props> = ({ type, todo }: Props) => {
   const navigation = useNavigation();
   const goToDetail = () => {
     navigation.navigate('DetailSchedule', { type });
@@ -38,8 +40,8 @@ const TodoItem: React.FC<Props> = ({ type }: Props) => {
     <TouchableOpacity activeOpacity={0.8} onPress={goToDetail}>
       <Container>
         <Content>
-          <Time>08:00</Time>
-          <Location>아침 먹기</Location>
+          <Time>{todo.date}</Time>
+          <Location>{todo.note}</Location>
         </Content>
         <Image
           source={require('../../../assets/weather/cloudy.png')}
