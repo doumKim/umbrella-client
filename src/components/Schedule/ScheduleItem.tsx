@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import { ScheduleType } from '../../api/schedule';
 import TodoItem from './TodoItem';
 
 const Container = styled.View`
@@ -9,6 +10,10 @@ const TopSection = styled.View`
   flex-direction: row;
   align-items: center;
   margin-bottom: 15px;
+`;
+
+const TodoWrapper = styled.View`
+  flex-direction: column-reverse;
 `;
 
 const ItemTitle = styled.Text`
@@ -24,17 +29,23 @@ const ItemDate = styled.Text`
 
 type Props = {
   type: string;
+  schedule: ScheduleType;
 };
 
-const ScheduleItem: React.FC<Props> = ({ type }: Props) => {
+const ScheduleItem: React.FC<Props> = ({ type, schedule }: Props) => {
+  const { title, date, todos } = schedule;
   return (
     <Container>
       <TopSection>
-        <ItemTitle>통영 여행</ItemTitle>
-        <ItemDate>2020.10.09 금</ItemDate>
+        <ItemTitle>{title}</ItemTitle>
+        <ItemDate>{date}</ItemDate>
       </TopSection>
-      <TodoItem type={type} />
-      <TodoItem type={type} />
+      <TodoWrapper>
+        {todos.length > 0 &&
+          todos.map(todo => {
+            return <TodoItem type={type} todo={todo} key={todo.id} />;
+          })}
+      </TodoWrapper>
     </Container>
   );
 };
