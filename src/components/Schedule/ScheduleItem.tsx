@@ -12,10 +12,6 @@ const TopSection = styled.View`
   margin-bottom: 15px;
 `;
 
-const TodoWrapper = styled.View`
-  flex-direction: column-reverse;
-`;
-
 const ItemTitle = styled.Text`
   font-size: 17px;
   font-weight: 500;
@@ -40,12 +36,10 @@ const ScheduleItem: React.FC<Props> = ({ type, schedule }: Props) => {
         <ItemTitle>{title}</ItemTitle>
         <ItemDate>{date}</ItemDate>
       </TopSection>
-      <TodoWrapper>
-        {todos.length > 0 &&
-          todos.map(todo => {
-            return <TodoItem type={type} todo={todo} key={todo.id} />;
-          })}
-      </TodoWrapper>
+      {todos.length > 0 &&
+        todos.map(todo => {
+          return <TodoItem type={type} todo={todo} key={todo.id} />;
+        })}
     </Container>
   );
 };
