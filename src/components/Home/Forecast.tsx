@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, Image, View } from 'react-native';
+import { Image, View } from 'react-native';
 import styled from 'styled-components/native';
-import { MdotDConverter, WeekConverter } from '../../lib/util/DateConverter';
+import { TimestampToDate, TimestampToWeek } from '../../lib/util/DateConverter';
 import { WeatherDB } from '../../lib/util/WeatherDB';
 
 const Container = styled.View`
@@ -21,14 +21,18 @@ const WeekText = styled.Text`
   font-size: 18px;
   font-weight: bold;
   color: ${props => props.theme.palette.main};
-  margin-right: 5px;
+  margin-right: 7px;
 `;
 const DateText = styled.Text`
   font-size: 15px;
   color: ${props => props.theme.palette.main};
 `;
 const TempText = styled.Text`
+  color: ${(props: TempType) => (props.isMax ? '#3d7ea6' : '#cc0e74')};
+`;
+const Slash = styled.Text`
   color: ${props => props.theme.palette.main};
+  margin: 0 5px;
 `;
 const RowWrapper = styled.View`
   flex-direction: row;
@@ -41,9 +45,9 @@ type WeatherData = {
 
 type ArrayData = {
   dt: number;
-  dt_txt: string;
-  main: {
-    temp: number;
+  temp: {
+    min: number;
+    max: number;
   };
   weather: Array<WeatherData>;
 };
@@ -51,54 +55,52 @@ type Props = {
   results: Array<ArrayData>;
 };
 
+type TempType = {
+  isMax?: boolean;
+};
 const Forecast: React.FC<Props> = ({ results }: Props) => {
-  console.log('333333333333333', results);
   return (
     <Container>
       {results &&
-        results
-          .filter(val => val.dt_txt.split(' ')[1] === '12:00:00')
-          .map((result, index) => (
-            <View key={result.dt}>
-              <Item>
-                <RowWrapper>
-                  <WeekText>
-                    {WeekConverter(result.dt_txt.split(' ')[0])}
-                  </WeekText>
-                  <DateText>
-                    {MdotDConverter(result.dt_txt.split(' ')[0])}
-                  </DateText>
-                </RowWrapper>
-                {WeatherDB[result.weather[0].main] ? (
-                  <Image
-                    style={{ width: 40, height: 40 }}
-                    source={{ uri: WeatherDB[result.weather[0].main].iconName }}
-                  />
-                ) : (
-                  <Image
-                    style={{ width: 40, height: 40 }}
-                    source={{
-                      uri: `http://openweathermap.org/img/wn/${result.weather[0].icon}@4x.png`,
-                    }}
-                  />
-                )}
-                <RowWrapper>
-                  <TempText>{result.main.temp}°C</TempText>
-                </RowWrapper>
-              </Item>
-              {index !== 4 && (
-                <View style={{ width: '100%', alignItems: 'center' }}>
-                  <View
-                    style={{
-                      width: '85%',
-                      height: 2,
-                      backgroundColor: '#DBDBDB',
-                    }}
-                  />
-                </View>
+        results.map((result, index) => (
+          <View key={result.dt}>
+            <Item>
+              <RowWrapper>
+                <WeekText>{TimestampToWeek(result.dt)}</WeekText>
+                <DateText>{TimestampToDate(result.dt)}</DateText>
+              </RowWrapper>
+              {WeatherDB[result.weather[0].main] ? (
+                <Image
+                  style={{ width: 40, height: 40 }}
+                  source={{ uri: WeatherDB[result.weather[0].main].iconName }}
+                />
+              ) : (
+                <Image
+                  style={{ width: 40, height: 40 }}
+                  source={{
+                    uri: `http://openweathermap.org/img/wn/${result.weather[0].icon}@4x.png`,
+                  }}
+                />
               )}
-            </View>
-          ))}
+              <RowWrapper>
+                <TempText>{Math.round(result.temp.min)}°C</TempText>
+                <Slash>/</Slash>
+                <TempText isMax>{Math.round(result.temp.max)}°C</TempText>
+              </RowWrapper>
+            </Item>
+            {index !== results.length - 1 && (
+              <View style={{ width: '100%', alignItems: 'center' }}>
+                <View
+                  style={{
+                    width: '90%',
+                    height: 2,
+                    backgroundColor: '#DBDBDB',
+                  }}
+                />
+              </View>
+            )}
+          </View>
+        ))}
     </Container>
   );
 };
