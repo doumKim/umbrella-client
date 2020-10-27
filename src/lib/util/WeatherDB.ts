@@ -20,43 +20,43 @@ type weatherTypes = {
 export const WeatherDB: weatherTypes = {
   Thunderstorm: {
     iconName: 'ttps://i.ibb.co/92R6FCj/thunder.png',
-    backdrop: '#373B44',
+    backdrop: 'https://i.ibb.co/rtzXPSH/backdrop-etc.png',
   },
   Drizzle: {
     iconName: 'https://i.ibb.co/F677ctj/drizzle.png',
-    backdrop: '#89F7FE',
+    backdrop: 'https://i.ibb.co/rtzXPSH/backdrop-etc.png',
   },
   Rain: {
     iconName: 'https://i.ibb.co/ZYD9W7B/rainy.png',
-    backdrop: '#00C6FB',
+    backdrop: 'https://i.ibb.co/b2g83kt/backdrop-rainy.png',
   },
   Snow: {
     iconName: 'https://i.ibb.co/rtNYFMY/snowy.png',
-    backdrop: '#7DE2FC',
+    backdrop: 'https://i.ibb.co/rtzXPSH/backdrop-etc.png',
   },
   Atmosphere: {
     iconName: 'https://i.ibb.co/F677ctj/drizzle.png',
-    backdrop: '#89F7FE',
+    backdrop: 'https://i.ibb.co/rtzXPSH/backdrop-etc.png',
   },
   Clear: {
     iconName: 'https://i.ibb.co/FKc6hzh/sunny.png',
-    backdrop: '#FF7300',
+    backdrop: 'https://i.ibb.co/VByZP3W/backdrop-sunny.png',
   },
   Clouds: {
     iconName: 'https://i.ibb.co/NW99Jb8/cloudy.png',
-    backdrop: '#D7D2CC',
+    backdrop: 'https://i.ibb.co/j4hxLcF/backdrop-cloudy.png',
   },
   //안개~
   Mist: {
     iconName: 'https://i.ibb.co/F677ctj/drizzle.png',
-    backdrop: '#4DA0B0',
+    backdrop: 'https://i.ibb.co/rtzXPSH/backdrop-etc.png',
   },
   Dust: {
     iconName: 'https://i.ibb.co/F677ctj/drizzle.png',
-    backdrop: '#4DA0B0',
+    backdrop: 'https://i.ibb.co/rtzXPSH/backdrop-etc.png',
   },
   Haze: {
     iconName: 'https://i.ibb.co/F677ctj/drizzle.png',
-    backdrop: '#4DA0B0',
+    backdrop: 'https://i.ibb.co/rtzXPSH/backdrop-etc.png',
   },
 };

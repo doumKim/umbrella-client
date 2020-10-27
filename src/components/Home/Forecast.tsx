@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { ActivityIndicator, Image, View } from 'react-native';
 import styled from 'styled-components/native';
 import { TimestampToDate, TimestampToWeek } from '../../lib/util/DateConverter';
 import { WeatherDB } from '../../lib/util/WeatherDB';
@@ -7,12 +7,13 @@ import { WeatherDB } from '../../lib/util/WeatherDB';
 const Container = styled.View`
   background: ${props => props.theme.palette.scheduleCard};
   border-radius: 12px;
-  padding: 10px 30px; ;
+  padding: 10px 30px;
+  justify-content: center;
+  min-height: 450px;
 `;
 
 const Item = styled.View`
   margin: 7px 0;
-
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -53,15 +54,20 @@ type ArrayData = {
 };
 type Props = {
   results: Array<ArrayData>;
+  isLoading: boolean;
 };
 
 type TempType = {
   isMax?: boolean;
 };
-const Forecast: React.FC<Props> = ({ results }: Props) => {
+
+const Forecast: React.FC<Props> = ({ results, isLoading }: Props) => {
   return (
     <Container>
-      {results &&
+      {isLoading ? (
+        <ActivityIndicator size="large" color="white" />
+      ) : (
+        results &&
         results.map((result, index) => (
           <View key={result.dt}>
             <Item>
@@ -83,9 +89,9 @@ const Forecast: React.FC<Props> = ({ results }: Props) => {
                 />
               )}
               <RowWrapper>
-                <TempText>{Math.round(result.temp.min)}°C</TempText>
+                <TempText>{Math.round(result.temp.min)}°</TempText>
                 <Slash>/</Slash>
-                <TempText isMax>{Math.round(result.temp.max)}°C</TempText>
+                <TempText isMax>{Math.round(result.temp.max)}°</TempText>
               </RowWrapper>
             </Item>
             {index !== results.length - 1 && (
@@ -100,7 +106,8 @@ const Forecast: React.FC<Props> = ({ results }: Props) => {
               </View>
             )}
           </View>
-        ))}
+        ))
+      )}
     </Container>
   );
 };

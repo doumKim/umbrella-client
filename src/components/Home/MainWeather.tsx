@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  ActivityIndicator,
-  Dimensions,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import { ActivityIndicator, Dimensions, Image } from 'react-native';
 import styled from 'styled-components/native';
 import ClockViewer from './ClockViewer';
-import { FontAwesome } from '@expo/vector-icons';
 import { WeatherDB } from '../../lib/util/WeatherDB';
 const { height } = Dimensions.get('screen');
 
@@ -17,20 +11,16 @@ type Props = {
   name: string;
   icon: string;
   main: string;
-  handleRefersh(): void;
 };
 
-type ContainerTypes = {
-  backdrop: string;
-};
-
-const Container = styled.View`
+const Container = styled.ImageBackground`
   min-height: ${height / 2}px;
+  max-height: 700px;
   border-radius: 12px;
   margin-bottom: 15px;
   justify-content: center;
   align-items: center;
-  background: ${(props: ContainerTypes) => props.backdrop};
+  overflow: hidden;
 `;
 
 const RowContainer = styled.View`
@@ -56,15 +46,14 @@ const MainWeather: React.FC<Props> = ({
   temperature,
   name,
   icon,
-  handleRefersh,
 }: Props) => {
   return (
     <Container
-      backdrop={
-        WeatherDB[main] && WeatherDB[main].backdrop
+      source={{
+        uri: WeatherDB[main]
           ? WeatherDB[main].backdrop
-          : 'gray'
-      }
+          : 'https://i.ibb.co/j4hxLcF/backdrop-cloudy.png',
+      }}
     >
       {isLoading ? (
         <Wrapper>
@@ -92,14 +81,9 @@ const MainWeather: React.FC<Props> = ({
               }}
             />
           )}
-          <RowContainer>
-            <StyledText style={{ fontSize: 36, marginRight: 20 }}>
-              {temperature}°C
-            </StyledText>
-            <TouchableOpacity onPress={handleRefersh}>
-              <FontAwesome name="refresh" size={24} color="white" />
-            </TouchableOpacity>
-          </RowContainer>
+          <StyledText style={{ fontSize: 45, marginRight: 20 }}>
+            {temperature}°
+          </StyledText>
         </Wrapper>
       )}
       <ClockViewer />
