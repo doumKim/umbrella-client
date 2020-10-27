@@ -10,7 +10,8 @@ import {
 import Swiper from 'react-native-web-swiper';
 import styled from 'styled-components/native';
 import CardList from '../components/DetailSchedule/CardList';
-import WeatherContainer from '../containers/Home/WeatherContainerContainer';
+import MainWeatherContainer from '../containers/Home/MainWeatherContainer';
+import WeeklyWeatherContainer from '../containers/Home/WeeklyWeatherContainer';
 
 const { height } = Dimensions.get('screen');
 
@@ -87,7 +88,8 @@ const Home: React.FC = () => {
           <HomeScrollView>
             <Padding>
               <Section>
-                <WeatherContainer />
+                <MainWeatherContainer />
+                <WeeklyWeatherContainer />
               </Section>
             </Padding>
           </HomeScrollView>
