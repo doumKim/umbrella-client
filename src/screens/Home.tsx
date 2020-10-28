@@ -10,7 +10,7 @@ import {
 import Swiper from 'react-native-web-swiper';
 import styled from 'styled-components/native';
 import CardList from '../components/DetailSchedule/CardList';
-import WeatherContainer from '../containers/Home/WeatherContainerContainer';
+import WeatherContainer from '../containers/Home/WeatherContainer';
 
 const { height } = Dimensions.get('screen');
 
@@ -84,13 +84,9 @@ const Home: React.FC = () => {
             },
           }}
         >
-          <HomeScrollView>
-            <Padding>
-              <Section>
-                <WeatherContainer />
-              </Section>
-            </Padding>
-          </HomeScrollView>
+          <Section>
+            <WeatherContainer />
+          </Section>
           {/* 향후 컨테이너에서 값받아온후 갯수 3개만 렌더링하기 */}
           <HomeScrollView>
             <Padding>
