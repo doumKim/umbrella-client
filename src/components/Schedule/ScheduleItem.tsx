@@ -38,7 +38,14 @@ const ScheduleItem: React.FC<Props> = ({ type, schedule }: Props) => {
       </TopSection>
       {todos.length > 0 &&
         todos.map(todo => {
-          return <TodoItem type={type} todo={todo} key={todo.id} />;
+          return (
+            <TodoItem
+              type={type}
+              todo={todo}
+              key={todo.id}
+              schedule={schedule}
+            />
+          );
         })}
     </Container>
   );
