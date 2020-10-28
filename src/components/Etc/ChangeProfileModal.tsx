@@ -39,17 +39,51 @@ const ConfirmBtn = styled.Text`
   font-size: 16px;
   color: ${props => props.theme.palette.title};
 `;
+const WarningText = styled.Text`
+  color: #f67280;
+`;
 type Props = {
   show: boolean;
   type: string;
   closeModal(): void;
+  warning: string;
+  nickname: string | undefined;
+  keywordName: string;
+  keywordId: string;
+  onChangeNickname(text: string): void;
+  onChangeUserId(text: string): void;
+  clearKeyword(): void;
+  onSubmitNickname(): void;
+  onSubmitUserId(): void;
 };
 
 const ChangeProfileModal: React.FC<Props> = ({
   show,
   type,
   closeModal,
+  warning,
+  nickname,
+  keywordName,
+  keywordId,
+  onChangeNickname,
+  onChangeUserId,
+  clearKeyword,
+  onSubmitNickname,
+  onSubmitUserId,
 }: Props) => {
+  const onClickBack = () => {
+    clearKeyword();
+    closeModal();
+  };
+  const submitNickname = () => {
+    onSubmitNickname();
+    closeModal();
+  };
+  const submitUserId = () => {
+    onSubmitUserId();
+    closeModal();
+  };
+
   return (
     <Modal
       style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}
@@ -66,7 +100,7 @@ const ChangeProfileModal: React.FC<Props> = ({
               paddingTop: 10,
             }}
           >
-            <TouchableOpacity onPress={closeModal}>
+            <TouchableOpacity onPress={onClickBack}>
               <Image
                 source={require('../../../assets/icon/back.png')}
                 style={{ width: 40, height: 40 }}
@@ -76,15 +110,24 @@ const ChangeProfileModal: React.FC<Props> = ({
           </View>
           <InputOutline>
             <ChangeInput
+              value={type === 'nickname' ? keywordName : keywordId}
               placeholder={
-                type === 'nickname' ? '변경할 닉네임 입력' : '설정할 ID 입력'
+                type === 'nickname' ? `${nickname}` : 'ID(영문, 최대 10글자)'
+              }
+              onChangeText={
+                type === 'nickname' ? onChangeNickname : onChangeUserId
               }
             />
-            <Image
-              source={require('../../../assets/icon/close.png')}
-              style={{ width: 20, height: 20 }}
-            />
+            <TouchableOpacity onPress={clearKeyword}>
+              <Image
+                source={require('../../../assets/icon/close.png')}
+                style={{ width: 20, height: 20 }}
+              />
+            </TouchableOpacity>
           </InputOutline>
+          <View style={{ alignItems: 'center', marginTop: 30 }}>
+            <WarningText>{warning}</WarningText>
+          </View>
           <View
             style={{
               width: '100%',
@@ -93,7 +136,9 @@ const ChangeProfileModal: React.FC<Props> = ({
               marginBottom: 6,
             }}
           >
-            <TouchableOpacity onPress={closeModal}>
+            <TouchableOpacity
+              onPress={type === 'nickname' ? submitNickname : submitUserId}
+            >
               <ConfirmBtn>변경</ConfirmBtn>
             </TouchableOpacity>
           </View>

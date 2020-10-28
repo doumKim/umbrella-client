@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
-import styled from 'styled-components/native';
+import { ActivityIndicator, Image, TouchableOpacity, View } from 'react-native';
+import styled, { css } from 'styled-components/native';
 import ChangeProfileModal from './ChangeProfileModal';
 
 const Container = styled.View`
@@ -9,6 +9,7 @@ const Container = styled.View`
   padding: 20px 50px;
   align-items: center;
   justify-content: center;
+  min-height: 250px;
 `;
 
 const TopContent = styled.View`
@@ -26,6 +27,7 @@ const Span = styled.View`
   margin-top: 5px;
   margin-bottom: 10px;
   width: 100%;
+  min-height: 30px;
 `;
 const Label = styled.Text`
   font-size: 18px;
@@ -36,19 +38,60 @@ const NickName = styled.Text`
   font-size: 18px;
   margin-right: 10px;
   color: ${props => props.theme.palette.title};
-  min-width: 110px;
 `;
 const UserId = styled.Text`
-  font-size: 18px;
   margin-right: 10px;
-  color: ${props => props.theme.palette.title};
-  border-style: solid;
-  border-bottom-width: 1px;
-  border-bottom-color: black;
+  ${(props: UserIdType) =>
+    props.isUser
+      ? css`
+          font-size: 18px;
+          color: ${props => props.theme.palette.subSub};
+        `
+      : css`
+          color: ${props => props.theme.palette.sub};
+          border-style: solid;
+          border-bottom-width: 1px;
+          border-bottom-color: ${props => props.theme.palette.sub};
+          font-size: 15px;
+          line-height: 30px;
+        `}
+
   min-width: 110px;
 `;
 
-const MyProfile: React.FC = () => {
+type Props = {
+  avatar: string | undefined;
+  nickname: string | undefined;
+  userId: string | undefined;
+  isLoading: boolean;
+  warning: string;
+  keywordName: string;
+  keywordId: string;
+  onChangeNickname(text: string): void;
+  onChangeUserId(text: string): void;
+  clearKeyword(): void;
+  onSubmitNickname(): void;
+  onSubmitUserId(): void;
+};
+
+type UserIdType = {
+  isUser?: boolean;
+};
+
+const MyProfile: React.FC<Props> = ({
+  avatar,
+  nickname,
+  userId,
+  isLoading,
+  warning,
+  keywordName,
+  keywordId,
+  onChangeNickname,
+  onChangeUserId,
+  clearKeyword,
+  onSubmitNickname,
+  onSubmitUserId,
+}: Props) => {
   const [show, setShow] = useState(false);
   const [type, setType] = useState('nickname');
 
@@ -63,7 +106,11 @@ const MyProfile: React.FC = () => {
     setType('userid');
     setShow(true);
   };
-  return (
+  return isLoading ? (
+    <Container>
+      <ActivityIndicator color={'black'} size={'large'} />
+    </Container>
+  ) : (
     <Container>
       <TopContent>
         <Image
@@ -72,15 +119,14 @@ const MyProfile: React.FC = () => {
             width: 30,
             height: 30,
             position: 'absolute',
-            top: -2,
-            left: -2,
+            top: -4,
+            left: -7,
             zIndex: 100,
           }}
         />
-        <Image
-          source={require('../../../assets/icon/defaultprofile.png')}
-          style={{ width: 80, height: 80 }}
-        />
+        <View style={{ borderRadius: 40, overflow: 'hidden' }}>
+          <Image source={{ uri: avatar }} style={{ width: 80, height: 80 }} />
+        </View>
       </TopContent>
       <BottomContent>
         <Span>
@@ -89,7 +135,7 @@ const MyProfile: React.FC = () => {
             onPress={openNicknameModal}
             style={{ flexDirection: 'row', alignItems: 'center' }}
           >
-            <NickName>김장마</NickName>
+            <NickName>{nickname}</NickName>
             <Image
               source={require('../../../assets/icon/write.png')}
               style={{ width: 30, height: 30 }}
@@ -98,20 +144,38 @@ const MyProfile: React.FC = () => {
         </Span>
         <Span>
           <Label>유저ID</Label>
-          {/* TODO: Conatiner에서 받은 id값 여부에 따라 수정 아이콘, 밑줄 보임 구현하기 */}
-          <UserId></UserId>
-          <TouchableOpacity
-            onPress={openUserIdModal}
-            style={{ flexDirection: 'row', alignItems: 'center' }}
-          >
-            <Image
-              source={require('../../../assets/icon/write.png')}
-              style={{ width: 30, height: 30 }}
-            />
-          </TouchableOpacity>
+          {userId ? (
+            <UserId isUser>{userId}</UserId>
+          ) : (
+            <>
+              <UserId>아이디를 생성해주세요.</UserId>
+              <TouchableOpacity
+                onPress={openUserIdModal}
+                style={{ flexDirection: 'row', alignItems: 'center' }}
+              >
+                <Image
+                  source={require('../../../assets/icon/write.png')}
+                  style={{ width: 30, height: 30 }}
+                />
+              </TouchableOpacity>
+            </>
+          )}
         </Span>
       </BottomContent>
-      <ChangeProfileModal type={type} show={show} closeModal={closeModal} />
+      <ChangeProfileModal
+        type={type}
+        show={show}
+        warning={warning}
+        closeModal={closeModal}
+        nickname={nickname}
+        keywordName={keywordName}
+        keywordId={keywordId}
+        onChangeNickname={onChangeNickname}
+        onChangeUserId={onChangeUserId}
+        clearKeyword={clearKeyword}
+        onSubmitNickname={onSubmitNickname}
+        onSubmitUserId={onSubmitUserId}
+      />
     </Container>
   );
 };

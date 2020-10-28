@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import { getUserToken } from '../../api/auth';
 import SearchViewer from '../../components/SearchFriends/SearchViewer';
 
 const AddFriendsContainer: React.FC = () => {
