@@ -41,10 +41,15 @@ const ConfirmBtn = styled.Text`
 `;
 type Props = {
   show: boolean;
+  type: string;
   closeModal(): void;
 };
 
-const ChangeProfileModal: React.FC<Props> = ({ show, closeModal }: Props) => {
+const ChangeProfileModal: React.FC<Props> = ({
+  show,
+  type,
+  closeModal,
+}: Props) => {
   return (
     <Modal
       style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}
@@ -58,6 +63,7 @@ const ChangeProfileModal: React.FC<Props> = ({ show, closeModal }: Props) => {
               flexDirection: 'row',
               alignItems: 'center',
               marginBottom: 20,
+              paddingTop: 10,
             }}
           >
             <TouchableOpacity onPress={closeModal}>
@@ -66,10 +72,14 @@ const ChangeProfileModal: React.FC<Props> = ({ show, closeModal }: Props) => {
                 style={{ width: 40, height: 40 }}
               />
             </TouchableOpacity>
-            <Title>닉네임 변경</Title>
+            <Title>{type === 'nickname' ? '닉네임 변경' : 'ID 설정하기'}</Title>
           </View>
           <InputOutline>
-            <ChangeInput placeholder="변경할 닉네임 입력" />
+            <ChangeInput
+              placeholder={
+                type === 'nickname' ? '변경할 닉네임 입력' : '설정할 ID 입력'
+              }
+            />
             <Image
               source={require('../../../assets/icon/close.png')}
               style={{ width: 20, height: 20 }}

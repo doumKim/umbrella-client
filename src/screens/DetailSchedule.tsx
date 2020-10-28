@@ -20,7 +20,7 @@ type Props = {
 
 const DetailSchedule: React.FC<Props> = ({
   route: {
-    params: { type: type },
+    params: { type },
   },
 }: Props) => {
   return (

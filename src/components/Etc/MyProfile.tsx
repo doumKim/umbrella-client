@@ -7,50 +7,65 @@ const Container = styled.View`
   background: ${props => props.theme.palette.profileCard};
   border-radius: 25px;
   padding: 20px 50px;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
 `;
 
-const LeftContent = styled.View`
+const TopContent = styled.View`
   position: relative;
-  margin-right: 5%;
+  margin-bottom: 10px;
 `;
-const RightContent = styled.View`
-  margin-right: 20px;
-  margin-left: 5%;
+const BottomContent = styled.View`
+  align-items: center;
+  width: 70%;
+  max-width: 300px;
 `;
 const Span = styled.View`
   flex-direction: row;
   align-items: center;
   margin-top: 5px;
   margin-bottom: 10px;
+  width: 100%;
 `;
 const Label = styled.Text`
   font-size: 18px;
   font-weight: 500;
   margin-right: 20px;
 `;
-const ModifiableText = styled.Text`
+const NickName = styled.Text`
   font-size: 18px;
   margin-right: 10px;
   color: ${props => props.theme.palette.title};
+  min-width: 110px;
 `;
-const NormalText = styled.Text`
+const UserId = styled.Text`
   font-size: 18px;
+  margin-right: 10px;
+  color: ${props => props.theme.palette.title};
+  border-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: black;
+  min-width: 110px;
 `;
 
 const MyProfile: React.FC = () => {
   const [show, setShow] = useState(false);
-  const openModal = () => {
-    setShow(true);
-  };
+  const [type, setType] = useState('nickname');
+
   const closeModal = () => {
     setShow(false);
   };
+  const openNicknameModal = () => {
+    setType('nickname');
+    setShow(true);
+  };
+  const openUserIdModal = () => {
+    setType('userid');
+    setShow(true);
+  };
   return (
     <Container>
-      <LeftContent>
+      <TopContent>
         <Image
           source={require('../../../assets/icon/camera.png')}
           style={{
@@ -66,15 +81,15 @@ const MyProfile: React.FC = () => {
           source={require('../../../assets/icon/defaultprofile.png')}
           style={{ width: 80, height: 80 }}
         />
-      </LeftContent>
-      <RightContent>
+      </TopContent>
+      <BottomContent>
         <Span>
           <Label>닉네임</Label>
           <TouchableOpacity
-            onPress={openModal}
+            onPress={openNicknameModal}
             style={{ flexDirection: 'row', alignItems: 'center' }}
           >
-            <ModifiableText>김장마</ModifiableText>
+            <NickName>김장마</NickName>
             <Image
               source={require('../../../assets/icon/write.png')}
               style={{ width: 30, height: 30 }}
@@ -83,10 +98,20 @@ const MyProfile: React.FC = () => {
         </Span>
         <Span>
           <Label>유저ID</Label>
-          <NormalText>test123</NormalText>
+          {/* TODO: Conatiner에서 받은 id값 여부에 따라 수정 아이콘, 밑줄 보임 구현하기 */}
+          <UserId></UserId>
+          <TouchableOpacity
+            onPress={openUserIdModal}
+            style={{ flexDirection: 'row', alignItems: 'center' }}
+          >
+            <Image
+              source={require('../../../assets/icon/write.png')}
+              style={{ width: 30, height: 30 }}
+            />
+          </TouchableOpacity>
         </Span>
-      </RightContent>
-      <ChangeProfileModal show={show} closeModal={closeModal} />
+      </BottomContent>
+      <ChangeProfileModal type={type} show={show} closeModal={closeModal} />
     </Container>
   );
 };

@@ -7,7 +7,6 @@ import WriteSchedule from '../screens/WriteSchedule';
 import SearchFriends from '../screens/SearchFriends';
 import AuthIntro from '../screens/Auth/AuthIntro';
 import { NavigationContainer } from '@react-navigation/native';
-import WriteUserInfo from '../screens/Auth/WriteUserInfo';
 import AddFriends from '../screens/AddFriends';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules';
@@ -19,7 +18,6 @@ const LoginStack: React.FC = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="AuthIntro" component={AuthIntro} />
-      <Stack.Screen name="WriteUserInfo" component={WriteUserInfo} />
     </Stack.Navigator>
   );
 };
