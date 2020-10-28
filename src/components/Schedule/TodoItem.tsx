@@ -3,7 +3,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
-import { TodoType } from '../../api/schedule';
+import { ScheduleType, TodoType } from '../../api/schedule';
 
 const Container = styled.TouchableOpacity`
   background: ${props => props.theme.palette.scheduleCard};
@@ -29,11 +29,12 @@ const Content = styled.View``;
 type Props = {
   type: string;
   todo: TodoType;
+  schedule: ScheduleType;
 };
-const TodoItem: React.FC<Props> = ({ type, todo }: Props) => {
+const TodoItem: React.FC<Props> = ({ type, todo, schedule }: Props) => {
   const navigation = useNavigation();
   const goToDetail = () => {
-    navigation.navigate('DetailSchedule', { type });
+    navigation.navigate('DetailSchedule', { type, schedule });
   };
 
   return (

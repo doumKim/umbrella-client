@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image } from 'react-native';
 import styled from 'styled-components/native';
+import { TodoType } from '../../api/schedule';
 
 const Container = styled.View`
   margin-bottom: 15px;
@@ -36,7 +37,11 @@ const Temperature = styled.Text`
   color: ${props => props.theme.palette.brightFont};
 `;
 
-const CardItem: React.FC = () => {
+type Props = {
+  todo: TodoType | null;
+};
+
+const CardItem: React.FC<Props> = ({ todo }: Props) => {
   return (
     <Container>
       <Card>
@@ -46,9 +51,11 @@ const CardItem: React.FC = () => {
               source={require('../../../assets/icon/flag-white.png')}
               style={{ width: 28, height: 28 }}
             />
-            <Location>평택시청</Location>
+            <Location>
+              {todo?.location} / {todo?.note}
+            </Location>
           </Wrapper>
-          <Date>10월 9일 (금) 08:00</Date>
+          <Date>{todo?.date}</Date>
         </TextContent>
         <WeatherContent>
           <Image

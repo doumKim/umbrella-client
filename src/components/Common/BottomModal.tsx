@@ -47,7 +47,7 @@ const TopDeco = styled.View`
 `;
 const BottomModal: React.FC<Props> = ({ type, show, closeModal }: Props) => {
   return (
-    <Modal visible={show} transparent={true}>
+    <Modal animationType={'fade'} visible={show} transparent={true}>
       <DarkOpacity>
         <ModalBackground>
           <TopDeco />

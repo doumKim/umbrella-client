@@ -5,6 +5,7 @@ import { Image, TouchableOpacity } from 'react-native';
 import Header from '../Common/Header';
 import { useNavigation } from '@react-navigation/native';
 import BottomModal from '../Common/BottomModal';
+import { ScheduleType } from '../../api/schedule';
 
 const Wrapper = styled.View`
   align-items: center;
@@ -13,14 +14,20 @@ const Wrapper = styled.View`
 const Title = styled.Text`
   font-size: 24px;
   font-weight: 500;
+  padding-top: ${(props: TitleProps) => (props.isMypage ? '30px' : 0)};
   color: ${props => props.theme.palette.main};
 `;
 
 type Props = {
   type: string;
+  schedule: ScheduleType | null;
 };
 
-const CardList: React.FC<Props> = ({ type }: Props) => {
+type TitleProps = {
+  isMypage: number;
+};
+
+const CardList: React.FC<Props> = ({ type, schedule }: Props) => {
   const navigation = useNavigation();
   const [show, setShow] = useState(false);
   const openModal = () => {
@@ -33,11 +40,11 @@ const CardList: React.FC<Props> = ({ type }: Props) => {
   return (
     <>
       <Wrapper>
-        <Title>논현역 방문하기</Title>
+        <Title isMypage={type === 'my' ? 1 : 0}>{schedule?.title}</Title>
       </Wrapper>
-      <CardItem />
-      <CardItem />
-      <CardItem />
+      {schedule?.todos.map(todo => {
+        return <CardItem key={todo.id} todo={todo} />;
+      })}
       {type !== 'home' && (
         <Header>
           <TouchableOpacity
