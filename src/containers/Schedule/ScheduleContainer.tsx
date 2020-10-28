@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Empty from '../../components/Common/Empty';
 import ErrorComponent from '../../components/Common/ErrorComponent';
 import Loading from '../../components/Common/Loading';
 import ScheduleList from '../../components/Schedule/ScheduleList';
@@ -14,6 +15,7 @@ const ScheduleContainer: React.FC = () => {
     <>
       {loading && <Loading />}
       {error && <ErrorComponent />}
+      {schedules?.length === 0 && <Empty />}
       {loading || error || <ScheduleList type="my" scheduels={schedules} />}
     </>
   );

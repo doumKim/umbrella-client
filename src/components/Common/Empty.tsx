@@ -6,7 +6,7 @@ const { height } = Dimensions.get('screen');
 
 const Container = styled.View`
   background: ${props => props.theme.palette.mainBackground};
-  height: ${height - 160}px;
+  height: ${height - 210}px;
   align-items: center;
   justify-content: center;
 `;
@@ -17,12 +17,12 @@ const Title = styled.Text`
   color: ${props => props.theme.palette.main};
 `;
 
-const ErrorComponent: React.FC = () => {
+const Empty: React.FC = () => {
   return (
     <Container>
-      <Title>⚠️ 서버 에러 발생! ⚠️</Title>
+      <Title>리스트가 비었습니다. 🗑</Title>
     </Container>
   );
 };
 
-export default ErrorComponent;
+export default Empty;

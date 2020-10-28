@@ -1,10 +1,15 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Modal } from 'react-native';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
+import { removeUserSchedule } from '../../api/schedule';
+import { getUserScheduleAsync } from '../../modules/schedule';
 type Props = {
   type: string;
   show: boolean;
   closeModal(): void;
+  scheduleId: string | null;
 };
 const DarkOpacity = styled.View`
   width: 100%;
@@ -45,7 +50,22 @@ const TopDeco = styled.View`
   border-radius: 6px;
   background: ${props => props.theme.palette.subSub};
 `;
-const BottomModal: React.FC<Props> = ({ type, show, closeModal }: Props) => {
+const BottomModal: React.FC<Props> = ({
+  type,
+  show,
+  closeModal,
+  scheduleId,
+}: Props) => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const handleRemoveSchedule = async (scheduleId: string) => {
+    await removeUserSchedule(scheduleId);
+    dispatch(getUserScheduleAsync.request());
+    navigation.navigate('Schedule');
+    closeModal();
+  };
+
   return (
     <Modal animationType={'fade'} visible={show} transparent={true}>
       <DarkOpacity>
@@ -72,7 +92,9 @@ const BottomModal: React.FC<Props> = ({ type, show, closeModal }: Props) => {
                 <StyledText>수정 하기</StyledText>
               </Button>
               <Line />
-              <Button onPress={closeModal}>
+              <Button
+                onPress={() => scheduleId && handleRemoveSchedule(scheduleId)}
+              >
                 <StyledText>삭제 하기</StyledText>
               </Button>
               <Line />
