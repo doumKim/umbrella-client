@@ -3,8 +3,7 @@ import React from 'react';
 import { Modal } from 'react-native';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
-import { removeUserSchedule } from '../../api/schedule';
-import { getUserScheduleAsync } from '../../modules/schedule';
+import { removeUserScheduleAsync } from '../../modules/schedule';
 type Props = {
   type: string;
   show: boolean;
@@ -59,9 +58,8 @@ const BottomModal: React.FC<Props> = ({
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const handleRemoveSchedule = async (scheduleId: string) => {
-    await removeUserSchedule(scheduleId);
-    dispatch(getUserScheduleAsync.request());
+  const handleRemoveSchedule = async (scheduleId: number) => {
+    dispatch(removeUserScheduleAsync.request(scheduleId));
     navigation.navigate('Schedule');
     closeModal();
   };
@@ -93,7 +91,9 @@ const BottomModal: React.FC<Props> = ({
               </Button>
               <Line />
               <Button
-                onPress={() => scheduleId && handleRemoveSchedule(scheduleId)}
+                onPress={() =>
+                  scheduleId && handleRemoveSchedule(Number(scheduleId))
+                }
               >
                 <StyledText>삭제 하기</StyledText>
               </Button>
