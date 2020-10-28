@@ -103,7 +103,7 @@ const Home: React.FC = () => {
               </Padding>
             </HomeScrollView>
           )}
-          {schedules && schedules[0] && (
+          {schedules && schedules[1] && (
             <HomeScrollView>
               <Padding>
                 <CardList type="home" schedule={schedules[1]} />

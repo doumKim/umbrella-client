@@ -68,7 +68,12 @@ const CardList: React.FC<Props> = ({ type, schedule }: Props) => {
         </Header>
       )}
       {type === 'my' && (
-        <BottomModal show={show} closeModal={closeModal} type="schedule" />
+        <BottomModal
+          show={show}
+          closeModal={closeModal}
+          type="schedule"
+          scheduleId={`${schedule?.id}`}
+        />
       )}
     </>
   );
