@@ -3,9 +3,11 @@ import React from 'react';
 import { Modal } from 'react-native';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
+import { dropFriend } from '../../api/friend';
 import { removeUserScheduleAsync } from '../../modules/schedule';
 type Props = {
   type: string;
+  id: number;
   show: boolean;
   closeModal(): void;
   scheduleId: string | null;
@@ -52,6 +54,7 @@ const TopDeco = styled.View`
 const BottomModal: React.FC<Props> = ({
   type,
   show,
+  id,
   closeModal,
   scheduleId,
 }: Props) => {
@@ -64,6 +67,10 @@ const BottomModal: React.FC<Props> = ({
     closeModal();
   };
 
+  const handleDeleteClick = (id: number) => {
+    dropFriend(id);
+    closeModal();
+  };
   return (
     <Modal animationType={'fade'} visible={show} transparent={true}>
       <DarkOpacity>
@@ -71,7 +78,7 @@ const BottomModal: React.FC<Props> = ({
           <TopDeco />
           {type === 'friends' && (
             <>
-              <Button>
+              <Button onPress={() => handleDeleteClick(id)}>
                 <StyledText>친구 삭제</StyledText>
               </Button>
               <Line />
