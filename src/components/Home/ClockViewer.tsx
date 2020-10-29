@@ -22,11 +22,13 @@ const ClockViewer: React.FC = () => {
   const [date, setDate] = useState('');
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    const ticking = setTimeout(() => {
       setTime(moment().format('LTS'));
       setDate(moment().format('MMM Do dddd'));
     }, 1000);
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(ticking);
+    };
   }, [time, date]);
   return (
     <Container>

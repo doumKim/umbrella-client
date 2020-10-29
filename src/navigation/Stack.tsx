@@ -11,6 +11,7 @@ import AddFriends from '../screens/AddFriends';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules';
 import { getUserTokenAsync } from '../modules/auth';
+import { getUserScheduleAsync } from '../modules/schedule';
 
 const Stack = createStackNavigator();
 
@@ -39,9 +40,11 @@ export const StackNavigator: React.FC = () => {
   const { authenticated } = useSelector(
     (state: RootState) => state.auth.authStatus
   );
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserTokenAsync.request());
+    dispatch(getUserScheduleAsync.request());
   }, []);
 
   return (

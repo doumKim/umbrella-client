@@ -8,9 +8,12 @@ import {
   GestureResponderEvent,
 } from 'react-native';
 import Swiper from 'react-native-web-swiper';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components/native';
+import Loading from '../components/Common/Loading';
 import CardList from '../components/DetailSchedule/CardList';
 import WeatherContainer from '../containers/Home/WeatherContainer';
+import { RootState } from '../modules';
 
 const { height } = Dimensions.get('screen');
 
@@ -47,11 +50,16 @@ type DotTypes = {
 };
 
 const Home: React.FC = () => {
+  const { schedules, loading } = useSelector(
+    (state: RootState) => state.schedule.mySchedules
+  );
   const navigation = useNavigation();
   const goToDetail = () => {
     navigation.navigate('WriteSchedule');
   };
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <View style={{ flex: 1 }}>
       <Wrapper>
         <Swiper
@@ -88,16 +96,20 @@ const Home: React.FC = () => {
             <WeatherContainer />
           </Section>
           {/* 향후 컨테이너에서 값받아온후 갯수 3개만 렌더링하기 */}
-          <HomeScrollView>
-            <Padding>
-              <CardList type="home" />
-            </Padding>
-          </HomeScrollView>
-          <HomeScrollView>
-            <Padding>
-              <CardList type="home" />
-            </Padding>
-          </HomeScrollView>
+          {schedules && schedules[0] && (
+            <HomeScrollView>
+              <Padding>
+                <CardList type="home" schedule={schedules[0]} />
+              </Padding>
+            </HomeScrollView>
+          )}
+          {schedules && schedules[1] && (
+            <HomeScrollView>
+              <Padding>
+                <CardList type="home" schedule={schedules[1]} />
+              </Padding>
+            </HomeScrollView>
+          )}
         </Swiper>
       </Wrapper>
       <View style={{ position: 'absolute', top: 37, right: 15 }}>

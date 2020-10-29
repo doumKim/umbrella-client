@@ -127,7 +127,12 @@ const FriendsItem: React.FC<Props> = ({
               />
             </TouchableOpacity>
           </RightContent>
-          <BottomModal type="friends" show={show} closeModal={closeModal} />
+          <BottomModal
+            type="friends"
+            show={show}
+            closeModal={closeModal}
+            scheduleId={null}
+          />
         </Wrapper>
       )} */}
       {type === 'add' && (

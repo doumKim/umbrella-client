@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import PaddingContainer from '../components/Common/PaddingContainer';
 import DetailScheduleContainer from '../containers/DetailSchedule/DetailScheduleContainer';
 import { Dimensions } from 'react-native';
+import { ScheduleType } from '../api/schedule';
 
 const { height } = Dimensions.get('screen');
 
@@ -15,19 +16,19 @@ const DetailScroll = styled.ScrollView`
 
 type Props = {
   navigation: { children?: React.ReactNode };
-  route: { params: { type: string } };
+  route: { params: { type: string; schedule: ScheduleType } };
 };
 
 const DetailSchedule: React.FC<Props> = ({
   route: {
-    params: { type },
+    params: { type, schedule },
   },
 }: Props) => {
   return (
     <View>
       <DetailScroll>
         <PaddingContainer>
-          <DetailScheduleContainer type={type} />
+          <DetailScheduleContainer type={type} schedule={schedule} />
         </PaddingContainer>
       </DetailScroll>
     </View>

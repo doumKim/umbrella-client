@@ -12,3 +12,15 @@ export const getUserScheduleAsync = createAsyncAction(
   GET_USER_SCHEDULE_SUCCESS,
   GET_USER_SCHEDULE_ERROR
 )<undefined, ScheduleType[], AxiosError>();
+
+//사용자 일정 삭제
+export const REMOVE_USER_SCHEDULE = 'schedule/REMOVE_USER_SCHEDULE';
+export const REMOVE_USER_SCHEDULE_SUCCESS =
+  'schedule/REMOVE_USER_SCHEDULE_SUCCESS';
+export const REMOVE_USER_SCHEDULE_ERROR = 'schedule/REMOVE_USER_SCHEDULE_ERROR';
+
+export const removeUserScheduleAsync = createAsyncAction(
+  REMOVE_USER_SCHEDULE,
+  REMOVE_USER_SCHEDULE_SUCCESS,
+  REMOVE_USER_SCHEDULE_ERROR
+)<number, number, AxiosError>();
