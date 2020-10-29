@@ -3,10 +3,8 @@ import React from 'react';
 import {
   Image,
   TouchableOpacity,
-  ScrollView,
   TextInput,
   View,
-  Text,
   ActivityIndicator,
 } from 'react-native';
 import styled from 'styled-components/native';
@@ -34,6 +32,7 @@ type Props = {
   loading: boolean;
   keyword: string;
   name: string;
+  id: number;
   avatar: string;
   onChangeText?(text: string): void;
   onFindClick(): void;
@@ -47,6 +46,7 @@ const SearchViewer: React.FC<Props> = ({
   loading,
   keyword,
   name,
+  id,
   avatar,
   onChangeText,
   onFindClick,
@@ -109,6 +109,7 @@ const SearchViewer: React.FC<Props> = ({
             <FriendsItem
               type="add"
               name={name}
+              id={id}
               avatar={avatar}
               onReqClick={onReqClick}
             />

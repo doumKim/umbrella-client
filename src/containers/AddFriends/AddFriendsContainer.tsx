@@ -65,6 +65,7 @@ const AddFriendsContainer: React.FC = () => {
       loading={loading}
       keyword={keyword}
       name={friendData.username}
+      id={friendData.id}
       avatar={friendData.avatarUrl}
       onChangeText={onChangeText}
       clearKeyword={clearKeyword}
