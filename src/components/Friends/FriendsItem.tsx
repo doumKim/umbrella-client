@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components/native';
 import BottomModal from '../Common/BottomModal';
 
@@ -51,25 +51,38 @@ const Wrapper = styled.View`
 
 type Props = {
   type: string;
+  name: string;
+  avatar: string;
+  onReqClick(): void;
 };
 
 type NameProps = {
   name: string;
+  avatar: string;
 };
 
-const Profile: React.FC<NameProps> = ({ name }: NameProps) => {
+const Profile: React.FC<NameProps> = ({ name, avatar }: NameProps) => {
   return (
     <LeftContent>
-      <Image
-        source={require('../../../assets/icon/defaultprofile.png')}
-        style={{ width: 40, height: 40 }}
-      />
+      <View
+        style={{
+          borderRadius: 15,
+          overflow: 'hidden',
+        }}
+      >
+        <Image source={{ uri: avatar }} style={{ width: 40, height: 40 }} />
+      </View>
       <Title>{name}</Title>
     </LeftContent>
   );
 };
 
-const FriendsItem: React.FC<Props> = ({ type }: Props) => {
+const FriendsItem: React.FC<Props> = ({
+  type,
+  name,
+  avatar,
+  onReqClick,
+}: Props) => {
   const [show, setShow] = useState(false);
   const openModal = () => {
     setShow(true);
@@ -84,7 +97,7 @@ const FriendsItem: React.FC<Props> = ({ type }: Props) => {
   };
   return (
     <>
-      {type === 'req' && (
+      {/* {type === 'req' && (
         <Wrapper>
           <Container>
             <Profile name="고태풍" />
@@ -121,14 +134,14 @@ const FriendsItem: React.FC<Props> = ({ type }: Props) => {
             scheduleId={null}
           />
         </Wrapper>
-      )}
+      )} */}
       {type === 'add' && (
         <Wrapper>
           <Container>
-            <Profile name="고태풍" />
+            <Profile name={name} avatar={avatar} />
           </Container>
           <RightContent>
-            <AcceptBtn>
+            <AcceptBtn onPress={onReqClick}>
               <AcceptText>요청</AcceptText>
             </AcceptBtn>
           </RightContent>

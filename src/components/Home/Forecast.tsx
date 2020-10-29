@@ -38,6 +38,9 @@ const Slash = styled.Text`
 const RowWrapper = styled.View`
   flex-direction: row;
   align-items: center;
+  justify-content: ${(props: RowType) =>
+    props.isLeft ? 'flex-start' : 'flex-end'};
+  min-width: ${(props: RowType) => (props.isLeft ? '65px' : '60px')};
 `;
 type WeatherData = {
   main: string;
@@ -60,6 +63,9 @@ type Props = {
 type TempType = {
   isMax?: boolean;
 };
+type RowType = {
+  isLeft?: boolean;
+};
 
 const Forecast: React.FC<Props> = ({ results, isLoading }: Props) => {
   return (
@@ -71,7 +77,7 @@ const Forecast: React.FC<Props> = ({ results, isLoading }: Props) => {
         results.map((result, index) => (
           <View key={result.dt}>
             <Item>
-              <RowWrapper>
+              <RowWrapper isLeft>
                 <WeekText>{TimestampToWeek(result.dt)}</WeekText>
                 <DateText>{TimestampToDate(result.dt)}</DateText>
               </RowWrapper>

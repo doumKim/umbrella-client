@@ -7,6 +7,7 @@ import {
   TextInput,
   View,
   Text,
+  ActivityIndicator,
 } from 'react-native';
 import styled from 'styled-components/native';
 import FriendsItem from '../Friends/FriendsItem';
@@ -30,10 +31,28 @@ const SearchInput = styled(TextInput)`
 
 type Props = {
   type: string;
+  loading: boolean;
+  keyword: string;
+  name: string;
+  avatar: string;
+  onChangeText?(text: string): void;
+  onFindClick(): void;
+  onReqClick(): void;
+  clearKeyword(): void;
 };
 
 /* type) search: 친구 검색 및 친구, add: 친구 추가  */
-const SearchViewer: React.FC<Props> = ({ type }: Props) => {
+const SearchViewer: React.FC<Props> = ({
+  type,
+  loading,
+  keyword,
+  name,
+  avatar,
+  onChangeText,
+  onFindClick,
+  onReqClick,
+  clearKeyword,
+}: Props) => {
   const navigation = useNavigation();
   return (
     <Container>
@@ -48,36 +67,52 @@ const SearchViewer: React.FC<Props> = ({ type }: Props) => {
             style={{ width: 30, height: 30 }}
           />
         </TouchableOpacity>
-        <SearchInput
-          placeholder={type === 'search' ? '나의 친구목록 검색' : '친구 ID'}
-        />
-        {type === 'search' && (
-          <Image
-            source={require('../../../assets/icon/close.png')}
-            style={{ width: 20, height: 20 }}
-          />
-        )}
-        {type === 'add' && (
-          <View style={{ flexDirection: 'row' }}>
+        {/* {type === 'search' && (
+          <>
+            <SearchInput placeholder={'나의 친구목록 검색'} />
             <Image
               source={require('../../../assets/icon/close.png')}
-              style={{ width: 20, height: 20, marginRight: 20 }}
+              style={{ width: 20, height: 20 }}
             />
-            <TouchableOpacity>
-              <Text style={{ fontSize: 16 }}>확인</Text>
+          </>
+        )} */}
+        {type === 'add' && (
+          <>
+            <SearchInput
+              onChangeText={onChangeText}
+              onSubmitEditing={onFindClick}
+              placeholder={'추가할 친구 ID 입력'}
+              value={keyword}
+            />
+            <TouchableOpacity onPress={clearKeyword}>
+              <Image
+                source={require('../../../assets/icon/close.png')}
+                style={{ width: 20, height: 20, marginRight: 20 }}
+              />
             </TouchableOpacity>
-          </View>
+          </>
         )}
       </InputOutline>
-      {type === 'search' && (
+      {/* {type === 'search' && (
         <ScrollView>
           <FriendsItem type="search" />
         </ScrollView>
-      )}
+      )} */}
       {/* TODO: 확인 후 추가할 친구가 있다면 렌더링 */}
-      {type === 'add' && (
+      {type === 'add' && loading ? (
         <View>
-          <FriendsItem type="add" />
+          <ActivityIndicator color={'black'} size={'large'} />
+        </View>
+      ) : (
+        <View>
+          {name ? (
+            <FriendsItem
+              type="add"
+              name={name}
+              avatar={avatar}
+              onReqClick={onReqClick}
+            />
+          ) : null}
         </View>
       )}
     </Container>
