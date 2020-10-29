@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import { accpetFriend, rejectFriend } from '../../api/friend';
 import BottomModal from '../Common/BottomModal';
 
 const Container = styled.View`
@@ -51,6 +52,7 @@ const Wrapper = styled.View`
 
 type Props = {
   type: string;
+  id: number;
   name: string;
   avatar: string;
   onReqClick(): void;
@@ -61,17 +63,24 @@ type NameProps = {
   avatar: string;
 };
 
+const ImageWrapper = styled.View`
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+`;
 const Profile: React.FC<NameProps> = ({ name, avatar }: NameProps) => {
   return (
     <LeftContent>
-      <View
-        style={{
-          borderRadius: 15,
-          overflow: 'hidden',
-        }}
-      >
-        <Image source={{ uri: avatar }} style={{ width: 40, height: 40 }} />
-      </View>
+      <ImageWrapper>
+        <Image
+          source={{
+            uri: avatar
+              ? avatar
+              : 'https://i.ibb.co/nkxzFDZ/default-profile.png',
+          }}
+          style={{ width: 40, height: 40 }}
+        />
+      </ImageWrapper>
       <Title>{name}</Title>
     </LeftContent>
   );
@@ -79,6 +88,7 @@ const Profile: React.FC<NameProps> = ({ name, avatar }: NameProps) => {
 
 const FriendsItem: React.FC<Props> = ({
   type,
+  id,
   name,
   avatar,
   onReqClick,
@@ -97,16 +107,16 @@ const FriendsItem: React.FC<Props> = ({
   };
   return (
     <>
-      {/* {type === 'req' && (
+      {type === 'req' && (
         <Wrapper>
           <Container>
-            <Profile name="고태풍" />
+            <Profile name={name} avatar={avatar} />
           </Container>
           <RightContent>
-            <AcceptBtn>
+            <AcceptBtn onPress={() => accpetFriend}>
               <AcceptText>수락</AcceptText>
             </AcceptBtn>
-            <RejectBtn>
+            <RejectBtn onPress={() => rejectFriend}>
               <RejectText>거절</RejectText>
             </RejectBtn>
           </RightContent>
@@ -116,7 +126,7 @@ const FriendsItem: React.FC<Props> = ({
         <Wrapper>
           <TouchableOpacity onPress={goToDetail}>
             <Container>
-              <Profile name="고태풍" />
+              <Profile name={name} avatar={avatar} />
             </Container>
           </TouchableOpacity>
           <RightContent>
@@ -130,11 +140,12 @@ const FriendsItem: React.FC<Props> = ({
           <BottomModal
             type="friends"
             show={show}
+            id={id}
             closeModal={closeModal}
             scheduleId={null}
           />
         </Wrapper>
-      )} */}
+      )}
       {type === 'add' && (
         <Wrapper>
           <Container>

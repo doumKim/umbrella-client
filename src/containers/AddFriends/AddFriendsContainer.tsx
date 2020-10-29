@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
+import { addFriend, searchUser } from '../../api/friend';
 import SearchViewer from '../../components/SearchFriends/SearchViewer';
 
 const AddFriendsContainer: React.FC = () => {
@@ -22,7 +23,6 @@ const AddFriendsContainer: React.FC = () => {
     }
   };
   //친구요청 할 유저 Find
-  // TODO: 이미 있는 친구 어떻게 처리하는지??
   const handleFindClick = () => {
     (async () => {
       try {
@@ -30,9 +30,7 @@ const AddFriendsContainer: React.FC = () => {
           return !prev;
         });
         await getUserToken();
-        const {
-          data: { avatarUrl, id, username },
-        } = await axios.get(`http://bringumb.tk/user/search/${keyword}`);
+        const { avatarUrl, id, username } = await searchUser(keyword);
         setFriendData({ ...friendData, avatarUrl, id, username });
       } catch (e) {
         Alert.alert('해당하는 친구가 없습니다.');
@@ -47,9 +45,7 @@ const AddFriendsContainer: React.FC = () => {
     (async () => {
       try {
         await getUserToken();
-        await axios.post('http://bringumb.tk/friend/waiting', {
-          friendId: friendData.id,
-        });
+        await addFriend(friendData.id);
         setFriendData({ avatarUrl: '', id: 0, username: '' });
       } catch (e) {
         Alert.alert('친구 요청이 실패했습니다.');
