@@ -3,10 +3,8 @@ import React from 'react';
 import {
   Image,
   TouchableOpacity,
-  ScrollView,
   TextInput,
   View,
-  Text,
   ActivityIndicator,
 } from 'react-native';
 import styled from 'styled-components/native';

@@ -2,10 +2,12 @@ import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 import auth, { signInSaga, signOutSaga } from './auth';
 import schedule, { dropUserScheduleSaga, userScheduleSaga } from './schedule';
+import todos from './todos';
 
 const rootReducer = combineReducers({
   auth,
   schedule,
+  todos,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

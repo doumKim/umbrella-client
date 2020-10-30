@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import WriteActionBtnsContainer from '../containers/WriteSchedule/WriteActionBtnsContainer';
 import WriteScheduleContainer from '../containers/WriteSchedule/WriteScheduleContainer';
 
 const Container = styled.View`
@@ -15,7 +14,6 @@ const WriteSchedule: React.FC = () => {
   return (
     <Container>
       <WriteScheduleContainer />
-      <WriteActionBtnsContainer />
     </Container>
   );
 };
