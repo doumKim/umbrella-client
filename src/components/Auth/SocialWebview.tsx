@@ -29,10 +29,10 @@ Notifications.setNotificationHandler({
 
 const SocialWebview: React.FC<Props> = ({ source, closeModal }: Props) => {
   const webViewRef = useRef(null);
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  /*  useEffect(() => {
     const subscription = Notifications.addNotificationResponseReceivedListener(
       () => {
         navigation.navigate('Friend');
@@ -40,7 +40,7 @@ const SocialWebview: React.FC<Props> = ({ source, closeModal }: Props) => {
     );
     return () => subscription.remove();
   }, []);
-
+ */
   const INJECTED_JAVASCRIPT =
     '(function() {if(window.document.getElementsByTagName("pre").length>0){window.document.getElementsByTagName("pre")[0].style.opacity=0;window.ReactNativeWebView.postMessage((window.document.getElementsByTagName("pre")[0].innerHTML))}})();';
 

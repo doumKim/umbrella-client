@@ -15,6 +15,26 @@ const AddFriendsContainer: React.FC = () => {
     username: '',
     pushToken: '',
   });
+  //
+  const sendPushNotification = async (expoPushToken: string) => {
+    const message = {
+      to: expoPushToken,
+      sound: 'default',
+      title: 'push알림이 왔습니다',
+      body: '잘도착했나요?',
+      data: { data: 'goes here' },
+    };
+
+    await fetch('http://bringumb.tk/pushAlarm', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Accept-encoding': 'gzip, deflate',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(message),
+    });
+  };
 
   const getUserToken = async () => {
     try {
@@ -32,8 +52,10 @@ const AddFriendsContainer: React.FC = () => {
           return !prev;
         });
         await getUserToken();
-        const { avatarUrl, id, username } = await searchUser(keyword);
-        setFriendData({ ...friendData, avatarUrl, id, username });
+        const { avatarUrl, id, username, pushToken } = await searchUser(
+          keyword
+        );
+        setFriendData({ ...friendData, avatarUrl, id, username, pushToken });
       } catch (e) {
         Alert.alert('해당하는 친구가 없습니다.');
       } finally {
@@ -48,13 +70,19 @@ const AddFriendsContainer: React.FC = () => {
       try {
         await getUserToken();
         await addFriend(friendData.id);
-        setFriendData({ avatarUrl: '', id: 0, username: '', pushToken: '' });
+        //setFriendData({ avatarUrl: '', id: 0, username: '', pushToken: '' });
       } catch (e) {
         Alert.alert('친구 요청이 실패했습니다.');
       }
     })();
   };
-
+  //친구요청 및 푸쉬알림 보냄
+  const sendPushAlarm = async () => {
+    await handleReqClick();
+    await sendPushNotification(friendData.pushToken);
+    setFriendData({ avatarUrl: '', id: 0, username: '', pushToken: '' });
+    console.log;
+  };
   const onChangeText = (text: string) => {
     setKeyword(text);
   };
@@ -69,11 +97,10 @@ const AddFriendsContainer: React.FC = () => {
       name={friendData.username}
       id={friendData.id}
       avatar={friendData.avatarUrl}
-      pushToken={friendData.pushToken}
       onChangeText={onChangeText}
       clearKeyword={clearKeyword}
       onFindClick={handleFindClick}
-      onReqClick={handleReqClick}
+      sendPushAlarm={sendPushAlarm}
     />
   );
 };

@@ -34,11 +34,10 @@ type Props = {
   name: string;
   id: number;
   avatar: string;
-  pushToken: string;
   onChangeText?(text: string): void;
   onFindClick(): void;
-  onReqClick(): void;
   clearKeyword(): void;
+  sendPushAlarm(): void;
 };
 
 /* type) search: 친구 검색 및 친구, add: 친구 추가  */
@@ -49,11 +48,10 @@ const SearchViewer: React.FC<Props> = ({
   name,
   id,
   avatar,
-  pushToken,
   onChangeText,
   onFindClick,
-  onReqClick,
   clearKeyword,
+  sendPushAlarm,
 }: Props) => {
   const navigation = useNavigation();
   return (
@@ -113,8 +111,7 @@ const SearchViewer: React.FC<Props> = ({
               name={name}
               id={id}
               avatar={avatar}
-              pushToken={pushToken}
-              onReqClick={onReqClick}
+              sendPushAlarm={sendPushAlarm}
             />
           ) : null}
         </View>
