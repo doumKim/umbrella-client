@@ -4,10 +4,12 @@ import auth, { signInSaga, signOutSaga } from './auth';
 import friendList, { friendListSaga } from './friend';
 import requestFriendList, { requestFriendListSaga } from './requestFriend';
 import schedule, { dropUserScheduleSaga, userScheduleSaga } from './schedule';
+import todos from './todos';
 
 const rootReducer = combineReducers({
   auth,
   schedule,
+  todos,
   friendList,
   requestFriendList,
 });

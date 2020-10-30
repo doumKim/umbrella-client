@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { sortSchedules } from '../modules/helper';
+import schedule from '../modules/schedule';
 
 const getUserToken = async () => {
   try {
@@ -16,6 +17,12 @@ axios.defaults.baseURL = 'http://bringumb.tk';
 export type ScheduleType = {
   id: number;
   creator: number;
+  title: string;
+  date: string;
+  todos: TodoType[];
+};
+
+export type ScheduleInputType = {
   title: string;
   date: string;
   todos: TodoType[];
@@ -46,5 +53,11 @@ export const removeUserSchedule = async (
   const { data } = await axios.delete<RemovedResultType>(
     `/schedule/${scheduleId}`
   );
+  return data;
+};
+
+export const createUserSchedule = async (schedule: string): Promise<void> => {
+  await getUserToken();
+  const { data } = await axios.post('/schedule', { schedule });
   return data;
 };
