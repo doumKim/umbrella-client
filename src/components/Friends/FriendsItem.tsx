@@ -150,7 +150,6 @@ const FriendsItem: React.FC<Props> = ({
             show={show}
             id={id}
             closeModal={closeModal}
-            scheduleId={null}
           />
         </Wrapper>
       )}

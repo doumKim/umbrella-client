@@ -42,6 +42,7 @@ const MyProfileContainer: React.FC = () => {
         await getUserToken();
         const { id, userId, username, avatarUrl } = await getUserInfo();
         setMyData({ ...myData, id, userId, username, avatarUrl });
+        setImage(avatarUrl);
       } catch (e) {
         Alert.alert('유저정보를 불러올 수 없습니다.');
       } finally {

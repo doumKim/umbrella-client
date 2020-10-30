@@ -139,9 +139,7 @@ const MyProfile: React.FC<Props> = ({
             <Image
               source={{
                 uri: image
-                  ? avatar
-                    ? avatar
-                    : image
+                  ? image
                   : 'https://i.ibb.co/nkxzFDZ/default-profile.png',
               }}
               style={{ width: 80, height: 80 }}
