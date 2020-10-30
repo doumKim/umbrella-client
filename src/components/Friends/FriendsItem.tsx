@@ -66,7 +66,7 @@ type NameProps = {
 const ImageWrapper = styled.View`
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 `;
 const Profile: React.FC<NameProps> = ({ name, avatar }: NameProps) => {
   return (
