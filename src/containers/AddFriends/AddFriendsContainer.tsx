@@ -1,12 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
 import { addFriend, searchUser } from '../../api/friend';
+import Loading from '../../components/Common/Loading';
 import SearchViewer from '../../components/SearchFriends/SearchViewer';
 
 const AddFriendsContainer: React.FC = () => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [keyword, setKeyword] = useState('');
   const [friendData, setFriendData] = useState({
     avatarUrl: '',
@@ -56,7 +57,7 @@ const AddFriendsContainer: React.FC = () => {
         );
         setFriendData({ ...friendData, avatarUrl, id, username, pushToken });
       } catch (e) {
-        Alert.alert('해당하는 친구가 없습니다.');
+        setError('😒 해당하는 아이디가 없습니다.');
       } finally {
         setKeyword('');
         setLoading(false);
@@ -71,7 +72,7 @@ const AddFriendsContainer: React.FC = () => {
         await addFriend(friendData.id);
         //setFriendData({ avatarUrl: '', id: 0, username: '', pushToken: '' });
       } catch (e) {
-        Alert.alert('친구 요청이 실패했습니다.');
+        setError('🤒 친구 요청이 실패했습니다.');
       }
     })();
   };
@@ -90,18 +91,23 @@ const AddFriendsContainer: React.FC = () => {
     setKeyword('');
   };
   return (
-    <SearchViewer
-      type="add"
-      loading={loading}
-      keyword={keyword}
-      name={friendData.username}
-      id={friendData.id}
-      avatar={friendData.avatarUrl}
-      onChangeText={onChangeText}
-      clearKeyword={clearKeyword}
-      onFindClick={handleFindClick}
-      sendPushAlarm={sendPushAlarm}
-    />
+    <>
+      {loading && <Loading />}
+      <SearchViewer
+        type="add"
+        keyword={keyword}
+        friendData={{
+          avatarUrl: friendData.avatarUrl,
+          id: friendData.id,
+          username: friendData.username,
+        }}
+        error={error}
+        onChangeText={onChangeText}
+        clearKeyword={clearKeyword}
+        onFindClick={handleFindClick}
+        sendPushAlarm={sendPushAlarm}
+      />
+    </>
   );
 };
 

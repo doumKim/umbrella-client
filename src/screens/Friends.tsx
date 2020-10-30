@@ -12,7 +12,6 @@ import { useNavigation } from '@react-navigation/native';
 const Section = styled.View`
   margin-bottom: 15px;
 `;
-
 const Sub = styled.View`
   flex-direction: row;
   align-items: center;
@@ -24,12 +23,18 @@ const SubTitle = styled.Text`
   font-weight: 500;
   color: ${props => props.theme.palette.main};
 `;
-
 const Wrapper = styled.View`
   flex-direction: row;
   justify-content: space-between;
   width: 100px;
 `;
+const Line = styled.View`
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.04);
+  margin-bottom: 20px;
+`;
+
 const Friends: React.FC = () => {
   const [isOpenReq, setIsOpenReq] = useState<boolean>(true); //친구요청 Open/Close
   const [isOpenList, setIsOpenList] = useState<boolean>(true); //친구목록 Open/Close
@@ -72,6 +77,7 @@ const Friends: React.FC = () => {
             </Sub>
             {isOpenReq && <FriendsReqContainer />}
           </Section>
+          <Line />
           <Section>
             <Sub>
               <SubTitle>친구 목록</SubTitle>

@@ -130,7 +130,7 @@ const FriendsItem: React.FC<Props> = ({
           </RightContent>
         </Wrapper>
       )}
-      {type === 'search' && (
+      {(type === 'search' || type === 'list') && (
         <Wrapper>
           <TouchableOpacity onPress={goToDetail}>
             <Container>
