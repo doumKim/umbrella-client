@@ -7,10 +7,10 @@ import { dropFriend } from '../../api/friend';
 import { removeUserScheduleAsync } from '../../modules/schedule';
 type Props = {
   type: string;
-  id: number;
+  id: number | null;
   show: boolean;
   closeModal(): void;
-  scheduleId: string | null;
+  scheduleId: number | undefined;
 };
 const DarkOpacity = styled.View`
   width: 100%;
@@ -78,7 +78,13 @@ const BottomModal: React.FC<Props> = ({
           <TopDeco />
           {type === 'friends' && (
             <>
-              <Button onPress={() => handleDeleteClick(id)}>
+              <Button
+                onPress={() => {
+                  if (id) {
+                    handleDeleteClick(id);
+                  }
+                }}
+              >
                 <StyledText>친구 삭제</StyledText>
               </Button>
               <Line />

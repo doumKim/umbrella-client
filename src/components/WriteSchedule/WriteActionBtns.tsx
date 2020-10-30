@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import { RootState } from '../../modules';
+import { createUserScheduleAsync } from '../../modules/schedule';
 import { addScheduleInfo } from '../../modules/todos';
 
 type Props = {
@@ -46,6 +47,11 @@ const WriteActionBtns: React.FC<Props> = ({ title, date }: Props) => {
   const dispatch = useDispatch();
   const schedule = useSelector((state: RootState) => state.todos);
   const todos = useSelector((state: RootState) => state.todos.todos);
+  const navigation = useNavigation();
+  const handleCreateSchedule = () => {
+    dispatch(createUserScheduleAsync.request(schedule));
+    navigation.navigate('Schedule');
+  };
 
   const handelIsDone = (): void => {
     setIsDone(prevState => !prevState);
@@ -55,7 +61,7 @@ const WriteActionBtns: React.FC<Props> = ({ title, date }: Props) => {
   useEffect(() => {
     setIsDone(false);
   }, [title, date, todos]);
-  const navigation = useNavigation();
+
   return (
     <Container>
       <CancelBtn
@@ -67,7 +73,7 @@ const WriteActionBtns: React.FC<Props> = ({ title, date }: Props) => {
       </CancelBtn>
       <SaveBtn>
         {isDone ? (
-          <StyledText onPress={() => console.log(schedule)}>저장</StyledText>
+          <StyledText onPress={handleCreateSchedule}>저장</StyledText>
         ) : (
           <StyledText onPress={handelIsDone}>입력 완료</StyledText>
         )}

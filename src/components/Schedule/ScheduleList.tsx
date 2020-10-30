@@ -4,7 +4,7 @@ import ScheduleItem from './ScheduleItem';
 
 type Props = {
   type: string;
-  scheduels: ScheduleType[] | null;
+  scheduels: ScheduleType[] | null | undefined;
 };
 
 const ScheduleList: React.FC<Props> = ({ type, scheduels }: Props) => {
