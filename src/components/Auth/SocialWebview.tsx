@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useRef } from 'react';
-import { Text, View, Button, Platform, Linking } from 'react-native';
+import { Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import { useDispatch } from 'react-redux';
@@ -10,6 +10,7 @@ import * as Permissions from 'expo-permissions';
 import { getUserTokenAsync } from '../../modules/auth';
 import { getUserScheduleAsync } from '../../modules/schedule';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const userAgent =
   'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1';
@@ -64,7 +65,18 @@ const SocialWebview: React.FC<Props> = ({ source, closeModal }: Props) => {
       //토큰 받아옴
       token = (await Notifications.getExpoPushTokenAsync()).data;
       //서버에 토큰저장 요청
-      await fetch('http://bringumb.tk/pushToken', {
+      await axios.patch('http://bringumb.tk/pushToken', {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token: {
+            value: token,
+          },
+        }),
+      });
+      /* await fetch('http://bringumb.tk/pushToken', {
         method: 'PATCH',
         headers: {
           Accept: 'application/json',
@@ -80,7 +92,7 @@ const SocialWebview: React.FC<Props> = ({ source, closeModal }: Props) => {
           },
         }),
       });
-
+ */
       console.log(token);
     } else {
       alert('Must use physical device for Push Notifications');
@@ -102,19 +114,16 @@ const SocialWebview: React.FC<Props> = ({ source, closeModal }: Props) => {
     if (success) {
       const userToken = result.userToken;
       try {
-        //서버에 토큰저장 요청.
+        const token = await AsyncStorage.setItem('userToken', userToken);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         await registerForPushNotificationsAsync();
-        /* if (pushToken) {
-          await AsyncStorage.setItem('pushToken', pushToken);
-        } */
-        await AsyncStorage.setItem('userToken', userToken);
       } catch (e) {
         console.error(e);
       }
     }
+    //await registerForPushNotificationsAsync();
     dispatch(getUserTokenAsync.request());
     dispatch(getUserScheduleAsync.request());
-    //dispatch(getPushTokenAsync.request());
     closeModal();
   };
 
