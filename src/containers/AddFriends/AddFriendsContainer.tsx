@@ -80,8 +80,9 @@ const AddFriendsContainer: React.FC = () => {
   const sendPushAlarm = async () => {
     await handleReqClick();
     await sendPushNotification(friendData.pushToken);
+    console.log(friendData.pushToken);
     setFriendData({ avatarUrl: '', id: 0, username: '', pushToken: '' });
-    console.log;
+    console.log(friendData.pushToken);
   };
   const onChangeText = (text: string) => {
     setKeyword(text);
