@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { addFriend, searchUser } from '../../api/friend';
 import SearchViewer from '../../components/SearchFriends/SearchViewer';
+import friendList from '../../modules/friend';
 
 const AddFriendsContainer: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -12,6 +13,7 @@ const AddFriendsContainer: React.FC = () => {
     avatarUrl: '',
     id: 0,
     username: '',
+    pushToken: '',
   });
 
   const getUserToken = async () => {
@@ -46,7 +48,7 @@ const AddFriendsContainer: React.FC = () => {
       try {
         await getUserToken();
         await addFriend(friendData.id);
-        setFriendData({ avatarUrl: '', id: 0, username: '' });
+        setFriendData({ avatarUrl: '', id: 0, username: '', pushToken: '' });
       } catch (e) {
         Alert.alert('친구 요청이 실패했습니다.');
       }
@@ -67,6 +69,7 @@ const AddFriendsContainer: React.FC = () => {
       name={friendData.username}
       id={friendData.id}
       avatar={friendData.avatarUrl}
+      pushToken={friendData.pushToken}
       onChangeText={onChangeText}
       clearKeyword={clearKeyword}
       onFindClick={handleFindClick}
