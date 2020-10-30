@@ -22,7 +22,7 @@ const FriendsContainer: React.FC = () => {
       {error && <ErrorComponent />}
       {loading || error || (
         <>
-          <FriendsList type="search" friendList={friendList?.followers} />
+          <FriendsList type="list" friendList={friendList?.followers} />
         </>
       )}
     </>

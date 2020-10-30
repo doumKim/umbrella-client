@@ -1,8 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ErrorComponent from '../../components/Common/ErrorComponent';
+import Loading from '../../components/Common/Loading';
 import SearchViewer from '../../components/SearchFriends/SearchViewer';
+import { RootState } from '../../modules';
+import { getFriendListAsync } from '../../modules/friend';
 
 const SearchFriendsContainer: React.FC = () => {
-  return <SearchViewer type="search" />;
+  const [keyword, setKeyword] = useState('');
+
+  const { error, loading, friendList } = useSelector(
+    (state: RootState) => state.friendList.myFriendList
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFriendListAsync.request());
+  }, []);
+  const onChangeText = (text: string) => {
+    setKeyword(text);
+  };
+  const clearKeyword = () => {
+    setKeyword('');
+  };
+  return (
+    <>
+      {loading && <Loading />}
+      {error && <ErrorComponent />}
+      {loading || error || (
+        <>
+          <SearchViewer
+            type="search"
+            friendList={friendList?.followers.filter(follower =>
+              follower.username.includes(keyword)
+            )}
+            keyword={keyword}
+            onChangeText={onChangeText}
+            clearKeyword={clearKeyword}
+            sendPushAlarm={() => {
+              console.log('');
+            }}
+          />
+        </>
+      )}
+    </>
+  );
 };
 
 export default SearchFriendsContainer;
