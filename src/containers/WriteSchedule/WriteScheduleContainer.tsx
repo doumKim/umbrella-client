@@ -7,7 +7,7 @@ import { RootState } from '../../modules';
 import WriteActionBtnsContainer from './WriteActionBtnsContainer';
 
 const WriteScheduleContainer: React.FC = () => {
-  const todos = useSelector((state: RootState) => state.todos);
+  const todos = useSelector((state: RootState) => state.todos.todos);
   const [title, setTitle] = useState('');
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
