@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { addFriend, searchUser } from '../../api/friend';
 import SearchViewer from '../../components/SearchFriends/SearchViewer';
-import friendList from '../../modules/friend';
 
 const AddFriendsContainer: React.FC = () => {
   const [loading, setLoading] = useState(false);

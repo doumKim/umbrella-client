@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useRef } from 'react';
-import { Text, View, Button, Platform, Linking } from 'react-native';
+import { Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
 import { useDispatch } from 'react-redux';

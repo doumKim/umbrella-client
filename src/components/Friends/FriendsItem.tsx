@@ -1,12 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
-import { accpetFriend, rejectFriend, addFriend } from '../../api/friend';
+import { accpetFriend, rejectFriend } from '../../api/friend';
 import BottomModal from '../Common/BottomModal';
-import axios from 'axios';
-//import io from 'socket.io-client';
-//import { getPushToken } from '../../api/auth';
+
 const Container = styled.View`
   height: 60px;
   flex-direction: row;
