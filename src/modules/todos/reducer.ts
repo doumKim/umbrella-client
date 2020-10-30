@@ -1,18 +1,31 @@
 import { createReducer } from 'typesafe-actions';
-import { ADD_TODO, REMOVE_TODO } from './actions';
-import { TodosAction, TodosState } from './types';
+import { ADD_SCHEDULE_INFO, ADD_TODO, REMOVE_TODO } from './actions';
+import { ScheduleInputState, TodosAction } from './types';
 
-const initialState: TodosState = [];
+const initialState: ScheduleInputState = {
+  title: '',
+  date: new Date(),
+  todos: [],
+};
 
-const todos = createReducer<TodosState, TodosAction>(initialState, {
-  [ADD_TODO]: (state, action) =>
-    state.concat({
+const todos = createReducer<ScheduleInputState, TodosAction>(initialState, {
+  [ADD_TODO]: (state, action) => ({
+    ...state,
+    todos: state.todos.concat({
       ...action.payload,
     }),
-  [REMOVE_TODO]: (state, action) =>
-    state.filter(todo => {
+  }),
+  [REMOVE_TODO]: (state, action) => ({
+    ...state,
+    todos: state.todos.filter(todo => {
       return todo.id === action.payload ? false : true;
     }),
+  }),
+  [ADD_SCHEDULE_INFO]: (state, action) => ({
+    ...state,
+    title: action.payload.title,
+    date: action.payload.date,
+  }),
 });
 
 export default todos;

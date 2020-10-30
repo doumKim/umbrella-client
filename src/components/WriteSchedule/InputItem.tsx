@@ -60,11 +60,11 @@ type WarningTextType = {
 
 const InputItem: React.FC = () => {
   const dispatch = useDispatch();
-  const todos = useSelector((state: RootState) => state.todos);
+  const todos = useSelector((state: RootState) => state.todos.todos);
   const [date, setDate] = useState(new Date());
-  const [hour, setHour] = useState(0);
+  const [hour, setHour] = useState<number | null>(null);
   const [note, setNote] = useState('');
-  const [minutes, setMinutes] = useState(0);
+  const [minutes, setMinutes] = useState<number | null>(null);
   const [show, setShow] = useState(false);
   const [displayDate, setDisplayDate] = useState('');
   const [displayLocation, setDisplayLocation] = useState({
@@ -74,18 +74,22 @@ const InputItem: React.FC = () => {
   });
   const [warning, setWarning] = useState(false);
   const handleSetInfo = () => {
-    if (todos.length < 4) {
+    if (
+      todos.length < 4 &&
+      hour !== null &&
+      minutes !== null &&
+      note &&
+      displayLocation.placeName
+    ) {
       setWarning(false);
       dispatch(
         addTodo({
           hour,
           minutes,
           note,
-          location: {
-            latitude: displayLocation.latitude,
-            longitude: displayLocation.longitude,
-            placeName: displayLocation.placeName,
-          },
+          latitude: displayLocation.latitude,
+          longitude: displayLocation.longitude,
+          placeName: displayLocation.placeName,
         })
       );
     } else {
@@ -144,7 +148,7 @@ const InputItem: React.FC = () => {
         }}
       >
         <WarningText warning={warning}>
-          할 일은 최대 4개까지 등록 가능합니다.
+          입력이 비었거나 할 일 최대 개수를 넘었습니다.
         </WarningText>
         <TouchableOpacity onPress={handleSetInfo}>
           <Image

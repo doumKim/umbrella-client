@@ -1,6 +1,9 @@
 import { createReducer } from 'typesafe-actions';
 import { sortSchedules } from '../helper';
 import {
+  CREATE_USER_SCHEDULE,
+  CREATE_USER_SCHEDULE_ERROR,
+  CREATE_USER_SCHEDULE_SUCCESS,
   GET_USER_SCHEDULE,
   GET_USER_SCHEDULE_ERROR,
   GET_USER_SCHEDULE_SUCCESS,
@@ -72,6 +75,27 @@ const schedule = createReducer<ScheduleState, ScheduleAction>(initialState, {
       loading: false,
       error: action.payload,
       schedules: state.mySchedules.schedules,
+    },
+  }),
+  [CREATE_USER_SCHEDULE]: state => ({
+    ...state,
+    mySchedules: {
+      ...state.mySchedules,
+      loading: true,
+    },
+  }),
+  [CREATE_USER_SCHEDULE_SUCCESS]: (state, action) => ({
+    ...state,
+    mySchedules: {
+      ...state.mySchedules,
+      schedules: state.mySchedules.schedules?.concat(action.payload),
+    },
+  }),
+  [CREATE_USER_SCHEDULE_ERROR]: (state, action) => ({
+    ...state,
+    mySchedules: {
+      ...state.mySchedules,
+      error: action.payload,
     },
   }),
 });

@@ -1,6 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
+import { RootState } from '../../modules';
+import { addScheduleInfo } from '../../modules/todos';
 
 type Props = {
   title: string;
@@ -40,14 +43,18 @@ const StyledText = styled.Text`
 
 const WriteActionBtns: React.FC<Props> = ({ title, date }: Props) => {
   const [isDone, setIsDone] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const schedule = useSelector((state: RootState) => state.todos);
+  const todos = useSelector((state: RootState) => state.todos.todos);
 
   const handelIsDone = (): void => {
     setIsDone(prevState => !prevState);
+    dispatch(addScheduleInfo(title, date));
   };
 
   useEffect(() => {
     setIsDone(false);
-  }, [title, date]);
+  }, [title, date, todos]);
   const navigation = useNavigation();
   return (
     <Container>
@@ -60,7 +67,7 @@ const WriteActionBtns: React.FC<Props> = ({ title, date }: Props) => {
       </CancelBtn>
       <SaveBtn>
         {isDone ? (
-          <StyledText>저장</StyledText>
+          <StyledText onPress={() => console.log(schedule)}>저장</StyledText>
         ) : (
           <StyledText onPress={handelIsDone}>입력 완료</StyledText>
         )}

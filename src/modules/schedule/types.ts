@@ -7,7 +7,7 @@ export type ScheduleAction = ActionType<typeof actions>;
 export type ScheduleState = {
   mySchedules: {
     loading: boolean;
-    schedules: ScheduleType[] | null;
+    schedules: ScheduleType[] | null | undefined;
     error: Error | null;
   };
 };

@@ -3,17 +3,13 @@ import * as actions from './actions';
 
 export type TodosAction = ActionType<typeof actions>;
 
-export type LocationType = {
-  placeName: string;
-  latitude: string;
-  longitude: string;
-};
-
 export type InputTodoType = {
   hour: number;
   minutes: number;
   note: string;
-  location: LocationType;
+  placeName: string;
+  latitude: string;
+  longitude: string;
 };
 
 export type TodoState = InputTodoType & {
@@ -21,3 +17,9 @@ export type TodoState = InputTodoType & {
 };
 
 export type TodosState = TodoState[];
+
+export type ScheduleInputState = {
+  title: string;
+  date: Date;
+  todos: TodosState;
+};

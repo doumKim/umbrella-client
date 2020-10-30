@@ -40,13 +40,11 @@ const TodoList: React.FC<TodoListProps> = ({ todos }: TodoListProps) => {
       {todos.map(todo => (
         <TodoListItem key={todo.id}>
           <InfoWrapper>
-            <TodoNote>
-              {todo.note} Id:{todo.id}
-            </TodoNote>
+            <TodoNote>{todo.note}</TodoNote>
             <TodoTime>
               {todo.hour}시 {todo.minutes}분
             </TodoTime>
-            <TodoLocation>{todo.location.placeName}</TodoLocation>
+            <TodoLocation>{todo.placeName}</TodoLocation>
           </InfoWrapper>
           <TouchableOpacity
             style={{
