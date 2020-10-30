@@ -61,7 +61,6 @@ const UserId = styled.Text`
 const AvatarWrapper = styled.ImageBackground`
   border-radius: 40px;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 type Props = {
