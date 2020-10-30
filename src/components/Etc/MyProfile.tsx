@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Image, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, TouchableOpacity } from 'react-native';
 import styled, { css } from 'styled-components/native';
 import ChangeProfileModal from './ChangeProfileModal';
 
@@ -55,8 +55,12 @@ const UserId = styled.Text`
           font-size: 15px;
           line-height: 30px;
         `}
-
   min-width: 110px;
+`;
+
+const AvatarWrapper = styled.ImageBackground`
+  border-radius: 40px;
+  overflow: hidden;
 `;
 
 type Props = {
@@ -64,6 +68,7 @@ type Props = {
   nickname: string | undefined;
   userId: string | undefined;
   isLoading: boolean;
+  image: string;
   warning: string;
   keywordName: string;
   keywordId: string;
@@ -72,6 +77,7 @@ type Props = {
   clearKeyword(): void;
   onSubmitNickname(): void;
   onSubmitUserId(): void;
+  onImageClick(): void;
 };
 
 type UserIdType = {
@@ -83,6 +89,7 @@ const MyProfile: React.FC<Props> = ({
   nickname,
   userId,
   isLoading,
+  image,
   warning,
   keywordName,
   keywordId,
@@ -91,6 +98,7 @@ const MyProfile: React.FC<Props> = ({
   clearKeyword,
   onSubmitNickname,
   onSubmitUserId,
+  onImageClick,
 }: Props) => {
   const [show, setShow] = useState(false);
   const [type, setType] = useState('nickname');
@@ -113,20 +121,27 @@ const MyProfile: React.FC<Props> = ({
   ) : (
     <Container>
       <TopContent>
-        <Image
-          source={require('../../../assets/icon/camera.png')}
-          style={{
-            width: 30,
-            height: 30,
-            position: 'absolute',
-            top: -4,
-            left: -7,
-            zIndex: 100,
-          }}
-        />
-        <View style={{ borderRadius: 40, overflow: 'hidden' }}>
-          <Image source={{ uri: avatar }} style={{ width: 80, height: 80 }} />
-        </View>
+        <TouchableOpacity onPress={onImageClick}>
+          <Image
+            source={require('../../../assets/icon/camera.png')}
+            style={{
+              width: 30,
+              height: 30,
+              position: 'absolute',
+              top: -4,
+              left: -7,
+              zIndex: 100,
+            }}
+          />
+          <AvatarWrapper
+            source={{ uri: 'https://i.ibb.co/zh9Gw4S/loading.gif' }}
+          >
+            <Image
+              source={{ uri: image ? image : avatar }}
+              style={{ width: 80, height: 80 }}
+            />
+          </AvatarWrapper>
+        </TouchableOpacity>
       </TopContent>
       <BottomContent>
         <Span>

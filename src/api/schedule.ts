@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { sortSchedules } from '../modules/helper';
+import { ScheduleInputState } from '../modules/todos/types';
 
 const getUserToken = async () => {
   try {
@@ -17,14 +18,17 @@ export type ScheduleType = {
   id: number;
   creator: number;
   title: string;
-  date: string;
+  date: Date;
   todos: TodoType[];
 };
 
 export type TodoType = {
   id: number;
-  location: string;
-  date: string;
+  placeName: string;
+  latitude: string;
+  longitude: string;
+  hour: number;
+  minutes: number;
   note: string;
 };
 
@@ -46,5 +50,13 @@ export const removeUserSchedule = async (
   const { data } = await axios.delete<RemovedResultType>(
     `/schedule/${scheduleId}`
   );
+  return data;
+};
+
+export const createUserSchedule = async (
+  schedule: ScheduleInputState
+): Promise<ScheduleType> => {
+  await getUserToken();
+  const { data } = await axios.post('/schedule', { schedule });
   return data;
 };

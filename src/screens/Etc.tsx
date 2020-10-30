@@ -24,6 +24,7 @@ const TopHeader = styled.View`
 
 const Wrapper = styled.View`
   align-items: flex-end;
+  margin-top: 10px;
 `;
 
 const Logout = styled.Text`
