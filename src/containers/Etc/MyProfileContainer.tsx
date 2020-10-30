@@ -112,7 +112,6 @@ const MyProfileContainer: React.FC = () => {
 
   return (
     <MyProfile
-      avatar={myData?.avatarUrl}
       nickname={myData?.username}
       userId={myData?.userId}
       image={image}
