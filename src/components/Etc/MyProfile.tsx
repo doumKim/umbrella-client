@@ -64,7 +64,6 @@ const AvatarWrapper = styled.ImageBackground`
 `;
 
 type Props = {
-  avatar: string | undefined;
   nickname: string | undefined;
   userId: string | undefined;
   isLoading: boolean;
@@ -85,7 +84,6 @@ type UserIdType = {
 };
 
 const MyProfile: React.FC<Props> = ({
-  avatar,
   nickname,
   userId,
   isLoading,
