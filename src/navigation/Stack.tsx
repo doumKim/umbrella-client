@@ -8,6 +8,7 @@ import SearchFriends from '../screens/SearchFriends';
 import AuthIntro from '../screens/Auth/AuthIntro';
 import { NavigationContainer } from '@react-navigation/native';
 import AddFriends from '../screens/AddFriends';
+import Friend from '../screens/Friends';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../modules';
 import { getUserTokenAsync } from '../modules/auth';
@@ -32,6 +33,7 @@ const MainStack: React.FC = () => {
       <Stack.Screen name="WriteSchedule" component={WriteSchedule} />
       <Stack.Screen name="SearchFriends" component={SearchFriends} />
       <Stack.Screen name="AddFriends" component={AddFriends} />
+      <Stack.Screen name="Friend" component={Friend} />
     </Stack.Navigator>
   );
 };

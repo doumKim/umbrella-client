@@ -23,8 +23,9 @@ const FriendsList: React.FC<Props> = ({ type, friendList }: Props) => {
                 id={friend.id}
                 name={friend.username}
                 avatar={friend.avatarUrl}
+                pushToken=""
                 onReqClick={() => {
-                  console.log('hi');
+                  console.log('');
                 }}
               />
             );
@@ -44,8 +45,9 @@ const FriendsList: React.FC<Props> = ({ type, friendList }: Props) => {
                 id={friend.id}
                 name={friend.username}
                 avatar={friend.avatarUrl}
+                pushToken=""
                 onReqClick={() => {
-                  console.log('hi');
+                  console.log('');
                 }}
               />
             );

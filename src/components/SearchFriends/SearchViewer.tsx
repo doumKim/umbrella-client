@@ -34,6 +34,7 @@ type Props = {
   name: string;
   id: number;
   avatar: string;
+  pushToken: string;
   onChangeText?(text: string): void;
   onFindClick(): void;
   onReqClick(): void;
@@ -48,6 +49,7 @@ const SearchViewer: React.FC<Props> = ({
   name,
   id,
   avatar,
+  pushToken,
   onChangeText,
   onFindClick,
   onReqClick,
@@ -111,6 +113,7 @@ const SearchViewer: React.FC<Props> = ({
               name={name}
               id={id}
               avatar={avatar}
+              pushToken={pushToken}
               onReqClick={onReqClick}
             />
           ) : null}

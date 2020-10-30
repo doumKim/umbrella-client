@@ -1,10 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
-import { accpetFriend, rejectFriend } from '../../api/friend';
+import { accpetFriend, rejectFriend, addFriend } from '../../api/friend';
 import BottomModal from '../Common/BottomModal';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import io from 'socket.io-client';
+//import { getPushToken } from '../../api/auth';
 const Container = styled.View`
   height: 60px;
   flex-direction: row;
@@ -55,6 +57,7 @@ type Props = {
   id: number;
   name: string;
   avatar: string;
+  pushToken: string;
   onReqClick(): void;
 };
 
@@ -90,14 +93,47 @@ const FriendsItem: React.FC<Props> = ({
   id,
   name,
   avatar,
+  pushToken,
   onReqClick,
 }: Props) => {
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const socket = io('http://bringumb.tk', {
+      transports: ['websocket'],
+    });
+  }, []);
   const openModal = () => {
     setShow(true);
   };
   const closeModal = () => {
     setShow(false);
+  };
+  //받은pushToken으로 pushAlarm날림
+  const sendPushNotification = async (expoPushToken: string) => {
+    const message = {
+      to: expoPushToken,
+      sound: 'default',
+      title: 'push알림이 왔습니다',
+      body: '잘도착했나요?',
+      data: { data: 'goes here' },
+    };
+
+    await fetch('http://bringumb.tk/pushAlarm', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Accept-encoding': 'gzip, deflate',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(message),
+    });
+  };
+
+  const sendPushAlarm = async () => {
+    //친구요청보냄
+    await onReqClick();
+    await sendPushNotification(pushToken);
   };
 
   const navigation = useNavigation();
@@ -151,7 +187,11 @@ const FriendsItem: React.FC<Props> = ({
             <Profile name={name} avatar={avatar} />
           </Container>
           <RightContent>
-            <AcceptBtn onPress={onReqClick}>
+            <AcceptBtn
+              onPress={() => {
+                sendPushAlarm();
+              }}
+            >
               <AcceptText>요청</AcceptText>
             </AcceptBtn>
           </RightContent>
