@@ -41,7 +41,10 @@ const TodoItem: React.FC<Props> = ({ type, todo, schedule }: Props) => {
     <TouchableOpacity activeOpacity={0.8} onPress={goToDetail}>
       <Container>
         <Content>
-          <Time>{todo.date}</Time>
+          <Time>
+            {todo.hour < 10 ? `0${todo.hour}` : todo.hour}시{' '}
+            {todo.minutes < 10 ? `0${todo.minutes}` : todo.minutes}분
+          </Time>
           <Location>{todo.note}</Location>
         </Content>
         <Image
