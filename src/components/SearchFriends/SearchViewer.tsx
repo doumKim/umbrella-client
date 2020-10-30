@@ -32,6 +32,7 @@ type Props = {
   loading: boolean;
   keyword: string;
   name: string;
+  id: number;
   avatar: string;
   onChangeText?(text: string): void;
   onFindClick(): void;
@@ -45,6 +46,7 @@ const SearchViewer: React.FC<Props> = ({
   loading,
   keyword,
   name,
+  id,
   avatar,
   onChangeText,
   onFindClick,
@@ -65,7 +67,7 @@ const SearchViewer: React.FC<Props> = ({
             style={{ width: 30, height: 30 }}
           />
         </TouchableOpacity>
-        {/* {type === 'search' && (
+        {type === 'search' && (
           <>
             <SearchInput placeholder={'나의 친구목록 검색'} />
             <Image
@@ -73,7 +75,7 @@ const SearchViewer: React.FC<Props> = ({
               style={{ width: 20, height: 20 }}
             />
           </>
-        )} */}
+        )}
         {type === 'add' && (
           <>
             <SearchInput
@@ -107,6 +109,7 @@ const SearchViewer: React.FC<Props> = ({
             <FriendsItem
               type="add"
               name={name}
+              id={id}
               avatar={avatar}
               onReqClick={onReqClick}
             />
