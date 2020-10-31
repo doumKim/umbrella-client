@@ -7,7 +7,7 @@ import FriendsList from '../../components/Friends/FriendsList';
 import { RootState } from '../../modules';
 import { getRequestFriendListAsync } from '../../modules/requestFriend';
 
-const socket = io();
+const socket = io('http://bringumb.tk');
 
 const FriendsReqContainer: React.FC = () => {
   const { error, loading, requestFriendList } = useSelector(

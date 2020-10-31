@@ -1,10 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Socket } from 'socket.io-client';
 import { addFriend, searchUser } from '../../api/friend';
 import Loading from '../../components/Common/Loading';
 import SearchViewer from '../../components/SearchFriends/SearchViewer';
+import io from 'socket.io-client';
+
+const socket = io('http://bringumb.tk');
 
 const AddFriendsContainer: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -17,7 +19,6 @@ const AddFriendsContainer: React.FC = () => {
     pushToken: '',
     socketId: '',
   });
-  //
 
   const sendPushNotification = async (expoPushToken: string) => {
     const userToken = await AsyncStorage.getItem('userToken');
@@ -89,7 +90,7 @@ const AddFriendsContainer: React.FC = () => {
     handleReqClick();
     sendPushNotification(friendData.pushToken);
 
-    Socket.emit('sendPushAlarm', friendData.socketId);
+    socket.emit('sendPushAlarm', friendData.socketId);
     setFriendData({
       avatarUrl: '',
       id: 0,

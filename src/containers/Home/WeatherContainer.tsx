@@ -9,8 +9,12 @@ import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import io from 'socket.io-client';
+import { getUserInfo } from '../../api/etc';
 
 const WEATHER_API = '7445083dcf354d54e1688965b5591b85';
+
+const socket = io('http://bringumb.tk');
 
 const { height } = Dimensions.get('screen');
 
@@ -42,6 +46,9 @@ const WeatherContainer: React.FC = () => {
     },
     name: '',
   });
+
+  //const [id, setId] = useState(0);
+
   const [weekResults, setWeekResults] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -51,6 +58,7 @@ const WeatherContainer: React.FC = () => {
   const registerForPushNotificationsAsync = async () => {
     const userToken = await AsyncStorage.getItem('userToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
     if (status !== 'granted') {
       return;
@@ -87,9 +95,20 @@ const WeatherContainer: React.FC = () => {
     setIsLoading(false);
   };
 
+  const saveSocketId = async (id: number) => {
+    await socket.emit('login', { id: id });
+    console.log(id, '를 가진 유저에 socketId를 저장했습니다');
+  };
+
   useEffect(() => {
     const registerPushToken = async () => {
       await registerForPushNotificationsAsync();
+
+      const { id } = await getUserInfo();
+      console.log('설정한', id);
+
+      await saveSocketId(id);
+      console.log('id는', id);
     };
     registerPushToken();
 
