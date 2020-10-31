@@ -1,5 +1,10 @@
 import { createReducer } from 'typesafe-actions';
-import { ADD_SCHEDULE_INFO, ADD_TODO, REMOVE_TODO } from './actions';
+import {
+  ADD_SCHEDULE_INFO,
+  ADD_TODO,
+  CLEAR_TODOS,
+  REMOVE_TODO,
+} from './actions';
 import { ScheduleInputState, TodosAction } from './types';
 
 const initialState: ScheduleInputState = {
@@ -25,6 +30,12 @@ const todos = createReducer<ScheduleInputState, TodosAction>(initialState, {
     ...state,
     title: action.payload.title,
     date: action.payload.date,
+  }),
+  [CLEAR_TODOS]: state => ({
+    ...state,
+    title: '',
+    date: new Date(),
+    todos: [],
   }),
 });
 

@@ -13,14 +13,7 @@ export const CLEAR_TODOS = 'todos/CLEAR_TODOS';
 
 let nextId = 1;
 
-export const addTodo = (
-  todo: InputTodoType
-): {
-  type: string;
-  payload: InputTodoType & {
-    id: number;
-  };
-} => ({
+export const addTodo = (todo: InputTodoType) => ({
   type: ADD_TODO,
   payload: {
     ...todo,
@@ -28,16 +21,7 @@ export const addTodo = (
   },
 });
 
-export const addScheduleInfo = (
-  title: string,
-  date: Date
-): {
-  type: string;
-  payload: {
-    title: string;
-    date: Date;
-  };
-} => ({
+export const addScheduleInfo = (title: string, date: Date) => ({
   type: ADD_SCHEDULE_INFO,
   payload: {
     title,
@@ -46,4 +30,4 @@ export const addScheduleInfo = (
 });
 
 export const removeTodo = createStandardAction(REMOVE_TODO)<number>();
-// export const clearTodos = createStandardAction(CLEAR_TODOS)();
+export const clearTodos = createStandardAction(CLEAR_TODOS)();
