@@ -4,13 +4,13 @@ import ScheduleItem from './ScheduleItem';
 
 type Props = {
   type: string;
-  scheduels: ScheduleType[] | null | undefined;
+  schedules: ScheduleType[] | null | undefined;
 };
 
-const ScheduleList: React.FC<Props> = ({ type, scheduels }: Props) => {
+const ScheduleList: React.FC<Props> = ({ type, schedules }: Props) => {
   return (
     <>
-      {scheduels?.map(schedule => {
+      {schedules?.map(schedule => {
         return (
           <ScheduleItem type={type} key={schedule.id} schedule={schedule} />
         );

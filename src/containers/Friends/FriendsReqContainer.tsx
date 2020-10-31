@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import io from 'socket.io-client';
 import ErrorComponent from '../../components/Common/ErrorComponent';
 import Loading from '../../components/Common/Loading';
 import FriendsList from '../../components/Friends/FriendsList';
 import { RootState } from '../../modules';
 import { getRequestFriendListAsync } from '../../modules/requestFriend';
+
+const socket = io();
 
 const FriendsReqContainer: React.FC = () => {
   const { error, loading, requestFriendList } = useSelector(
@@ -14,6 +17,10 @@ const FriendsReqContainer: React.FC = () => {
 
   useEffect(() => {
     dispatch(getRequestFriendListAsync.request());
+    //update이벤트 받으면 state update하게 dispatch
+    socket.on('updateFriendList', () => {
+      dispatch(getRequestFriendListAsync.request());
+    });
   }, []);
   return (
     <>

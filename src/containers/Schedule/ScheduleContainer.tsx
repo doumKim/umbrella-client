@@ -16,7 +16,7 @@ const ScheduleContainer: React.FC = () => {
       {loading && <Loading />}
       {error && <ErrorComponent />}
       {schedules?.length === 0 && <Empty />}
-      {loading || error || <ScheduleList type="my" scheduels={schedules} />}
+      {loading || error || <ScheduleList type="my" schedules={schedules} />}
     </>
   );
 };
