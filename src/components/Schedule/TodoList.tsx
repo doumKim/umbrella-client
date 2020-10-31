@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 import { removeTodo, TodosState } from '../../modules/todos';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { makeEllipsisText } from '../../modules/helper';
 type TodoListProps = {
   todos: TodosState;
 };
@@ -61,7 +62,8 @@ const TodoList: React.FC<TodoListProps> = ({ todos }: TodoListProps) => {
             <RowWrapper>
               <MaterialCommunityIcons name="watch" size={12} color="#40514e" />
               <TodoTime>
-                {todo.hour}시 {todo.minutes}분
+                {todo.hour < 10 ? `0${todo.hour}` : todo.hour}시{' '}
+                {todo.minutes < 10 ? `0${todo.minutes}` : todo.minutes}분
               </TodoTime>
             </RowWrapper>
             <RowWrapper>
@@ -70,7 +72,9 @@ const TodoList: React.FC<TodoListProps> = ({ todos }: TodoListProps) => {
                 size={12}
                 color="#40514e"
               />
-              <TodoLocation>{todo.placeName}</TodoLocation>
+              <TodoLocation>
+                {makeEllipsisText(todo.placeName, 28)}
+              </TodoLocation>
             </RowWrapper>
           </InfoWrapper>
           <RightWrapper>

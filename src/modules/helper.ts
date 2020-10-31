@@ -26,3 +26,16 @@ export const sortSchedules = (
     return copiedSchedule;
   }
 };
+
+export const makeEllipsisText = (
+  text?: string,
+  maxLimit: number = 10
+): string => {
+  let convertedText = '';
+  if (text && text.length > maxLimit) {
+    convertedText = text.substring(0, maxLimit - 3) + '...';
+  } else {
+    convertedText = text + '';
+  }
+  return convertedText;
+};

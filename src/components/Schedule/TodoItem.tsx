@@ -4,6 +4,7 @@ import { Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 import { ScheduleType, TodoType } from '../../api/schedule';
+import { makeEllipsisText } from '../../modules/helper';
 
 const Container = styled.TouchableOpacity`
   background: ${props => props.theme.palette.scheduleCard};
@@ -45,7 +46,7 @@ const TodoItem: React.FC<Props> = ({ type, todo, schedule }: Props) => {
             {todo.hour < 10 ? `0${todo.hour}` : todo.hour}시{' '}
             {todo.minutes < 10 ? `0${todo.minutes}` : todo.minutes}분
           </Time>
-          <Location>{todo.note}</Location>
+          <Location>{makeEllipsisText(todo?.note, 23)}</Location>
         </Content>
         <Image
           source={{
