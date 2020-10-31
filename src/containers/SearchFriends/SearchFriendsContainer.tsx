@@ -6,7 +6,15 @@ import SearchViewer from '../../components/SearchFriends/SearchViewer';
 import { RootState } from '../../modules';
 import { getFriendListAsync } from '../../modules/friend';
 
-const SearchFriendsContainer: React.FC = () => {
+type Props = {
+  scheduleId?: number;
+  type?: string;
+};
+
+const SearchFriendsContainer: React.FC<Props> = ({
+  scheduleId,
+  type,
+}: Props) => {
   const [keyword, setKeyword] = useState('');
 
   const { error, loading, friendList } = useSelector(
@@ -23,6 +31,7 @@ const SearchFriendsContainer: React.FC = () => {
   const clearKeyword = () => {
     setKeyword('');
   };
+
   return (
     <>
       {loading && <Loading />}
@@ -30,7 +39,8 @@ const SearchFriendsContainer: React.FC = () => {
       {loading || error || (
         <>
           <SearchViewer
-            type="search"
+            type={type || 'search'}
+            scheduleId={scheduleId}
             friendList={friendList?.followers.filter(follower =>
               follower.username.includes(keyword)
             )}

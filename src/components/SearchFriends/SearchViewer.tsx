@@ -39,6 +39,7 @@ type Props = {
   type: string;
   keyword: string;
   error?: string;
+  scheduleId?: number;
   friendData?: FriendDataType;
   friendList?: FriendType[] | undefined;
   onChangeText(text: string): void;
@@ -54,6 +55,7 @@ type Props = {
    - add: 친구 추가[Detail]
 */
 const SearchViewer: React.FC<Props> = ({
+  scheduleId,
   type,
   keyword,
   error,
@@ -78,19 +80,20 @@ const SearchViewer: React.FC<Props> = ({
             style={{ width: 30, height: 30 }}
           />
         </TouchableOpacity>
-        {type === 'search' && (
-          <>
-            <SearchInput
-              value={keyword}
-              onChangeText={onChangeText}
-              placeholder={'나의 친구목록 검색'}
-            />
-            <Image
-              source={require('../../../assets/icon/close.png')}
-              style={{ width: 20, height: 20 }}
-            />
-          </>
-        )}
+        {type === 'search' ||
+          (type === 'share' && (
+            <>
+              <SearchInput
+                value={keyword}
+                onChangeText={onChangeText}
+                placeholder={'나의 친구목록 검색'}
+              />
+              <Image
+                source={require('../../../assets/icon/close.png')}
+                style={{ width: 20, height: 20 }}
+              />
+            </>
+          ))}
         {type === 'add' && (
           <>
             <SearchInput
@@ -114,6 +117,16 @@ const SearchViewer: React.FC<Props> = ({
             type="search"
             friendList={friendList}
             keyword={keyword}
+          />
+        </ScrollView>
+      )}
+      {type === 'share' && (
+        <ScrollView>
+          <FriendsList
+            type="share"
+            friendList={friendList}
+            keyword={keyword}
+            scheduleId={scheduleId}
           />
         </ScrollView>
       )}

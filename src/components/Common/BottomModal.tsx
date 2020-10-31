@@ -69,6 +69,12 @@ const BottomModal: React.FC<Props> = ({
     closeModal();
   };
 
+  const handleShareSchedule = (scheduleId: number) => {
+    navigation.navigate('SearchFriends', { scheduleId, type: 'share' });
+    console.log(scheduleId);
+    closeModal();
+  };
+
   const handleDeleteClick = (id: number) => {
     dropFriend(id);
     closeModal();
@@ -97,7 +103,9 @@ const BottomModal: React.FC<Props> = ({
           )}
           {type === 'schedule' && (
             <>
-              <Button>
+              <Button
+                onPress={() => scheduleId && handleShareSchedule(scheduleId)}
+              >
                 <StyledText>공유 하기</StyledText>
               </Button>
               <Line />
