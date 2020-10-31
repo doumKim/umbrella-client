@@ -1,8 +1,13 @@
 import React from 'react';
+import { ScheduleType } from '../../api/schedule';
 import ScheduleList from '../../components/Schedule/ScheduleList';
 
-const DetailFriendsContainer: React.FC = () => {
-  return <ScheduleList type="friend" />;
+type Props = {
+  schedules: ScheduleType[] | null | undefined;
+};
+
+const DetailFriendsContainer: React.FC<Props> = ({ schedules }: Props) => {
+  return <ScheduleList type="friend" schedules={schedules} />;
 };
 
 export default DetailFriendsContainer;

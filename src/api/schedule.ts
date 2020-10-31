@@ -37,6 +37,13 @@ export type RemovedResultType = {
   status: number;
 };
 
+export type FriendSchedulesType = {
+  id: number;
+  avatarUrl: string;
+  username: string;
+  friendSchedules: ScheduleType[];
+};
+
 export const getUserSchedule = async (): Promise<ScheduleType[]> => {
   await getUserToken();
   const { data } = await axios.get<ScheduleType[]>('/schedule/all');
