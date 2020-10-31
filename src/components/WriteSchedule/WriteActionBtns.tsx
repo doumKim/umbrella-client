@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import { RootState } from '../../modules';
-import { addScheduleInfo } from '../../modules/todos';
+import { createUserScheduleAsync } from '../../modules/schedule';
+import { addScheduleInfo, clearTodos } from '../../modules/todos';
 
 type Props = {
   title: string;
@@ -36,6 +37,7 @@ const SaveBtn = styled.TouchableOpacity`
   margin-left: 2%;
   max-height: 60px;
 `;
+
 const StyledText = styled.Text`
   font-size: 20px;
   color: white;
@@ -43,19 +45,36 @@ const StyledText = styled.Text`
 
 const WriteActionBtns: React.FC<Props> = ({ title, date }: Props) => {
   const [isDone, setIsDone] = useState<boolean>(false);
+  const [isRequire, setIsRequire] = useState(false);
   const dispatch = useDispatch();
   const schedule = useSelector((state: RootState) => state.todos);
   const todos = useSelector((state: RootState) => state.todos.todos);
+  const navigation = useNavigation();
+  const handleCreateSchedule = () => {
+    dispatch(createUserScheduleAsync.request(schedule));
+    navigation.navigate('Schedule');
+    dispatch(clearTodos());
+  };
 
   const handelIsDone = (): void => {
-    setIsDone(prevState => !prevState);
-    dispatch(addScheduleInfo(title, date));
+    setIsDone(true);
+    if (title && todos.length > 0) {
+      dispatch(addScheduleInfo(title, date));
+      setIsRequire(false);
+    } else {
+      setIsRequire(true);
+    }
+  };
+
+  const handleCancel = (): void => {
+    dispatch(clearTodos());
+    navigation.navigate('Schedule');
   };
 
   useEffect(() => {
     setIsDone(false);
   }, [title, date, todos]);
-  const navigation = useNavigation();
+
   return (
     <Container>
       <CancelBtn
@@ -63,11 +82,15 @@ const WriteActionBtns: React.FC<Props> = ({ title, date }: Props) => {
           navigation.goBack();
         }}
       >
-        <StyledText>취소</StyledText>
+        <StyledText onPress={handleCancel}>취소</StyledText>
       </CancelBtn>
       <SaveBtn>
         {isDone ? (
-          <StyledText onPress={() => console.log(schedule)}>저장</StyledText>
+          isRequire ? (
+            <StyledText onPress={handelIsDone}>다시 입력해 주세요</StyledText>
+          ) : (
+            <StyledText onPress={handleCreateSchedule}>저장</StyledText>
+          )
         ) : (
           <StyledText onPress={handelIsDone}>입력 완료</StyledText>
         )}

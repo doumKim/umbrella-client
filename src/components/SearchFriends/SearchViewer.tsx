@@ -5,10 +5,13 @@ import {
   TouchableOpacity,
   TextInput,
   View,
-  ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import styled from 'styled-components/native';
+import { FriendType } from '../../api/friend';
+import FriendsEmpty from '../Common/FriendsEmpty';
 import FriendsItem from '../Friends/FriendsItem';
+import FriendsList from '../Friends/FriendsList';
 
 const Container = styled.View``;
 
@@ -26,28 +29,36 @@ const SearchInput = styled(TextInput)`
   font-size: 20px;
   width: 70%;
 `;
+type FriendDataType = {
+  id: number;
+  username: string;
+  avatarUrl: string;
+};
 
 type Props = {
   type: string;
-  loading: boolean;
   keyword: string;
-  name: string;
-  id: number;
-  avatar: string;
-  onChangeText?(text: string): void;
-  onFindClick(): void;
+  error?: string;
+  friendData?: FriendDataType;
+  friendList?: FriendType[] | undefined;
+  onChangeText(text: string): void;
   clearKeyword(): void;
+  onFindClick?(): void;
   sendPushAlarm(): void;
 };
 
-/* type) search: 친구 검색 및 친구, add: 친구 추가  */
+/* Props(type) 
+   - list: 친구 목록[Tab]
+   - req: 친구 요청[Tab]
+   - search: 친구 검색[Detail]
+   - add: 친구 추가[Detail]
+*/
 const SearchViewer: React.FC<Props> = ({
   type,
-  loading,
   keyword,
-  name,
-  id,
-  avatar,
+  error,
+  friendData,
+  friendList,
   onChangeText,
   onFindClick,
   clearKeyword,
@@ -69,7 +80,11 @@ const SearchViewer: React.FC<Props> = ({
         </TouchableOpacity>
         {type === 'search' && (
           <>
-            <SearchInput placeholder={'나의 친구목록 검색'} />
+            <SearchInput
+              value={keyword}
+              onChangeText={onChangeText}
+              placeholder={'나의 친구목록 검색'}
+            />
             <Image
               source={require('../../../assets/icon/close.png')}
               style={{ width: 20, height: 20 }}
@@ -93,24 +108,25 @@ const SearchViewer: React.FC<Props> = ({
           </>
         )}
       </InputOutline>
-      {/* {type === 'search' && (
+      {type === 'search' && (
         <ScrollView>
-          <FriendsItem type="search" />
+          <FriendsList
+            type="search"
+            friendList={friendList}
+            keyword={keyword}
+          />
         </ScrollView>
-      )} */}
-      {/* TODO: 확인 후 추가할 친구가 있다면 렌더링 */}
-      {type === 'add' && loading ? (
+      )}
+      {type === 'add' && (
         <View>
-          <ActivityIndicator color={'black'} size={'large'} />
-        </View>
-      ) : (
-        <View>
-          {name ? (
+          {error ? (
+            <FriendsEmpty>{error}</FriendsEmpty>
+          ) : friendData?.username ? (
             <FriendsItem
               type="add"
-              name={name}
-              id={id}
-              avatar={avatar}
+              name={friendData.username}
+              id={friendData.id}
+              avatar={friendData.avatarUrl}
               sendPushAlarm={sendPushAlarm}
             />
           ) : null}

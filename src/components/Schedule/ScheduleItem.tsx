@@ -30,11 +30,12 @@ type Props = {
 
 const ScheduleItem: React.FC<Props> = ({ type, schedule }: Props) => {
   const { title, date, todos } = schedule;
+  const regex2 = /[a-z,A-Z][\w,:,;,.]*/g;
   return (
     <Container>
       <TopSection>
         <ItemTitle>{title}</ItemTitle>
-        <ItemDate>{date}</ItemDate>
+        <ItemDate>{(date + '').replace(regex2, '')}</ItemDate>
       </TopSection>
       {todos.length > 0 &&
         todos.map(todo => {

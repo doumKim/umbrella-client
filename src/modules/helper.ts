@@ -10,7 +10,13 @@ export const sortSchedules = (schedules: ScheduleType[]): ScheduleType[] => {
   for (let i = 0; i < copiedSchedule.length; i++) {
     copiedSchedule[i].todos.sort(
       (prevTodo: TodoType, nextTodo: TodoType): number => {
-        return prevTodo.date > nextTodo.date ? 1 : -1;
+        if (prevTodo.hour > nextTodo.hour) {
+          return 1;
+        } else if (prevTodo.hour < nextTodo.hour) {
+          return -1;
+        } else {
+          return prevTodo.minutes > nextTodo.minutes ? 1 : -1;
+        }
       }
     );
   }

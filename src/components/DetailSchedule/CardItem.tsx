@@ -52,10 +52,12 @@ const CardItem: React.FC<Props> = ({ todo }: Props) => {
               style={{ width: 28, height: 28 }}
             />
             <Location>
-              {todo?.location} / {todo?.note}
+              {todo?.placeName} / {todo?.note}
             </Location>
           </Wrapper>
-          <Date>{todo?.date}</Date>
+          <Date>
+            {todo?.hour}시 {todo?.minutes}
+          </Date>
         </TextContent>
         <WeatherContent>
           <Image

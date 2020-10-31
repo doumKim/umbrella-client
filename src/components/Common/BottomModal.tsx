@@ -5,13 +5,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 import { dropFriend } from '../../api/friend';
 import { removeUserScheduleAsync } from '../../modules/schedule';
-type Props = {
-  type: string;
-  id: number;
-  show: boolean;
-  closeModal(): void;
-  scheduleId: string | null;
-};
+
 const DarkOpacity = styled.View`
   width: 100%;
   height: 100%;
@@ -32,7 +26,6 @@ const Line = styled.View`
   border-radius: 3px;
   width: 80%;
 `;
-
 const Button = styled.TouchableOpacity`
   padding: 20px;
   justify-content: center;
@@ -51,6 +44,15 @@ const TopDeco = styled.View`
   border-radius: 6px;
   background: ${props => props.theme.palette.subSub};
 `;
+
+type Props = {
+  type: string;
+  id: number | null;
+  show: boolean;
+  closeModal(): void;
+  scheduleId?: number;
+};
+
 const BottomModal: React.FC<Props> = ({
   type,
   show,
@@ -78,7 +80,13 @@ const BottomModal: React.FC<Props> = ({
           <TopDeco />
           {type === 'friends' && (
             <>
-              <Button onPress={() => handleDeleteClick(id)}>
+              <Button
+                onPress={() => {
+                  if (id) {
+                    handleDeleteClick(id);
+                  }
+                }}
+              >
                 <StyledText>친구 삭제</StyledText>
               </Button>
               <Line />

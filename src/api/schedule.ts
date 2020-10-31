@@ -57,6 +57,6 @@ export const createUserSchedule = async (
   schedule: ScheduleInputState
 ): Promise<ScheduleType> => {
   await getUserToken();
-  const { data } = await axios.post('/schedule', { schedule });
+  const { data } = await axios.post('/schedule', { ...schedule });
   return data;
 };

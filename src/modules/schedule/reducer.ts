@@ -82,19 +82,25 @@ const schedule = createReducer<ScheduleState, ScheduleAction>(initialState, {
     mySchedules: {
       ...state.mySchedules,
       loading: true,
+      error: null,
     },
   }),
-  [CREATE_USER_SCHEDULE_SUCCESS]: (state, action) => ({
-    ...state,
-    mySchedules: {
-      ...state.mySchedules,
-      schedules: state.mySchedules.schedules?.concat(action.payload),
-    },
-  }),
+  [CREATE_USER_SCHEDULE_SUCCESS]: (state, action) => {
+    const newSchedules = state.mySchedules.schedules?.concat(action.payload);
+    return {
+      ...state,
+      mySchedules: {
+        loading: false,
+        error: null,
+        schedules: newSchedules && sortSchedules(newSchedules),
+      },
+    };
+  },
   [CREATE_USER_SCHEDULE_ERROR]: (state, action) => ({
     ...state,
     mySchedules: {
       ...state.mySchedules,
+      loading: false,
       error: action.payload,
     },
   }),

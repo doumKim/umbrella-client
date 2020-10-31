@@ -30,4 +30,4 @@ export const addScheduleInfo = (title: string, date: Date) => ({
 });
 
 export const removeTodo = createStandardAction(REMOVE_TODO)<number>();
-// export const clearTodos = createStandardAction(CLEAR_TODOS)();
+export const clearTodos = createStandardAction(CLEAR_TODOS)();

@@ -130,7 +130,7 @@ const FriendsItem: React.FC<Props> = ({
           </RightContent>
         </Wrapper>
       )}
-      {type === 'search' && (
+      {(type === 'search' || type === 'list') && (
         <Wrapper>
           <TouchableOpacity onPress={goToDetail}>
             <Container>
@@ -150,7 +150,6 @@ const FriendsItem: React.FC<Props> = ({
             show={show}
             id={id}
             closeModal={closeModal}
-            scheduleId={null}
           />
         </Wrapper>
       )}
