@@ -32,6 +32,7 @@ export type FriendType = {
   userId: string;
   avatarUrl: string;
   pushToken: string;
+  socketId: string;
 };
 
 export const searchUser = async (text: string): Promise<FriendType> => {

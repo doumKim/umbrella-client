@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Socket } from 'socket.io-client';
 import ErrorComponent from '../../components/Common/ErrorComponent';
 import Loading from '../../components/Common/Loading';
 import FriendsList from '../../components/Friends/FriendsList';
@@ -14,6 +15,10 @@ const FriendsReqContainer: React.FC = () => {
 
   useEffect(() => {
     dispatch(getRequestFriendListAsync.request());
+    //update이벤트 받으면 state update하게 dispatch
+    Socket.on('updateFriendList', () => {
+      dispatch(getRequestFriendListAsync.request());
+    });
   }, []);
   return (
     <>
