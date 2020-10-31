@@ -31,12 +31,12 @@ type Props = {
   todo: TodoType;
   schedule: ScheduleType;
 };
+
 const TodoItem: React.FC<Props> = ({ type, todo, schedule }: Props) => {
   const navigation = useNavigation();
   const goToDetail = () => {
     navigation.navigate('DetailSchedule', { type, schedule });
   };
-
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={goToDetail}>
       <Container>
@@ -48,7 +48,11 @@ const TodoItem: React.FC<Props> = ({ type, todo, schedule }: Props) => {
           <Location>{todo.note}</Location>
         </Content>
         <Image
-          source={require('../../../assets/weather/cloudy.png')}
+          source={{
+            uri: todo.iconName
+              ? todo.iconName
+              : 'https://i.ibb.co/yf3gqDD/noweather.png',
+          }}
           style={{ width: 40, height: 40 }}
         />
       </Container>
