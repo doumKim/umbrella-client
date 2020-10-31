@@ -16,6 +16,8 @@ const AddFriendsContainer: React.FC = () => {
   });
   //
   const sendPushNotification = async (expoPushToken: string) => {
+    const userToken = await AsyncStorage.getItem('userToken');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
     const message = {
       to: expoPushToken,
       sound: 'default',
@@ -23,15 +25,8 @@ const AddFriendsContainer: React.FC = () => {
       body: '잘도착했나요?',
       data: { data: 'goes here' },
     };
-
-    await fetch('http://bringumb.tk/pushAlarm', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Accept-encoding': 'gzip, deflate',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(message),
+    return await axios.post('http://bringumb.tk/pushAlarm', {
+      ...message,
     });
   };
 
@@ -79,9 +74,8 @@ const AddFriendsContainer: React.FC = () => {
   const sendPushAlarm = async () => {
     await handleReqClick();
     await sendPushNotification(friendData.pushToken);
-    console.log(friendData.pushToken);
+
     setFriendData({ avatarUrl: '', id: 0, username: '', pushToken: '' });
-    console.log(friendData.pushToken);
   };
   const onChangeText = (text: string) => {
     setKeyword(text);
