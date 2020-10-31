@@ -7,10 +7,10 @@ const Container = styled.View`
   margin-bottom: 15px;
 `;
 
-const Card = styled.View`
-  background: green;
+const Card = styled.ImageBackground`
   padding: 15px;
   border-radius: 12px;
+  overflow: hidden;
 `;
 
 const TextContent = styled.View``;
@@ -44,7 +44,13 @@ type Props = {
 const CardItem: React.FC<Props> = ({ todo }: Props) => {
   return (
     <Container>
-      <Card>
+      <Card
+        source={{
+          uri: todo?.backdrop
+            ? todo?.backdrop
+            : 'https://i.ibb.co/j4hxLcF/backdrop-cloudy.png',
+        }}
+      >
         <TextContent>
           <Wrapper>
             <Image
@@ -56,12 +62,16 @@ const CardItem: React.FC<Props> = ({ todo }: Props) => {
             </Location>
           </Wrapper>
           <Date>
-            {todo?.hour}시 {todo?.minutes}
+            {todo?.hour}시 {todo?.minutes}분
           </Date>
         </TextContent>
         <WeatherContent>
           <Image
-            source={require('../../../assets/weather/rainy.png')}
+            source={{
+              uri: todo?.iconName
+                ? todo?.iconName
+                : 'https://i.ibb.co/yf3gqDD/noweather.png',
+            }}
             style={{ width: 150, height: 150 }}
           />
           <Temperature>20°C</Temperature>

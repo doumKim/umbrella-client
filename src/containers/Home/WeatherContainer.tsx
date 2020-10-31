@@ -89,7 +89,7 @@ const WeatherContainer: React.FC = () => {
     const {
       data: { daily },
     } = await axios.get(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=alerts&appid=${WEATHER_API}&units=metric&lang=kr`
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alerts&appid=${WEATHER_API}&units=metric&lang=kr`
     );
     setWeekResults(daily);
     setIsLoading(false);

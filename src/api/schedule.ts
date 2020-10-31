@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { sortSchedules } from '../modules/helper';
 import { ScheduleInputState } from '../modules/todos/types';
-
+import { getWeatherIcon } from './weather';
 const getUserToken = async () => {
   try {
     const token = await AsyncStorage.getItem('userToken');
@@ -30,6 +30,8 @@ export type TodoType = {
   hour: number;
   minutes: number;
   note: string;
+  backdrop: string;
+  iconName: string;
 };
 
 export type RemovedResultType = {
@@ -47,6 +49,21 @@ export type FriendSchedulesType = {
 export const getUserSchedule = async (): Promise<ScheduleType[]> => {
   await getUserToken();
   const { data } = await axios.get<ScheduleType[]>('/schedule/all');
+  //날씨 이모티콘, 배경 받아오기
+  await Promise.all(data.map(async (_schedule) => {
+    await Promise.all(_schedule.todos.map(async (_todo: TodoType) => {
+      const { backdrop, iconName } = await getWeatherIcon(_schedule.date, _todo.latitude, _todo.longitude, _todo.hour);
+      _todo.backdrop = backdrop;
+      _todo.iconName = iconName;
+    }));
+  }));
+  // for (const _schedule of data) {
+  //   for (const _todo of _schedule.todos) {
+  //     const { backdrop, iconName } = await getWeatherIcon(_schedule.date, _todo.latitude, _todo.longitude, _todo.hour);
+  //     _todo.backdrop = backdrop;
+  //     _todo.iconName = iconName;
+  //   }
+  // }
   return sortSchedules(data);
 };
 
@@ -65,5 +82,11 @@ export const createUserSchedule = async (
 ): Promise<ScheduleType> => {
   await getUserToken();
   const { data } = await axios.post('/schedule', { ...schedule });
+  //날씨 이모티콘, 배경 받아오기
+  await Promise.all(data.todos.map(async (_todo: TodoType) => {
+    const { backdrop, iconName } = await getWeatherIcon(data.date, _todo.latitude, _todo.longitude, _todo.hour);
+    _todo.backdrop = backdrop;
+    _todo.iconName = iconName;
+  }));
   return data;
 };

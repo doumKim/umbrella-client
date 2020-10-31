@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 import { removeTodo, TodosState } from '../../modules/todos';
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 type TodoListProps = {
   todos: TodosState;
 };
@@ -15,53 +15,75 @@ const ListWrapper = styled.View`
   width: 95%;
   border-radius: 6px;
 `;
-
 const TodoListItem = styled.View`
   flex-direction: row;
   background: ${props => props.theme.palette.scheduleCard};
   justify-content: space-between;
   margin-bottom: 10px;
   padding: 20px 20px;
+  border-radius: 5px;
+`;
+const InfoWrapper = styled.View`
+  width: 90%;
+`;
+const RightWrapper = styled.View`
+  width: 10%;
+  align-items: center;
+  justify-content: center;
+`;
+const TodoNote = styled.Text`
+  color: ${props => props.theme.palette.main};
+  font-size: 20px;
+  margin-bottom: 5px;
+`;
+const TodoTime = styled.Text`
+  margin-left: 5px;
+  color: ${props => props.theme.palette.subSub};
 `;
 
-const InfoWrapper = styled.View``;
-
-const TodoNote = styled.Text``;
-
-const TodoTime = styled.Text``;
-
-const TodoLocation = styled.Text``;
+const TodoLocation = styled.Text`
+  margin-left: 5px;
+  color: ${props => props.theme.palette.sub};
+`;
+const RowWrapper = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
 
 const TodoList: React.FC<TodoListProps> = ({ todos }: TodoListProps) => {
   const dispatch = useDispatch();
-
   return (
     <ListWrapper>
       {todos.map(todo => (
         <TodoListItem key={todo.id}>
           <InfoWrapper>
             <TodoNote>{todo.note}</TodoNote>
-            <TodoTime>
-              {todo.hour}시 {todo.minutes}분
-            </TodoTime>
-            <TodoLocation>{todo.placeName}</TodoLocation>
+            <RowWrapper>
+              <MaterialCommunityIcons name="watch" size={12} color="#40514e" />
+              <TodoTime>
+                {todo.hour}시 {todo.minutes}분
+              </TodoTime>
+            </RowWrapper>
+            <RowWrapper>
+              <MaterialCommunityIcons
+                name="map-marker"
+                size={12}
+                color="#40514e"
+              />
+              <TodoLocation>{todo.placeName}</TodoLocation>
+            </RowWrapper>
           </InfoWrapper>
-          <TouchableOpacity
-            style={{
-              height: 50,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-            onPress={() => dispatch(removeTodo(todo.id))}
-          >
-            <Image
-              source={require('../../../assets/icon/delete.png')}
-              style={{
-                width: 20,
-                height: 20,
-              }}
-            />
-          </TouchableOpacity>
+          <RightWrapper>
+            <TouchableOpacity onPress={() => dispatch(removeTodo(todo.id))}>
+              <Image
+                source={require('../../../assets/icon/delete.png')}
+                style={{
+                  width: 25,
+                  height: 25,
+                }}
+              />
+            </TouchableOpacity>
+          </RightWrapper>
         </TodoListItem>
       ))}
     </ListWrapper>
