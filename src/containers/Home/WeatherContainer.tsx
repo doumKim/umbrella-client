@@ -5,6 +5,10 @@ import * as Location from 'expo-location';
 import { Alert, Dimensions, RefreshControl } from 'react-native';
 import Forecast from '../../components/Home/Forecast';
 import styled from 'styled-components/native';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WEATHER_API = '7445083dcf354d54e1688965b5591b85';
 
@@ -20,6 +24,14 @@ const Padding = styled.View`
   padding: 0 15px 170px;
 `;
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
 const WeatherContainer: React.FC = () => {
   const [results, setResults] = useState({
     temperature: 0,
@@ -33,6 +45,22 @@ const WeatherContainer: React.FC = () => {
   const [weekResults, setWeekResults] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
+
+  const navigation = useNavigation();
+
+  const registerForPushNotificationsAsync = async () => {
+    const userToken = await AsyncStorage.getItem('userToken');
+    axios.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+    const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+    if (status !== 'granted') {
+      return;
+    }
+    const pushToken = await Notifications.getExpoPushTokenAsync();
+    return await axios.patch('http://bringumb.tk/pushToken', {
+      token: pushToken.data,
+    });
+  };
+
   const getWeather = async (latitude: number, longitude: number) => {
     !isLoading && setIsLoading(true);
     const {
@@ -60,6 +88,17 @@ const WeatherContainer: React.FC = () => {
   };
 
   useEffect(() => {
+    const registerPushToken = async () => {
+      await registerForPushNotificationsAsync();
+    };
+    registerPushToken();
+
+    const subscription = Notifications.addNotificationResponseReceivedListener(
+      () => {
+        navigation.navigate('Friend');
+      }
+    );
+
     (async () => {
       try {
         await Location.requestPermissionsAsync();
@@ -72,6 +111,7 @@ const WeatherContainer: React.FC = () => {
         Alert.alert('위치를 찾을 수 없습니다.');
       }
     })();
+    return () => subscription.remove();
   }, []);
 
   const handleRefersh = () => {
