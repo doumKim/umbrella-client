@@ -27,7 +27,7 @@ const SocialWebview: React.FC<Props> = ({ source, closeModal }: Props) => {
     if (success) {
       const userToken = result.userToken;
       try {
-        const token = await AsyncStorage.setItem('userToken', userToken);
+        await AsyncStorage.setItem('userToken', userToken);
       } catch (e) {
         console.error(e);
       }
