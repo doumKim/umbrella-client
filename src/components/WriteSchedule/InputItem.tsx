@@ -143,7 +143,7 @@ const InputItem: React.FC = () => {
           flexDirection: 'row',
           alignItems: 'flex-end',
           justifyContent: 'space-between',
-          marginBottom: 15,
+          marginBottom: 10,
           paddingRight: 10,
         }}
       >
@@ -161,6 +161,7 @@ const InputItem: React.FC = () => {
         value={note}
         onChange={handleChangeNote}
         placeholder="할 일을 입력하세요"
+        maxLength={15}
       />
       <Container>
         <InputOutline>
