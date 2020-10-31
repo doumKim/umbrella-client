@@ -102,8 +102,8 @@ const FriendsItem: React.FC<Props> = ({
   };
 
   const navigation = useNavigation();
-  const goToDetail = () => {
-    navigation.navigate('DetailFriends');
+  const goToDetail = (name: string) => {
+    navigation.navigate('DetailFriends', { name, id });
   };
   return (
     <>
@@ -132,7 +132,7 @@ const FriendsItem: React.FC<Props> = ({
       )}
       {(type === 'search' || type === 'list') && (
         <Wrapper>
-          <TouchableOpacity onPress={goToDetail}>
+          <TouchableOpacity onPress={() => goToDetail(name)}>
             <Container>
               <Profile name={name} avatar={avatar} />
             </Container>
