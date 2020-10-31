@@ -28,7 +28,7 @@ const DetailFriends: React.FC<Props> = ({
     params: { name, id },
   },
 }: Props) => {
-  const [schedules, setSchedules] = useState<ScheduleType[]>([]);
+  const [schedules, setSchedules] = useState<ScheduleType[] | undefined>([]);
 
   const fetchFriendSchedule = async (id: number): Promise<void> => {
     const { data } = await axios.get(
