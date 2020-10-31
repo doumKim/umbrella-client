@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
+import { Socket } from 'socket.io-client';
 import { addFriend, searchUser } from '../../api/friend';
 import SearchViewer from '../../components/SearchFriends/SearchViewer';
 
@@ -13,8 +14,10 @@ const AddFriendsContainer: React.FC = () => {
     id: 0,
     username: '',
     pushToken: '',
+    socketId: '',
   });
   //
+
   const sendPushNotification = async (expoPushToken: string) => {
     const userToken = await AsyncStorage.getItem('userToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
@@ -46,10 +49,21 @@ const AddFriendsContainer: React.FC = () => {
           return !prev;
         });
         await getUserToken();
-        const { avatarUrl, id, username, pushToken } = await searchUser(
-          keyword
-        );
-        setFriendData({ ...friendData, avatarUrl, id, username, pushToken });
+        const {
+          avatarUrl,
+          id,
+          username,
+          pushToken,
+          socketId,
+        } = await searchUser(keyword);
+        setFriendData({
+          ...friendData,
+          avatarUrl,
+          id,
+          username,
+          pushToken,
+          socketId,
+        });
       } catch (e) {
         Alert.alert('해당하는 친구가 없습니다.');
       } finally {
@@ -64,7 +78,6 @@ const AddFriendsContainer: React.FC = () => {
       try {
         await getUserToken();
         await addFriend(friendData.id);
-        //setFriendData({ avatarUrl: '', id: 0, username: '', pushToken: '' });
       } catch (e) {
         Alert.alert('친구 요청이 실패했습니다.');
       }
@@ -75,7 +88,14 @@ const AddFriendsContainer: React.FC = () => {
     await handleReqClick();
     await sendPushNotification(friendData.pushToken);
 
-    setFriendData({ avatarUrl: '', id: 0, username: '', pushToken: '' });
+    await Socket.emit('sendPushAlarm', friendData.socketId);
+    setFriendData({
+      avatarUrl: '',
+      id: 0,
+      username: '',
+      pushToken: '',
+      socketId: '',
+    });
   };
   const onChangeText = (text: string) => {
     setKeyword(text);
