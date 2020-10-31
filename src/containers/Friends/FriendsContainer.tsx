@@ -5,7 +5,9 @@ import ErrorComponent from '../../components/Common/ErrorComponent';
 import Loading from '../../components/Common/Loading';
 import { RootState } from '../../modules';
 import { getFriendListAsync } from '../../modules/friend';
-import { Socket } from 'socket.io-client';
+import io from 'socket.io-client';
+
+const socket = io();
 
 const FriendsContainer: React.FC = () => {
   const { error, loading, friendList } = useSelector(
@@ -17,7 +19,7 @@ const FriendsContainer: React.FC = () => {
     dispatch(getFriendListAsync.request());
 
     //update이벤트 받으면 state update하게 dispatch
-    Socket.on('updateFriendList', () => {
+    socket.on('updateFriendList', () => {
       dispatch(getFriendListAsync.request());
     });
   }, []);
