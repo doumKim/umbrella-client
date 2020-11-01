@@ -45,7 +45,7 @@ type Props = {
   onChangeText(text: string): void;
   clearKeyword(): void;
   onFindClick?(): void;
-  sendPushAlarm(): void;
+  sendPushAlarm(): Promise<void>;
 };
 
 /* Props(type) 

@@ -5,6 +5,9 @@ import styled from 'styled-components/native';
 import { accpetFriend, rejectFriend } from '../../api/friend';
 import { shareUserSchedule } from '../../api/schedule';
 import BottomModal from '../Common/BottomModal';
+import io from 'socket.io-client';
+
+const socket = io('http://bringumb.tk', { transports: ['websocket'] });
 
 const Container = styled.View`
   height: 60px;
@@ -66,7 +69,7 @@ type Props = {
   id: number;
   name: string;
   avatar: string;
-  sendPushAlarm(): void;
+  sendPushAlarm(): Promise<void>;
   scheduleId?: number;
   action?: string;
 };
@@ -103,6 +106,7 @@ const FriendsItem: React.FC<Props> = ({
   id,
   name,
   avatar,
+
   sendPushAlarm,
   scheduleId,
   action,
@@ -136,6 +140,7 @@ const FriendsItem: React.FC<Props> = ({
             <AcceptBtn
               onPress={() => {
                 accpetFriend(id);
+                socket.emit('updateList');
               }}
             >
               <AcceptText>수락</AcceptText>
@@ -143,6 +148,7 @@ const FriendsItem: React.FC<Props> = ({
             <RejectBtn
               onPress={() => {
                 rejectFriend(id);
+                socket.emit('updateList');
               }}
             >
               <RejectText>거절</RejectText>
@@ -180,8 +186,8 @@ const FriendsItem: React.FC<Props> = ({
           </Container>
           <RightContent>
             <AcceptBtn
-              onPress={() => {
-                sendPushAlarm();
+              onPress={async () => {
+                await sendPushAlarm();
               }}
             >
               <AcceptText>요청</AcceptText>

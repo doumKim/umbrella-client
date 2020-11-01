@@ -35,7 +35,7 @@ const FriendsList: React.FC<Props> = ({
                 id={friend.id}
                 name={friend.username}
                 avatar={friend.avatarUrl}
-                sendPushAlarm={() => {
+                sendPushAlarm={async () => {
                   console.log('');
                 }}
               />
@@ -56,7 +56,7 @@ const FriendsList: React.FC<Props> = ({
                 id={friend.id}
                 name={friend.username}
                 avatar={friend.avatarUrl}
-                sendPushAlarm={() => {
+                sendPushAlarm={async () => {
                   console.log('');
                 }}
               />
@@ -77,7 +77,7 @@ const FriendsList: React.FC<Props> = ({
                 id={friend.id}
                 name={friend.username}
                 avatar={friend.avatarUrl}
-                sendPushAlarm={() => {
+                sendPushAlarm={async () => {
                   console.log('');
                 }}
               />
@@ -102,7 +102,7 @@ const FriendsList: React.FC<Props> = ({
                 id={friend.id}
                 name={friend.username}
                 avatar={friend.avatarUrl}
-                sendPushAlarm={() => {
+                sendPushAlarm={async () => {
                   console.log('');
                 }}
               />

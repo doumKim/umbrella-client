@@ -1,10 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import React, { useState } from 'react';
-import { Socket } from 'socket.io-client';
+import React, { useEffect, useState } from 'react';
 import { addFriend, searchUser } from '../../api/friend';
 import Loading from '../../components/Common/Loading';
 import SearchViewer from '../../components/SearchFriends/SearchViewer';
+import io from 'socket.io-client';
+import { getUserInfo } from '../../api/etc';
+
+const socket = io('http://bringumb.tk', { transports: ['websocket'] });
 
 const AddFriendsContainer: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -15,18 +18,28 @@ const AddFriendsContainer: React.FC = () => {
     id: 0,
     username: '',
     pushToken: '',
-    socketId: '',
   });
-  //
+  const [myUsername, setMyUsername] = useState('');
 
-  const sendPushNotification = async (expoPushToken: string) => {
+  useEffect(() => {
+    (async () => {
+      await getUserToken();
+      const { username } = await getUserInfo();
+      setMyUsername(username);
+    })();
+  }, []);
+
+  const sendPushNotification = async (pushParameter: {
+    username: string;
+    expoPushToken: string;
+  }) => {
     const userToken = await AsyncStorage.getItem('userToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
     const message = {
-      to: expoPushToken,
+      to: pushParameter.expoPushToken,
       sound: 'default',
-      title: 'push알림이 왔습니다',
-      body: '잘도착했나요?',
+      title: '우산챙겨',
+      body: `${pushParameter.username}님으로 부터 친구 요청이 도착했습니다`,
       data: { data: 'goes here' },
     };
     return await axios.post('http://bringumb.tk/pushAlarm', {
@@ -50,20 +63,16 @@ const AddFriendsContainer: React.FC = () => {
           return !prev;
         });
         await getUserToken();
-        const {
-          avatarUrl,
-          id,
-          username,
-          pushToken,
-          socketId,
-        } = await searchUser(keyword);
+        const { avatarUrl, id, username, pushToken } = await searchUser(
+          keyword
+        );
+
         setFriendData({
           ...friendData,
           avatarUrl,
           id,
           username,
           pushToken,
-          socketId,
         });
       } catch (e) {
         setError('😒 해당하는 아이디가 없습니다.');
@@ -74,28 +83,31 @@ const AddFriendsContainer: React.FC = () => {
     })();
   };
   //친구요청
-  const handleReqClick = () => {
-    (async () => {
-      try {
-        await getUserToken();
-        await addFriend(friendData.id);
-      } catch (e) {
-        setError('🤒 친구 요청이 실패했습니다.');
-      }
-    })();
+  const handleReqClick = async () => {
+    try {
+      await getUserToken();
+      await addFriend(friendData.id);
+    } catch (e) {
+      setError('🤒 친구 요청이 실패했습니다.');
+    }
   };
-  //친구요청 및 푸쉬알림 보냄
-  const sendPushAlarm = () => {
-    handleReqClick();
-    sendPushNotification(friendData.pushToken);
 
-    Socket.emit('sendPushAlarm', friendData.socketId);
+  //친구요청 및 푸쉬알림 보냄
+  const sendPushAlarm = async () => {
+    const pushParameter = {
+      username: myUsername,
+      expoPushToken: friendData.pushToken,
+    };
+    await handleReqClick();
+    await sendPushNotification(pushParameter);
+
+    socket.emit('sendPushAlarm');
+
     setFriendData({
       avatarUrl: '',
       id: 0,
       username: '',
       pushToken: '',
-      socketId: '',
     });
   };
   const onChangeText = (text: string) => {
