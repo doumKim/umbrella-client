@@ -5,6 +5,9 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
 import { dropFriend } from '../../api/friend';
 import { removeUserScheduleAsync } from '../../modules/schedule';
+import io from 'socket.io-client';
+
+const socket = io('http://bringumb.tk', { transports: ['websocket'] });
 
 const DarkOpacity = styled.View`
   width: 100%;
@@ -90,6 +93,7 @@ const BottomModal: React.FC<Props> = ({
                 onPress={() => {
                   if (id) {
                     handleDeleteClick(id);
+                    socket.emit('updateList');
                   }
                 }}
               >
