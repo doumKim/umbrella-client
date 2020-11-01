@@ -3,6 +3,7 @@ import { NativeSyntheticEvent, TextInputChangeEventData } from 'react-native';
 import { useSelector } from 'react-redux';
 import TodoList from '../../components/Schedule/TodoList';
 import WriteForm from '../../components/WriteSchedule/WriteForm';
+import { DateToTimestamp } from '../../lib/util/DateConverter';
 import { RootState } from '../../modules';
 import WriteActionBtnsContainer from './WriteActionBtnsContainer';
 
@@ -23,11 +24,20 @@ const WriteScheduleContainer: React.FC = () => {
 
   const onConfirm = (selectedDate: Date | undefined): void => {
     const currentDate = selectedDate || date;
-    setDisplayDate(
-      `${currentDate.getFullYear()}년 ${
-        currentDate.getMonth() + 1
-      }월 ${currentDate.getDate()}일`
-    );
+    const year = currentDate?.getFullYear();
+    const month = currentDate?.getMonth() + 1;
+    const day =
+      currentDate?.getDate() < 10
+        ? `0${currentDate?.getDate()}`
+        : `${currentDate?.getDate()}`;
+    if (
+      currentDate &&
+      DateToTimestamp(currentDate) < DateToTimestamp(new Date())
+    ) {
+      setDisplayDate('이전 날짜는 선택할 수 없습니다.');
+    } else {
+      setDisplayDate(`${year}년 ${month}월 ${day}일`);
+    }
     setDate(currentDate);
     setShow(false);
   };
