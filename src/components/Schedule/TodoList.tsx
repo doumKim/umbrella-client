@@ -10,8 +10,7 @@ type TodoListProps = {
   todos: TodosState;
 };
 
-const ListWrapper = styled.View`
-  flex: 1;
+const ListWrapper = styled.ScrollView`
   margin-top: 20px;
   width: 95%;
   border-radius: 6px;

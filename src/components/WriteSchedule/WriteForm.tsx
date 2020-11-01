@@ -106,6 +106,7 @@ const WriteForm: React.FC<Props> = ({
         isVisible={show}
         mode="date"
         onConfirm={onConfirm}
+        isDarkModeEnabled={false}
         onCancel={hideDatePicker}
         headerTextIOS="날짜를 선택해주세요"
       />

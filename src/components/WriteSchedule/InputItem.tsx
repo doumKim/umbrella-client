@@ -210,6 +210,7 @@ const InputItem: React.FC = () => {
         isVisible={show}
         mode="time"
         onConfirm={onConfirm}
+        isDarkModeEnabled={false}
         onCancel={() => setShow(false)}
         headerTextIOS="시간을 선택해주세요"
       />
