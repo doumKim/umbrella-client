@@ -51,6 +51,7 @@ export const getUserSchedule = async (): Promise<ScheduleType[] | undefined> => 
   await getUserToken();
   const { data } = await axios.get<ScheduleType[]>('/schedule/all');
   //날씨 이모티콘, 배경 받아오기
+  console.log('$$$$$$$$$$$$$$$$$', data);
   await Promise.all(data.map(async (_schedule) => {
     await Promise.all(_schedule.todos.map(async (_todo: TodoType) => {
       const { backdrop, iconName, temp } = await getWeatherIcon(_schedule.date, _todo.latitude, _todo.longitude, _todo.hour);
