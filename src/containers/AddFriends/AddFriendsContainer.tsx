@@ -6,7 +6,7 @@ import Loading from '../../components/Common/Loading';
 import SearchViewer from '../../components/SearchFriends/SearchViewer';
 import io from 'socket.io-client';
 
-const socket = io('http://bringumb.tk');
+const socket = io('http://bringumb.tk', { transports: ['websocket'] });
 
 const AddFriendsContainer: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -17,8 +17,8 @@ const AddFriendsContainer: React.FC = () => {
     id: 0,
     username: '',
     pushToken: '',
-    socketId: '',
   });
+  const [friendSocketId, setFriendSocketId] = useState('');
 
   const sendPushNotification = async (expoPushToken: string) => {
     const userToken = await AsyncStorage.getItem('userToken');
@@ -51,21 +51,19 @@ const AddFriendsContainer: React.FC = () => {
           return !prev;
         });
         await getUserToken();
-        const {
-          avatarUrl,
-          id,
-          username,
-          pushToken,
-          socketId,
-        } = await searchUser(keyword);
+        const { avatarUrl, id, username, pushToken } = await searchUser(
+          keyword
+        );
+        const { socketId } = await searchUser(keyword);
+        console.log('설정할 소켓아이디는 ', socketId);
         setFriendData({
           ...friendData,
           avatarUrl,
           id,
           username,
           pushToken,
-          socketId,
         });
+        setFriendSocketId(socketId);
       } catch (e) {
         setError('😒 해당하는 아이디가 없습니다.');
       } finally {
@@ -75,28 +73,28 @@ const AddFriendsContainer: React.FC = () => {
     })();
   };
   //친구요청
-  const handleReqClick = () => {
-    (async () => {
-      try {
-        await getUserToken();
-        await addFriend(friendData.id);
-      } catch (e) {
-        setError('🤒 친구 요청이 실패했습니다.');
-      }
-    })();
+  const handleReqClick = async () => {
+    try {
+      await getUserToken();
+      await addFriend(friendData.id);
+    } catch (e) {
+      setError('🤒 친구 요청이 실패했습니다.');
+    }
   };
+
   //친구요청 및 푸쉬알림 보냄
   const sendPushAlarm = async () => {
+    console.log('소켓아이디는 ', friendSocketId);
     await handleReqClick();
     await sendPushNotification(friendData.pushToken);
 
-    await socket.emit('sendPushAlarm', friendData.socketId);
+    socket.emit('sendPushAlarm', friendSocketId);
+
     setFriendData({
       avatarUrl: '',
       id: 0,
       username: '',
       pushToken: '',
-      socketId: '',
     });
   };
   const onChangeText = (text: string) => {

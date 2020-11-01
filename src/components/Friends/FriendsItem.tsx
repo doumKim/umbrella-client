@@ -69,7 +69,8 @@ type Props = {
   id: number;
   name: string;
   avatar: string;
-  sendPushAlarm(): void;
+  socketId: string;
+  sendPushAlarm(): Promise<void>;
   scheduleId?: number;
   action?: string;
 };
@@ -106,6 +107,7 @@ const FriendsItem: React.FC<Props> = ({
   id,
   name,
   avatar,
+  socketId,
   sendPushAlarm,
   scheduleId,
   action,
@@ -139,7 +141,7 @@ const FriendsItem: React.FC<Props> = ({
             <AcceptBtn
               onPress={() => {
                 accpetFriend(id);
-                socket.emit('updateList');
+                socket.emit('updateList', socketId);
               }}
             >
               <AcceptText>수락</AcceptText>
@@ -147,7 +149,7 @@ const FriendsItem: React.FC<Props> = ({
             <RejectBtn
               onPress={() => {
                 rejectFriend(id);
-                socket.emit('updateList');
+                socket.emit('updateList', socketId);
               }}
             >
               <RejectText>거절</RejectText>
@@ -185,8 +187,8 @@ const FriendsItem: React.FC<Props> = ({
           </Container>
           <RightContent>
             <AcceptBtn
-              onPress={() => {
-                sendPushAlarm();
+              onPress={async () => {
+                await sendPushAlarm();
               }}
             >
               <AcceptText>요청</AcceptText>

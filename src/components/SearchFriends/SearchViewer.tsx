@@ -45,7 +45,7 @@ type Props = {
   onChangeText(text: string): void;
   clearKeyword(): void;
   onFindClick?(): void;
-  sendPushAlarm(): void;
+  sendPushAlarm(): Promise<void>;
 };
 
 /* Props(type) 
@@ -140,6 +140,7 @@ const SearchViewer: React.FC<Props> = ({
               name={friendData.username}
               id={friendData.id}
               avatar={friendData.avatarUrl}
+              socketId=""
               sendPushAlarm={sendPushAlarm}
             />
           ) : null}

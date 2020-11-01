@@ -7,7 +7,7 @@ import { RootState } from '../../modules';
 import { getFriendListAsync } from '../../modules/friend';
 import io from 'socket.io-client';
 
-const socket = io('http://bringumb.tk');
+const socket = io('http://bringumb.tk', { transports: ['websocket'] });
 
 const FriendsContainer: React.FC = () => {
   const { error, loading, friendList } = useSelector(
@@ -17,9 +17,10 @@ const FriendsContainer: React.FC = () => {
 
   useEffect(() => {
     dispatch(getFriendListAsync.request());
-
+    console.log('testing');
     //update이벤트 받으면 state update하게 dispatch
     socket.on('updateFriendList', () => {
+      console.log('동작됨?');
       dispatch(getFriendListAsync.request());
     });
   }, []);
