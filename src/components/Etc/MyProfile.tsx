@@ -18,8 +18,7 @@ const TopContent = styled.View`
 `;
 const BottomContent = styled.View`
   align-items: center;
-  width: 70%;
-  max-width: 300px;
+  width: 220px;
 `;
 const Span = styled.View`
   flex-direction: row;

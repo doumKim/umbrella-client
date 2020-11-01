@@ -161,7 +161,10 @@ const MapViewer: React.FC<Props> = ({
             {results.map(result => (
               <TouchableOpacity
                 key={result.id}
-                onPress={() => handleKeyword(result)}
+                onPress={() => {
+                  handleKeyword(result);
+                  onChangeText(result.place_name);
+                }}
               >
                 <TextWrapper>
                   <PlaceName>{result.place_name}</PlaceName>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Dimensions, Image } from 'react-native';
+import { Dimensions, Image, View } from 'react-native';
 import styled from 'styled-components/native';
-import { Video } from 'expo-av';
 import SocialWebviewModal from '../../components/Auth/SocialWebviewModal';
 
 const { height } = Dimensions.get('screen');
@@ -10,7 +9,7 @@ const Container = styled.View`
   flex: 1;
   justify-content: flex-end;
   align-items: center;
-  background: ${props => props.theme.palette.mainBackground};
+  background: #33495f;
 `;
 const Wrapper = styled.View`
   width: 70%;
@@ -56,22 +55,25 @@ const AuthIntro: React.FC = () => {
           closeModal={closeModal}
         />
       ) : null}
-      <Video
-        source={require('../../../assets/video/bluesky.mp4')}
-        rate={1.0}
-        isMuted={true}
-        resizeMode="cover"
-        shouldPlay
-        isLooping
+      <View
         style={{
           width: '100%',
-          height: '100%',
+          height: '50%',
           position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: -100,
+          top: '8%',
+          bottom: 0,
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
-      />
+      >
+        <Image
+          style={{
+            width: 500,
+            height: 375,
+          }}
+          source={{ uri: 'https://i.ibb.co/VY6swvG/weather.gif' }}
+        />
+      </View>
       <Wrapper>
         <LoginButton onPress={() => signupWithSocial('google')}>
           <Image
