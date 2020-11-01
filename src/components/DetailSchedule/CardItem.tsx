@@ -18,10 +18,10 @@ const Wrapper = styled.View`
   justify-content: flex-start;
 `;
 const Place = styled.Text`
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
   color: ${props => props.theme.palette.brightFont};
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 `;
 const Note = styled.Text`
   font-size: 25px;
@@ -30,7 +30,7 @@ const Note = styled.Text`
   margin-bottom: 5px;
 `;
 const Date = styled.Text`
-  font-size: 17px;
+  font-size: 15px;
   margin-left: 28px;
   color: ${props => props.theme.palette.brightFont};
 `;
@@ -60,7 +60,7 @@ const CardItem: React.FC<Props> = ({ todo }: Props) => {
           <Wrapper>
             <Image
               source={require('../../../assets/icon/flag-white.png')}
-              style={{ width: 26, height: 26 }}
+              style={{ width: 24, height: 24 }}
             />
             <View>
               <Place>{makeEllipsisText(todo?.placeName, 28)}</Place>

@@ -58,7 +58,6 @@ const App: React.FC = () => {
         require('./assets/icon/search-black.png'),
         require('./assets/icon/search.png'),
         require('./assets/icon/write.png'),
-        require('./assets/video/bluesky.mp4'),
         'https://i.ibb.co/92R6FCj/thunder.png',
         'https://i.ibb.co/rtzXPSH/backdrop-etc.png',
         'https://i.ibb.co/b2g83kt/backdrop-rainy.png',
@@ -70,6 +69,7 @@ const App: React.FC = () => {
         'https://i.ibb.co/FKc6hzh/sunny.png',
         'https://i.ibb.co/NW99Jb8/cloudy.png',
         'https://i.ibb.co/yf3gqDD/noweather.png',
+        'https://i.ibb.co/VY6swvG/weather.gif',
       ];
       const cacheImages = images.map(image => {
         return Asset.fromModule(image).downloadAsync();
