@@ -80,20 +80,19 @@ const SearchViewer: React.FC<Props> = ({
             style={{ width: 30, height: 30 }}
           />
         </TouchableOpacity>
-        {type === 'search' ||
-          (type === 'share' && (
-            <>
-              <SearchInput
-                value={keyword}
-                onChangeText={onChangeText}
-                placeholder={'나의 친구목록 검색'}
-              />
-              <Image
-                source={require('../../../assets/icon/close.png')}
-                style={{ width: 20, height: 20 }}
-              />
-            </>
-          ))}
+        {(type === 'search' || type === 'share') && (
+          <>
+            <SearchInput
+              value={keyword}
+              onChangeText={onChangeText}
+              placeholder={'나의 친구목록 검색'}
+            />
+            <Image
+              source={require('../../../assets/icon/close.png')}
+              style={{ width: 20, height: 20 }}
+            />
+          </>
+        )}
         {type === 'add' && (
           <>
             <SearchInput
