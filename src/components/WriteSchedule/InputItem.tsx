@@ -192,7 +192,7 @@ const InputItem: React.FC = () => {
             <ScheduleInput
               value={
                 displayLocation.placeName &&
-                `${displayLocation.placeName.substring(0, 4)}...`
+                `${displayLocation.placeName.substring(0, 5)}...`
               }
               placeholder={'위치 선택'}
               editable={false}

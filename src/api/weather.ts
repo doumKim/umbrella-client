@@ -6,18 +6,10 @@ type HourlyType = {
   dt: number;
 };
 
-type ValType = {
-  val: WeatherData;
-  weather: WeatherData[]
-};
-
-type WeatherData = {
-  main: string;
-};
-
 type ReturnType = {
   backdrop: string,
   iconName: string
+  temp: string
 }
 
 export const getWeatherIcon = async (date: Date, lat: string, lon: string, hour: number): Promise<ReturnType> => {
@@ -25,8 +17,20 @@ export const getWeatherIcon = async (date: Date, lat: string, lon: string, hour:
   const tempDate = new Date(date);
   const todoDate = `${tempDate.getFullYear()}-${tempDate.getMonth() + 1}-${makeDigit(tempDate.getDate())}`;
   const targetDate = new Date(`${todoDate}T${makeDigit(hour)}:00:00Z`).getTime() / 1000;
-  const foundIcon = hourly.filter((hour: HourlyType) => hour.dt === targetDate).map((val: ValType) => WeatherDB[val.weather[0].main]);
-  return foundIcon[0] ? foundIcon[0] : { backdrop: 'https://i.ibb.co/j4hxLcF/backdrop-cloudy.png', iconName: 'https://i.ibb.co/yf3gqDD/noweather.png' };
+  const foundWeatherData = hourly.filter((hour: HourlyType) => hour.dt === targetDate);
+  return foundWeatherData[0] ?
+    {
+      backdrop: WeatherDB[foundWeatherData[0].weather[0].main].backdrop,
+      iconName: WeatherDB[foundWeatherData[0].weather[0].main].iconName,
+      temp: String(Math.round(foundWeatherData[0].temp))
+    } : {
+      backdrop: 'https://i.ibb.co/j4hxLcF/backdrop-cloudy.png',
+      iconName: 'https://i.ibb.co/yf3gqDD/noweather.png',
+      temp: ''
+    };
+  // return { backdrop: 'https://i.ibb.co/j4hxLcF/backdrop-cloudy.png', iconName: 'https://i.ibb.co/yf3gqDD/noweather.png' };
+  // const foundIcon = hourly.filter((hour: HourlyType) => hour.dt === targetDate).map((val: ValType) => WeatherDB[val.weather[0].main]);
+  // return foundIcon[0] ? foundIcon[0] : { backdrop: 'https://i.ibb.co/j4hxLcF/backdrop-cloudy.png', iconName: 'https://i.ibb.co/yf3gqDD/noweather.png' };
 };
 
 const makeDigit = (value: number): string => {

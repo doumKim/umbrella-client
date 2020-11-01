@@ -32,6 +32,7 @@ export type TodoType = {
   note: string;
   backdrop: string;
   iconName: string;
+  temp: string;
 };
 
 export type RemovedResultType = {
@@ -46,15 +47,16 @@ export type FriendSchedulesType = {
   friendSchedules: ScheduleType[];
 };
 
-export const getUserSchedule = async (): Promise<ScheduleType[]> => {
+export const getUserSchedule = async (): Promise<ScheduleType[] | undefined> => {
   await getUserToken();
   const { data } = await axios.get<ScheduleType[]>('/schedule/all');
   //날씨 이모티콘, 배경 받아오기
   await Promise.all(data.map(async (_schedule) => {
     await Promise.all(_schedule.todos.map(async (_todo: TodoType) => {
-      const { backdrop, iconName } = await getWeatherIcon(_schedule.date, _todo.latitude, _todo.longitude, _todo.hour);
+      const { backdrop, iconName, temp } = await getWeatherIcon(_schedule.date, _todo.latitude, _todo.longitude, _todo.hour);
       _todo.backdrop = backdrop;
       _todo.iconName = iconName;
+      _todo.temp = temp;
     }));
   }));
   // for (const _schedule of data) {
@@ -84,9 +86,10 @@ export const createUserSchedule = async (
   const { data } = await axios.post('/schedule', { ...schedule });
   //날씨 이모티콘, 배경 받아오기
   await Promise.all(data.todos.map(async (_todo: TodoType) => {
-    const { backdrop, iconName } = await getWeatherIcon(data.date, _todo.latitude, _todo.longitude, _todo.hour);
+    const { backdrop, iconName, temp } = await getWeatherIcon(data.date, _todo.latitude, _todo.longitude, _todo.hour);
     _todo.backdrop = backdrop;
     _todo.iconName = iconName;
+    _todo.temp = temp;
   }));
   return data;
 };
