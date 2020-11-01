@@ -7,7 +7,7 @@ import { shareUserSchedule } from '../../api/schedule';
 import BottomModal from '../Common/BottomModal';
 import io from 'socket.io-client';
 
-const socket = io('http://bringumb.tk');
+const socket = io('http://bringumb.tk', { transports: ['websocket'] });
 
 const Container = styled.View`
   height: 60px;
@@ -69,7 +69,6 @@ type Props = {
   id: number;
   name: string;
   avatar: string;
-  socketId: string;
   sendPushAlarm(): Promise<void>;
   scheduleId?: number;
   action?: string;
@@ -107,7 +106,7 @@ const FriendsItem: React.FC<Props> = ({
   id,
   name,
   avatar,
-  socketId,
+
   sendPushAlarm,
   scheduleId,
   action,
@@ -141,7 +140,7 @@ const FriendsItem: React.FC<Props> = ({
             <AcceptBtn
               onPress={() => {
                 accpetFriend(id);
-                socket.emit('updateList', socketId);
+                socket.emit('updateList');
               }}
             >
               <AcceptText>수락</AcceptText>
@@ -149,7 +148,7 @@ const FriendsItem: React.FC<Props> = ({
             <RejectBtn
               onPress={() => {
                 rejectFriend(id);
-                socket.emit('updateList', socketId);
+                socket.emit('updateList');
               }}
             >
               <RejectText>거절</RejectText>

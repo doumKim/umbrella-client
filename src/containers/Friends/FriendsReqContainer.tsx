@@ -17,9 +17,9 @@ const FriendsReqContainer: React.FC = () => {
 
   useEffect(() => {
     dispatch(getRequestFriendListAsync.request());
+
     //update이벤트 받으면 state update하게 dispatch
     socket.on('updateFriendList', () => {
-      console.log('동작됨?');
       dispatch(getRequestFriendListAsync.request());
     });
   }, []);

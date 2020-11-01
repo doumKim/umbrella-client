@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { addFriend, searchUser } from '../../api/friend';
 import Loading from '../../components/Common/Loading';
 import SearchViewer from '../../components/SearchFriends/SearchViewer';
 import io from 'socket.io-client';
+import { getUserInfo } from '../../api/etc';
 
 const socket = io('http://bringumb.tk', { transports: ['websocket'] });
 
@@ -18,16 +19,27 @@ const AddFriendsContainer: React.FC = () => {
     username: '',
     pushToken: '',
   });
-  const [friendSocketId, setFriendSocketId] = useState('');
+  const [myUsername, setMyUsername] = useState('');
 
-  const sendPushNotification = async (expoPushToken: string) => {
+  useEffect(() => {
+    (async () => {
+      await getUserToken();
+      const { username } = await getUserInfo();
+      setMyUsername(username);
+    })();
+  }, []);
+
+  const sendPushNotification = async (pushParameter: {
+    username: string;
+    expoPushToken: string;
+  }) => {
     const userToken = await AsyncStorage.getItem('userToken');
     axios.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
     const message = {
-      to: expoPushToken,
+      to: pushParameter.expoPushToken,
       sound: 'default',
-      title: 'push알림이 왔습니다',
-      body: '잘도착했나요?',
+      title: '우산챙겨',
+      body: `${pushParameter.username}님으로 부터 친구 요청이 도착했습니다`,
       data: { data: 'goes here' },
     };
     return await axios.post('http://bringumb.tk/pushAlarm', {
@@ -54,8 +66,7 @@ const AddFriendsContainer: React.FC = () => {
         const { avatarUrl, id, username, pushToken } = await searchUser(
           keyword
         );
-        const { socketId } = await searchUser(keyword);
-        console.log('설정할 소켓아이디는 ', socketId);
+
         setFriendData({
           ...friendData,
           avatarUrl,
@@ -63,7 +74,6 @@ const AddFriendsContainer: React.FC = () => {
           username,
           pushToken,
         });
-        setFriendSocketId(socketId);
       } catch (e) {
         setError('😒 해당하는 아이디가 없습니다.');
       } finally {
@@ -84,11 +94,14 @@ const AddFriendsContainer: React.FC = () => {
 
   //친구요청 및 푸쉬알림 보냄
   const sendPushAlarm = async () => {
-    console.log('소켓아이디는 ', friendSocketId);
+    const pushParameter = {
+      username: myUsername,
+      expoPushToken: friendData.pushToken,
+    };
     await handleReqClick();
-    await sendPushNotification(friendData.pushToken);
+    await sendPushNotification(pushParameter);
 
-    socket.emit('sendPushAlarm', friendSocketId);
+    socket.emit('sendPushAlarm');
 
     setFriendData({
       avatarUrl: '',

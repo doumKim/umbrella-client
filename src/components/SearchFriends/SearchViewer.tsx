@@ -139,7 +139,6 @@ const SearchViewer: React.FC<Props> = ({
               name={friendData.username}
               id={friendData.id}
               avatar={friendData.avatarUrl}
-              socketId=""
               sendPushAlarm={sendPushAlarm}
             />
           ) : null}

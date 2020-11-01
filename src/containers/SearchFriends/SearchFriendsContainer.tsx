@@ -47,7 +47,7 @@ const SearchFriendsContainer: React.FC<Props> = ({
             keyword={keyword}
             onChangeText={onChangeText}
             clearKeyword={clearKeyword}
-            sendPushAlarm={() => {
+            sendPushAlarm={async () => {
               console.log('');
             }}
           />
