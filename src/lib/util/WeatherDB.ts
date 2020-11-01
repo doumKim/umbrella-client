@@ -19,7 +19,7 @@ type weatherTypes = {
 
 export const WeatherDB: weatherTypes = {
   Thunderstorm: {
-    iconName: 'ttps://i.ibb.co/92R6FCj/thunder.png',
+    iconName: 'https://i.ibb.co/92R6FCj/thunder.png',
     backdrop: 'https://i.ibb.co/rtzXPSH/backdrop-etc.png',
   },
   Drizzle: {

@@ -3,8 +3,10 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components/native';
-import { ScheduleType } from '../api/schedule';
+import { ScheduleType, TodoType } from '../api/schedule';
+import { getWeatherIcon } from '../api/weather';
 import Header from '../components/Common/Header';
+import Loading from '../components/Common/Loading';
 import PaddingContainer from '../components/Common/PaddingContainer';
 import ScrollContainer from '../components/Common/ScrollContainer';
 import DetailFriendsContainer from '../containers/DetailFriends/DetailFriendsContainer';
@@ -23,19 +25,44 @@ type Props = {
   name: string;
   route: { params: { name: string; id: number } };
 };
+type ScheduleDate = {
+  date: Date;
+  todos: TodoType[];
+};
 const DetailFriends: React.FC<Props> = ({
   route: {
     params: { name, id },
   },
 }: Props) => {
   const [schedules, setSchedules] = useState<ScheduleType[] | undefined>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchFriendSchedule = async (id: number): Promise<void> => {
+    setIsLoading(true);
     const { data } = await axios.get(
       `http://bringumb.tk/schedule/friendSchedules/${id}`
     );
-
+    if (data.friendSchedules) {
+      await Promise.all(
+        data.friendSchedules.map(async (_schedule: ScheduleDate) => {
+          await Promise.all(
+            _schedule.todos.map(async (_todo: TodoType) => {
+              const { backdrop, iconName, temp } = await getWeatherIcon(
+                _schedule.date,
+                _todo.latitude,
+                _todo.longitude,
+                _todo.hour
+              );
+              _todo.backdrop = backdrop;
+              _todo.iconName = iconName;
+              _todo.temp = temp;
+            })
+          );
+        })
+      );
+    }
     setSchedules(sortSchedules(data.friendSchedules));
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -47,7 +74,11 @@ const DetailFriends: React.FC<Props> = ({
     <View>
       <ScrollContainer>
         <PaddingContainer>
-          <DetailFriendsContainer schedules={schedules} />
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <DetailFriendsContainer schedules={schedules} />
+          )}
         </PaddingContainer>
       </ScrollContainer>
       <Header>

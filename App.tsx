@@ -58,6 +58,18 @@ const App: React.FC = () => {
         require('./assets/icon/search-black.png'),
         require('./assets/icon/search.png'),
         require('./assets/icon/write.png'),
+        'https://i.ibb.co/92R6FCj/thunder.png',
+        'https://i.ibb.co/rtzXPSH/backdrop-etc.png',
+        'https://i.ibb.co/b2g83kt/backdrop-rainy.png',
+        'https://i.ibb.co/VByZP3W/backdrop-sunny.png',
+        'https://i.ibb.co/j4hxLcF/backdrop-cloudy.png',
+        'https://i.ibb.co/F677ctj/drizzle.png',
+        'https://i.ibb.co/ZYD9W7B/rainy.png',
+        'https://i.ibb.co/rtNYFMY/snowy.png',
+        'https://i.ibb.co/FKc6hzh/sunny.png',
+        'https://i.ibb.co/NW99Jb8/cloudy.png',
+        'https://i.ibb.co/yf3gqDD/noweather.png',
+        'https://i.ibb.co/VY6swvG/weather.gif',
       ];
       const cacheImages = images.map(image => {
         return Asset.fromModule(image).downloadAsync();

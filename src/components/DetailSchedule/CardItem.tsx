@@ -7,33 +7,36 @@ import { makeEllipsisText } from '../../modules/helper';
 const Container = styled.View`
   margin-bottom: 15px;
 `;
-
 const Card = styled.ImageBackground`
   padding: 15px;
   border-radius: 12px;
   overflow: hidden;
 `;
-
 const TextContent = styled.View``;
 const Wrapper = styled.View`
   flex-direction: row;
   justify-content: flex-start;
 `;
-const Location = styled.Text`
-  font-size: 20px;
+const Place = styled.Text`
+  font-size: 17px;
   font-weight: 600;
   color: ${props => props.theme.palette.brightFont};
+  margin-bottom: 2px;
+`;
+const Note = styled.Text`
+  font-size: 25px;
+  font-weight: 600;
+  color: #cadefc;
   margin-bottom: 5px;
 `;
 const Date = styled.Text`
-  font-size: 17px;
+  font-size: 15px;
   margin-left: 28px;
   color: ${props => props.theme.palette.brightFont};
 `;
 const WeatherContent = styled.View`
   align-items: center;
 `;
-
 const Temperature = styled.Text`
   font-size: 35px;
   color: ${props => props.theme.palette.brightFont};
@@ -57,11 +60,11 @@ const CardItem: React.FC<Props> = ({ todo }: Props) => {
           <Wrapper>
             <Image
               source={require('../../../assets/icon/flag-white.png')}
-              style={{ width: 28, height: 28 }}
+              style={{ width: 24, height: 24 }}
             />
             <View>
-              <Location>{makeEllipsisText(todo?.placeName, 28)}</Location>
-              <Location>{makeEllipsisText(todo?.note, 25)}</Location>
+              <Place>{makeEllipsisText(todo?.placeName, 28)}</Place>
+              <Note>{makeEllipsisText(todo?.note, 25)}</Note>
             </View>
           </Wrapper>
           <Date>
@@ -78,7 +81,7 @@ const CardItem: React.FC<Props> = ({ todo }: Props) => {
             }}
             style={{ width: 150, height: 150 }}
           />
-          <Temperature>20°C</Temperature>
+          <Temperature>{todo?.temp === '' ? '' : `${todo?.temp}°`}</Temperature>
         </WeatherContent>
       </Card>
     </Container>

@@ -11,6 +11,10 @@ type Props = {
   date: Date;
 };
 
+type ButtonType = {
+  isInactive: boolean;
+};
+
 const Container = styled.View`
   width: 100%;
   flex-direction: row;
@@ -29,7 +33,8 @@ const CancelBtn = styled.TouchableOpacity`
   max-height: 60px;
 `;
 const SaveBtn = styled.TouchableOpacity`
-  background: #769fcd;
+  background: ${(props: ButtonType) =>
+    props.isInactive ? '#c9d6df' : '#769fcd'};
   width: 48%;
   align-items: center;
   border-radius: 8px;
@@ -84,10 +89,10 @@ const WriteActionBtns: React.FC<Props> = ({ title, date }: Props) => {
       >
         <StyledText onPress={handleCancel}>취소</StyledText>
       </CancelBtn>
-      <SaveBtn>
+      <SaveBtn isInactive={isDone && isRequire}>
         {isDone ? (
           isRequire ? (
-            <StyledText onPress={handelIsDone}>다시 입력해 주세요</StyledText>
+            <StyledText onPress={handelIsDone}>입력된 값이 없어요</StyledText>
           ) : (
             <StyledText onPress={handleCreateSchedule}>저장</StyledText>
           )
