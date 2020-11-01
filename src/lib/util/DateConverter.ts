@@ -16,4 +16,14 @@ export const TimestampToDate = (time: number): string => {
   const day = date.getDate();
 
   return `${month}.${day}`;
-}; 
+};
+
+export const DateToTimestamp = (date: Date): number => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day =
+    date.getDate() < 10
+      ? `0${date.getDate()}`
+      : `${date.getDate()}`;
+  return new Date(`${year}-${month}-${day}`).getTime();
+};

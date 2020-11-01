@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
+import { DateToTimestamp } from '../../lib/util/DateConverter';
 import { RootState } from '../../modules';
 import { createUserScheduleAsync } from '../../modules/schedule';
 import { addScheduleInfo, clearTodos } from '../../modules/todos';
@@ -63,8 +64,10 @@ const WriteActionBtns: React.FC<Props> = ({ title, date }: Props) => {
 
   const handelIsDone = (): void => {
     setIsDone(true);
-    if (title && todos.length > 0) {
+    const isPast = DateToTimestamp(date) < DateToTimestamp(new Date());
+    if (!isPast && title && todos.length > 0) {
       dispatch(addScheduleInfo(title, date));
+      console.log('hi');
       setIsRequire(false);
     } else {
       setIsRequire(true);
