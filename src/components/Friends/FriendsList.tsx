@@ -8,6 +8,7 @@ type Props = {
   type: string;
   friendList: FriendType[] | undefined;
   keyword?: string;
+  scheduleId?: number;
 };
 
 /* Props(type) 
@@ -16,7 +17,12 @@ type Props = {
    - search: 친구 검색[Detail]
    - add: 친구 추가[Detail]
 */
-const FriendsList: React.FC<Props> = ({ type, friendList, keyword }: Props) => {
+const FriendsList: React.FC<Props> = ({
+  type,
+  friendList,
+  keyword,
+  scheduleId,
+}: Props) => {
   return (
     <>
       {type === 'req' &&
@@ -82,6 +88,29 @@ const FriendsList: React.FC<Props> = ({ type, friendList, keyword }: Props) => {
             <FriendsEmpty>
               🤔 &quot;{keyword}&quot; 와 일치하는 결과가 없습니다.
             </FriendsEmpty>
+          </View>
+        ))}
+      {type === 'share' &&
+        (friendList?.length !== 0 ? (
+          friendList?.map(friend => {
+            return (
+              <FriendsItem
+                scheduleId={scheduleId}
+                type="search"
+                action="share"
+                key={friend.id}
+                id={friend.id}
+                name={friend.username}
+                avatar={friend.avatarUrl}
+                sendPushAlarm={() => {
+                  console.log('');
+                }}
+              />
+            );
+          })
+        ) : (
+          <View>
+            <FriendsEmpty>🤫 친구 목록이 비어있습니다.</FriendsEmpty>
           </View>
         ))}
     </>

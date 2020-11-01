@@ -26,12 +26,12 @@ const { height } = Dimensions.get('screen');
 const Container = styled.View`
   width: 100%;
   align-items: center;
+  margin-top: -20px;
 `;
 const TopSection = styled.View`
   width: 100%;
   padding: 30px;
   border-radius: 12px;
-  margin-bottom: 15px;
   align-items: center;
 `;
 const ScrollSection = styled.View`
@@ -82,6 +82,7 @@ const WriteForm: React.FC<Props> = ({
             onChange={onChangeTitle}
             value={title}
             placeholder="일정 이름"
+            maxLength={20}
           />
           <Calendar>
             <CalendarText>

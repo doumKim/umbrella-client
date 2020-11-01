@@ -90,3 +90,16 @@ export const createUserSchedule = async (
   }));
   return data;
 };
+
+export const shareUserSchedule = async (
+  scheduleId?: number,
+  friendId?: number
+): Promise<void> => {
+  await getUserToken();
+  if (scheduleId && friendId) {
+    await axios.post('/schedule/share', {
+      friendId,
+      scheduleId,
+    });
+  }
+};

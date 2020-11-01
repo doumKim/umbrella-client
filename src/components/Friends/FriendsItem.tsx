@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import { accpetFriend, rejectFriend } from '../../api/friend';
+import { shareUserSchedule } from '../../api/schedule';
 import BottomModal from '../Common/BottomModal';
 import io from 'socket.io-client';
 
@@ -42,6 +43,16 @@ const RejectBtn = styled(TouchableOpacity)`
   border-radius: 5px;
 `;
 const RejectText = styled.Text``;
+
+const ShareBtn = styled(TouchableOpacity)`
+  background: ${props => props.theme.palette.title};
+  padding: 6px 11px;
+  border-radius: 5px;
+`;
+const ShareText = styled.Text`
+  color: ${props => props.theme.palette.mainBackground};
+`;
+
 const Title = styled.Text`
   margin-left: 10px;
   font-weight: 500;
@@ -59,6 +70,8 @@ type Props = {
   name: string;
   avatar: string;
   sendPushAlarm(): void;
+  scheduleId?: number;
+  action?: string;
 };
 
 type NameProps = {
@@ -94,8 +107,15 @@ const FriendsItem: React.FC<Props> = ({
   name,
   avatar,
   sendPushAlarm,
+  scheduleId,
+  action,
 }: Props) => {
   const [show, setShow] = useState(false);
+
+  const onShare = async (scheduleId?: number, friendId?: number) => {
+    shareUserSchedule(scheduleId, friendId);
+    navigation.navigate('Schedule');
+  };
 
   const openModal = () => {
     setShow(true);
@@ -135,7 +155,7 @@ const FriendsItem: React.FC<Props> = ({
           </RightContent>
         </Wrapper>
       )}
-      {(type === 'search' || type === 'list') && (
+      {(type === 'search' || type === 'list') && action !== 'share' && (
         <Wrapper>
           <TouchableOpacity onPress={() => goToDetail(name)}>
             <Container>
@@ -172,6 +192,26 @@ const FriendsItem: React.FC<Props> = ({
               <AcceptText>요청</AcceptText>
             </AcceptBtn>
           </RightContent>
+        </Wrapper>
+      )}
+      {action === 'share' && (
+        <Wrapper>
+          <TouchableOpacity onPress={() => goToDetail(name)}>
+            <Container>
+              <Profile name={name} avatar={avatar} />
+            </Container>
+          </TouchableOpacity>
+          <RightContent>
+            <ShareBtn onPress={() => onShare(scheduleId, id)}>
+              <ShareText>공유</ShareText>
+            </ShareBtn>
+          </RightContent>
+          <BottomModal
+            type="friends"
+            show={show}
+            id={id}
+            closeModal={closeModal}
+          />
         </Wrapper>
       )}
     </>

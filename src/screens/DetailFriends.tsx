@@ -3,11 +3,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components/native';
+import { ScheduleType } from '../api/schedule';
 import Header from '../components/Common/Header';
 import PaddingContainer from '../components/Common/PaddingContainer';
 import ScrollContainer from '../components/Common/ScrollContainer';
 import DetailFriendsContainer from '../containers/DetailFriends/DetailFriendsContainer';
-import schedule from '../modules/schedule';
+import { sortSchedules } from '../modules/helper';
 
 const HeaderTitle = styled.Text`
   font-size: 20px;
@@ -27,13 +28,14 @@ const DetailFriends: React.FC<Props> = ({
     params: { name, id },
   },
 }: Props) => {
-  const [schedules, setSchedules] = useState([]);
+  const [schedules, setSchedules] = useState<ScheduleType[] | undefined>([]);
 
   const fetchFriendSchedule = async (id: number): Promise<void> => {
     const { data } = await axios.get(
       `http://bringumb.tk/schedule/friendSchedules/${id}`
     );
-    setSchedules(data.friendSchedules);
+
+    setSchedules(sortSchedules(data.friendSchedules));
   };
 
   useEffect(() => {

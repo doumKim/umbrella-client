@@ -8,10 +8,17 @@ const Container = styled.View`
   padding: 45px 15px 0;
 `;
 
-const SearchFriends: React.FC = () => {
+type Props = {
+  route?: { params: { scheduleId: number; type: string } };
+};
+
+const SearchFriends: React.FC<Props> = ({ route }: Props) => {
   return (
     <Container>
-      <SearchFriendsContainer />
+      <SearchFriendsContainer
+        scheduleId={route?.params && route.params.scheduleId}
+        type={route?.params && route.params.type}
+      />
     </Container>
   );
 };
