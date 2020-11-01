@@ -14,7 +14,7 @@ import { getUserInfo } from '../../api/etc';
 
 const WEATHER_API = '7445083dcf354d54e1688965b5591b85';
 
-const socket = io('http://bringumb.tk');
+const socket = io('http://bringumb.tk', { transports: ['websocket'] });
 
 const { height } = Dimensions.get('screen');
 

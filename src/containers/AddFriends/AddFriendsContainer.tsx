@@ -86,11 +86,11 @@ const AddFriendsContainer: React.FC = () => {
     })();
   };
   //친구요청 및 푸쉬알림 보냄
-  const sendPushAlarm = () => {
-    handleReqClick();
-    sendPushNotification(friendData.pushToken);
+  const sendPushAlarm = async () => {
+    await handleReqClick();
+    await sendPushNotification(friendData.pushToken);
 
-    socket.emit('sendPushAlarm', friendData.socketId);
+    await socket.emit('sendPushAlarm', friendData.socketId);
     setFriendData({
       avatarUrl: '',
       id: 0,

@@ -4,6 +4,9 @@ import { Image, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 import { accpetFriend, rejectFriend } from '../../api/friend';
 import BottomModal from '../Common/BottomModal';
+import io from 'socket.io-client';
+
+const socket = io('http://bringumb.tk');
 
 const Container = styled.View`
   height: 60px;
@@ -116,6 +119,7 @@ const FriendsItem: React.FC<Props> = ({
             <AcceptBtn
               onPress={() => {
                 accpetFriend(id);
+                socket.emit('updateList');
               }}
             >
               <AcceptText>수락</AcceptText>
@@ -123,6 +127,7 @@ const FriendsItem: React.FC<Props> = ({
             <RejectBtn
               onPress={() => {
                 rejectFriend(id);
+                socket.emit('updateList');
               }}
             >
               <RejectText>거절</RejectText>
