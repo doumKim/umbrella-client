@@ -89,9 +89,13 @@ $ expo start
 | ----------------------------- |
 | <center><img src="https://i.ibb.co/TW6kbXF/8.gif" alt="search-friend" width="250"></center> |
 
-| 친구에게 일정 공유 | 친구에게 받은 일정확인 |
-| ----------------------------- |------------|
-|  |<center><img src="https://i.ibb.co/b7RrTsx/10.gif" alt="shared-schedule" width="250"></center>|
+| 친구 요청 |
+| ----------------------------- |
+| <center><img src="https://i.ibb.co/TW6kbXF/8.gif" alt="search-friend" width="250"></center> |
+
+| 친구에게 받은 일정확인 |
+|------------|
+|<center><img src="https://i.ibb.co/b7RrTsx/10.gif" alt="shared-schedule" width="250"></center>|
 
 | 친구 삭제 |
 | ----------------------------- |
@@ -99,15 +103,23 @@ $ expo start
 
 | 닉네임 변경 |
 | ----------------------------- |
-| <center><img src="https://i.ibb.co/LrzPxnP/12.gif" alt="change-name" width="250"></center> |
+| <center><img src="https://i.ibb.co/mRf2JzP/12.gif" alt="change-name" width="250"></center> |
 
 | 아이디 설정 |
 | ----------------------------- |
-|  |
+| <center><img src="https://i.ibb.co/9Gt9jvd/13.gif" alt="set-id" width="250"></center> |
 
 | 아바타 변경(IOS) | 아바타 변경(Android)|
 | ----------------------------- | -----------|
-| <center><img src="https://i.ibb.co/8D8DmLj/14.gif" alt="change-avatar" width="250"></center> | |
+| <center><img src="https://i.ibb.co/8D8DmLj/14.gif" alt="change-avatar1" width="250"></center> |  <center><img src="https://i.ibb.co/5GcZBbt/14-android.gif" alt="change-avatar2" width="250"></center>|
+
+| 유효성 검사 |
+| ----------------------------- |
+| <center><img src="https://i.ibb.co/jL9vVB9/15.gif" alt="set-id" width="250"></center> |
+
+| 로그아웃 |
+| ----------------------------- |
+| <center><img src="https://i.ibb.co/HHSXjhf/16.gif" alt="logout" width="250"></center> |
 
 ## 🌲 Project directory <a id="ch4"></a>
 
