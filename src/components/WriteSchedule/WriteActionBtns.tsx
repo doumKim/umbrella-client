@@ -67,7 +67,6 @@ const WriteActionBtns: React.FC<Props> = ({ title, date }: Props) => {
     const isPast = DateToTimestamp(date) < DateToTimestamp(new Date());
     if (!isPast && title && todos.length > 0) {
       dispatch(addScheduleInfo(title, date));
-      console.log('hi');
       setIsRequire(false);
     } else {
       setIsRequire(true);

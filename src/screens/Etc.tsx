@@ -2,6 +2,7 @@ import React from 'react';
 import { Dimensions, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components/native';
+import { memberWithdraw } from '../api/auth';
 import MyProfileContainer from '../containers/Etc/MyProfileContainer';
 import { removeUserTokenAsync } from '../modules/auth';
 
@@ -23,18 +24,29 @@ const TopHeader = styled.View`
 `;
 
 const Wrapper = styled.View`
-  align-items: flex-end;
+  justify-content: flex-end;
   margin-top: 10px;
+  flex-direction: row;
 `;
 
-const Logout = styled.Text`
+const MemberBtn = styled.TouchableOpacity`
+  margin-right: ${(props: BtnType) => (props.isUnsubscribe ? '10px' : '20px')};
+  background: ${(props: BtnType) =>
+    props.isUnsubscribe ? '#aa96da' : '#eaeaea'};
+  padding: 8px 15px;
+  border-radius: 2px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const MemberText = styled.Text`
   font-size: 15px;
   font-weight: 500;
-  margin-right: 20px;
-  padding: 8px 15px;
-  border: 1px solid #eee;
-  border-radius: 2px;
 `;
+
+type BtnType = {
+  isUnsubscribe?: boolean;
+};
 
 const Etc: React.FC = () => {
   const dispatch = useDispatch();
@@ -51,7 +63,18 @@ const Etc: React.FC = () => {
       </TopHeader>
       <MyProfileContainer />
       <Wrapper>
-        <Logout onPress={handleSignOut}>로그아웃</Logout>
+        <MemberBtn
+          isUnsubscribe
+          onPress={() => {
+            memberWithdraw();
+            handleSignOut();
+          }}
+        >
+          <MemberText>회원탈퇴</MemberText>
+        </MemberBtn>
+        <MemberBtn onPress={handleSignOut}>
+          <MemberText>로그아웃</MemberText>
+        </MemberBtn>
       </Wrapper>
     </Container>
   );

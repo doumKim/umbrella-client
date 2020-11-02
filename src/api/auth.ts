@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 export const getUserToken = async (): Promise<void> => {
   try {
@@ -21,6 +22,14 @@ export const getPushToken = async (): Promise<void> => {
     if (!token) {
       throw new Error('token을 받아오지 못했습니다');
     }
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+export const memberWithdraw = async (): Promise<void> => {
+  try {
+    await axios.delete('http://bringumb.tk/user/withdraw');
   } catch (e) {
     throw new Error(e);
   }
