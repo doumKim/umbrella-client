@@ -74,7 +74,6 @@ const BottomModal: React.FC<Props> = ({
 
   const handleShareSchedule = (scheduleId: number) => {
     navigation.navigate('SearchFriends', { scheduleId, type: 'share' });
-    console.log(scheduleId);
     closeModal();
   };
 

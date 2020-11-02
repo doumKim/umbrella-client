@@ -97,18 +97,13 @@ const WeatherContainer: React.FC = () => {
 
   const saveSocketId = async (id: number) => {
     await socket.emit('login', { id: id });
-    console.log(id, '를 가진 유저에 socketId를 저장했습니다');
   };
 
   useEffect(() => {
     const registerPushToken = async () => {
       await registerForPushNotificationsAsync();
-
       const { id } = await getUserInfo();
-      console.log('설정한', id);
-
       await saveSocketId(id);
-      console.log('id는', id);
     };
     registerPushToken();
 
