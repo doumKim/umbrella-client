@@ -89,9 +89,9 @@ $ expo start
 | ----------------------------- |
 | <center><img src="https://i.ibb.co/TW6kbXF/8.gif" alt="search-friend" width="250"></center> |
 
-| 친구 요청 |
-| ----------------------------- |
-| <center><img src="https://i.ibb.co/TW6kbXF/8.gif" alt="search-friend" width="250"></center> |
+| 친구 요청 | 친구요청 수락(알람설정)
+| ----------------------------- | ----------------- |
+| <center><img src="https://i.ibb.co/7Gyp3b3/9-1.gif" alt="req-friend" width="250"></center> | <center><img src="https://i.ibb.co/VBz8jHR/9-2.gif" alt="accept-friend" width="250"></center> |
 
 | 친구에게 받은 일정확인 |
 |------------|
