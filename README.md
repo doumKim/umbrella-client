@@ -308,14 +308,14 @@ src
 
 ## 📃 Detail Page
 
-### 👉 [Go To Wiki](https://github.com/codestates/bringtheumbrella-server/wiki)
+### 👉 [Go To Wiki](https://github.com/codestates/bringtheumbrella-client/wiki)
 
 <br />
 ​
 
 ## 🚨 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/codestates/bringtheumbrella-server/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/codestates/bringtheumbrella-client/issues).
 ​
 <br />
 
