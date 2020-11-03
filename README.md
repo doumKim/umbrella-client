@@ -61,64 +61,66 @@ $ expo start
 | -------------------------------------------------------------------------- |
 | <img src="https://i.ibb.co/HdJh47q/loading.gif" alt="loading" width="250"> |
 
-| OAuth2.0 로그인                                |
+| OAuth2.0 로그인                                                                         |
 | --------------------------------------------------------------------------------------- |
 | <center><img src="https://i.ibb.co/fkZn6hZ/2.gif" alt="login" width="250"></center> |
 
-| 메인화면(현재날씨, 일주일 날씨) |
-| ----------------------------- |
-| <center><img src="https://i.ibb.co/sK6jKkZ/3.gif" alt="main" width="250"></center>|
+| 메인화면(현재날씨, 일주일 날씨)                                                    |
+| ---------------------------------------------------------------------------------- |
+| <center><img src="https://i.ibb.co/sK6jKkZ/3.gif" alt="main" width="250"></center> |
 
 | 일정 목록 |
-| ----------------------------- |
-| <center><img src="https://i.ibb.co/P6hW0Rp/4.gif" alt="schedule-list" width="250"></center> 
+| --------- |
 
-| 일정 추가(IOS) | 일정 추가(Android)|
-| -------------|--------------- |
+
+| <center><img src="https://i.ibb.co/P6hW0Rp/4.gif" alt="schedule-list" width="250"></center>
+
+| 일정 추가(IOS)                                                                                     | 일정 추가(Android)                                                                                         |
+| -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | <center><img src="https://i.ibb.co/tmV4P09/5-ios.gif" alt="add-schedule-ios" width="250"></center> | <center><img src="https://i.ibb.co/YLmKH0z/5-android.gif" alt="add-schedule-android" width="250"></center> |
 
-| 일정 공유 |
-| ----------------------------- |
+| 일정 공유                                                                                    |
+| -------------------------------------------------------------------------------------------- |
 | <center><img src="https://i.ibb.co/yXSszY7/6.gif" alt="share-schedule" width="250"></center> |
 
-| 일정 삭제 |
-| ----------------------------- |
+| 일정 삭제                                                                                     |
+| --------------------------------------------------------------------------------------------- |
 | <center><img src="https://i.ibb.co/5j7Xf7P/7.gif" alt="remove-schedule" width="250"></center> |
 
-| 친구 검색 |
-| ----------------------------- |
+| 친구 검색                                                                                   |
+| ------------------------------------------------------------------------------------------- |
 | <center><img src="https://i.ibb.co/TW6kbXF/8.gif" alt="search-friend" width="250"></center> |
 
-| 친구 요청 | 친구요청 수락(알람설정)
-| ----------------------------- | ----------------- |
+| 친구 요청                                                                                  | 친구요청 수락(알람설정)                                                                       |
+| ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- |
 | <center><img src="https://i.ibb.co/7Gyp3b3/9-1.gif" alt="req-friend" width="250"></center> | <center><img src="https://i.ibb.co/VBz8jHR/9-2.gif" alt="accept-friend" width="250"></center> |
 
-| 친구에게 받은 일정확인 |
-|------------|
-|<center><img src="https://i.ibb.co/b7RrTsx/10.gif" alt="shared-schedule" width="250"></center>|
+| 친구에게 받은 일정확인                                                                         |
+| ---------------------------------------------------------------------------------------------- |
+| <center><img src="https://i.ibb.co/b7RrTsx/10.gif" alt="shared-schedule" width="250"></center> |
 
-| 친구 삭제 |
-| ----------------------------- |
+| 친구 삭제                                                                                    |
+| -------------------------------------------------------------------------------------------- |
 | <center><img src="https://i.ibb.co/qpqfHxs/11.gif" alt="remove-friend" width="250"></center> |
 
-| 닉네임 변경 |
-| ----------------------------- |
+| 닉네임 변경                                                                                |
+| ------------------------------------------------------------------------------------------ |
 | <center><img src="https://i.ibb.co/mRf2JzP/12.gif" alt="change-name" width="250"></center> |
 
-| 아이디 설정 |
-| ----------------------------- |
+| 아이디 설정                                                                           |
+| ------------------------------------------------------------------------------------- |
 | <center><img src="https://i.ibb.co/9Gt9jvd/13.gif" alt="set-id" width="250"></center> |
 
-| 아바타 변경(IOS) | 아바타 변경(Android)|
-| ----------------------------- | -----------|
-| <center><img src="https://i.ibb.co/8D8DmLj/14.gif" alt="change-avatar1" width="250"></center> |  <center><img src="https://i.ibb.co/5GcZBbt/14-android.gif" alt="change-avatar2" width="250"></center>|
+| 아바타 변경(IOS)                                                                              | 아바타 변경(Android)                                                                                  |
+| --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| <center><img src="https://i.ibb.co/8D8DmLj/14.gif" alt="change-avatar1" width="250"></center> | <center><img src="https://i.ibb.co/5GcZBbt/14-android.gif" alt="change-avatar2" width="250"></center> |
 
-| 유효성 검사 |
-| ----------------------------- |
+| 유효성 검사                                                                           |
+| ------------------------------------------------------------------------------------- |
 | <center><img src="https://i.ibb.co/jL9vVB9/15.gif" alt="set-id" width="250"></center> |
 
-| 로그아웃 |
-| ----------------------------- |
+| 로그아웃                                                                              |
+| ------------------------------------------------------------------------------------- |
 | <center><img src="https://i.ibb.co/HHSXjhf/16.gif" alt="logout" width="250"></center> |
 
 ## 🌲 Project directory <a id="ch4"></a>
@@ -306,14 +308,14 @@ src
 
 ## 📃 Detail Page
 
-### 👉 [Go To Wiki](https://github.com/codestates/bringtheumbrella-clientw/wiki)
+### 👉 [Go To Wiki](https://github.com/codestates/bringtheumbrella-client/wiki)
 
 <br />
 ​
 
 ## 🚨 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/codestates/bringtheumbrella-server/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/codestates/bringtheumbrella-client/issues).
 ​
 <br />
 
