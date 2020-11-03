@@ -63,7 +63,7 @@ $ expo start
 
 | OAuth2.0 로그인                                |
 | --------------------------------------------------------------------------------------- |
-| <center><img src="https://i.ibb.co/nrnTC9X/login.gif" alt="login" width="250"></center> |
+| <center><img src="https://i.ibb.co/fkZn6hZ/2.gif" alt="login" width="250"></center> |
 
 | 메인화면(현재날씨, 일주일 날씨) |
 | ----------------------------- |
